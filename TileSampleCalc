@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Garage Tile Calculator</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #111;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 16px 60px;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    /* ── Brand strip ── */
+    .brand {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .brand-name {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .brand-tag {
+      font-size: 12px;
+      color: #f5a623;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #1c1c1e;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid #2a2a2c;
+    }
+
+    /* ── Section header ── */
+    .section-head {
+      padding: 28px 28px 0;
+    }
+
+    .section-head h2 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .section-head p {
+      font-size: 13px;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    /* ── Mode pills ── */
+    .mode-pills {
+      display: flex;
+      gap: 8px;
+      padding: 20px 28px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .mode-pills::-webkit-scrollbar { display: none; }
+
+    .pill {
+      flex-shrink: 0;
+      background: #2a2a2c;
+      color: #aaa;
+      border: none;
+      border-radius: 40px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .pill.active {
+      background: #f5a623;
+      color: #111;
+    }
+
+    /* ── Sliders ── */
+    .sliders {
+      padding: 0 28px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .slider-block {}
+
+    .slider-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+
+    .slider-meta .s-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .slider-meta .s-val {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .slider-meta .s-unit {
+      font-size: 14px;
+      font-weight: 500;
+      color: #666;
+      margin-left: 2px;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 5px;
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+      background: #333;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #f5a623;
+      cursor: pointer;
+      box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.2);
+      transition: box-shadow 0.15s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      box-shadow: 0 0 0 7px rgba(245, 166, 35, 0.2);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 26px;
+      height: 26px;
+      border: none;
+      border-radius: 50%;
+      background: #f5a623;
+      cursor: pointer;
+    }
+
+    .slider-limits {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .slider-limits span {
+      font-size: 11px;
+      color: #555;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: #2a2a2c;
+      margin: 0 28px;
+    }
+
+    /* ── Results ── */
+    .results {
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .result-tile {
+      background: #111;
+      border-radius: 14px;
+      padding: 16px;
+      border: 1px solid #2a2a2c;
+    }
+
+    .result-tile.highlight {
+      background: #f5a623;
+      border-color: #f5a623;
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+    }
+
+    .result-tile .r-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+
+    .result-tile.highlight .r-label {
+      color: rgba(0,0,0,0.5);
+      margin-bottom: 0;
+    }
+
+    .result-tile .r-val {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .result-tile.highlight .r-val {
+      font-size: 40px;
+      color: #111;
+    }
+
+    .result-tile .r-sub {
+      font-size: 11px;
+      color: #555;
+      margin-top: 2px;
+    }
+
+    .result-tile.highlight .r-sub {
+      display: none;
+    }
+
+    /* ── Price toggle ── */
+    .price-toggle-wrap {
+      padding: 0 28px 20px;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-row span {
+      font-size: 13px;
+      font-weight: 600;
+      color: #666;
+    }
+
+    .toggle-switch {
+      width: 44px;
+      height: 26px;
+      background: #333;
+      border-radius: 13px;
+      position: relative;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch.on {
+      background: #f5a623;
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+
+    .toggle-switch.on::after {
+      transform: translateX(18px);
+    }
+
+    .price-fields {
+      display: none;
+      margin-top: 18px;
+      background: #111;
+      border-radius: 14px;
+      border: 1px solid #2a2a2c;
+      overflow: hidden;
+    }
+
+    .price-fields.visible { display: block; }
+
+    .price-field-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid #2a2a2c;
+    }
+
+    .price-field-row:last-child { border-bottom: none; }
+
+    .price-field-row label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #888;
+    }
+
+    .price-field-row input {
+      background: #2a2a2c;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      width: 100px;
+      text-align: right;
+      outline: none;
+    }
+
+    .price-field-row.total label {
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .price-field-row.total .price-out {
+      font-size: 20px;
+      font-weight: 800;
+      color: #f5a623;
+    }
+
+    /* ── CTA ── */
+    .cta-wrap {
+      padding: 0 28px 28px;
+    }
+
+    .cta-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: #f5a623;
+      color: #111;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: opacity 0.15s;
+    }
+
+    .cta-btn:hover { opacity: 0.88; }
+
+    .cta-arrow {
+      font-size: 18px;
+    }
+
+    .cta-note {
+      text-align: center;
+      font-size: 11px;
+      color: #555;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="brand">
+    <div class="brand-name">Nate's Garage Tiling</div>
+    <div class="brand-tag">Garage Tile Calculator</div>
+  </div>
+
+  <div class="card">
+
+    <div class="section-head">
+      <h2>How much do you need?</h2>
+      <p>Select a method below to get started.</p>
+    </div>
+
+    <!-- Mode selector -->
+    <div class="mode-pills">
+      <button class="pill active" data-mode="dimensions">Length &amp; Width</button>
+      <button class="pill" data-mode="sqm">Square Metres</button>
+      <button class="pill" data-mode="tiles">Tile Count</button>
+    </div>
+
+    <!-- Sliders -->
+    <div class="sliders" id="sliders"></div>
+
+    <div class="divider"></div>
+
+    <!-- Results -->
+    <div class="results">
+      <div class="result-tile highlight">
+        <div>
+          <div class="r-label">Tile Packs Needed</div>
+        </div>
+        <div class="r-val" id="out-packs">15</div>
+      </div>
+      <div class="result-tile">
+        <div class="r-label">Total Tiles</div>
+        <div class="r-val" id="out-tiles">240</div>
+        <div class="r-sub">individual tiles</div>
+      </div>
+      <div class="result-tile" style="grid-column: span 2;">
+        <div class="r-label">Coverage</div>
+        <div class="r-val" id="out-coverage">38.4 sqm</div>
+        <div class="r-sub">based on 0.4m × 0.4m tiles</div>
+      </div>
+    </div>
+
+    <div class="divider" style="margin-bottom:20px;"></div>
+
+    <!-- Price estimate toggle -->
+    <div class="price-toggle-wrap">
+      <div class="toggle-row" onclick="togglePrice()">
+        <span>Show price estimate</span>
+        <div class="toggle-switch" id="toggle-sw"></div>
+      </div>
+      <div class="price-fields" id="price-fields">
+        <div class="price-field-row">
+          <label>Price per pack ($)</label>
+          <input type="number" id="price-per-pack" value="89" min="0" oninput="updatePrice()" />
+        </div>
+        <div class="price-field-row total">
+          <label>Estimated total</label>
+          <div class="price-out" id="out-price">$1,335</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-wrap">
+      <button class="cta-btn" onclick="alert('Link this to your quote form!')">
+        Get a Free Quote <span class="cta-arrow">→</span>
+      </button>
+      <p class="cta-note">Estimate only — contact us for an exact price.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const TILE_SQM = 0.16;
+  const PACK_SIZE = 16;
+
+  const MODES = {
+    dimensions: [
+      { id: 'length', label: 'Length', min: 0.4, max: 50, step: 0.2, default: 6, unit: 'm' },
+      { id: 'width',  label: 'Width',  min: 0.4, max: 50, step: 0.2, default: 6, unit: 'm' },
+    ],
+    sqm: [
+      { id: 'sqm', label: 'Area', min: 1, max: 500, step: 1, default: 36, unit: 'sqm' },
+    ],
+    tiles: [
+      { id: 'tiles', label: 'Tiles', min: PACK_SIZE, max: 800, step: PACK_SIZE, default: 240, unit: 'tiles' },
+    ],
+  };
+
+  let currentMode = 'dimensions';
+
+  function buildSliders(mode) {
+    const el = document.getElementById('sliders');
+    el.innerHTML = '';
+    MODES[mode].forEach(s => {
+      el.innerHTML += `
+        <div class="slider-block">
+          <div class="slider-meta">
+            <span class="s-label">${s.label}</span>
+            <span>
+              <span class="s-val" id="val-${s.id}">${s.default}</span>
+              <span class="s-unit">${s.unit}</span>
+            </span>
+          </div>
+          <input type="range" id="slider-${s.id}"
+            min="${s.min}" max="${s.max}" step="${s.step}" value="${s.default}"
+            oninput="onSlider('${s.id}')" />
+          <div class="slider-limits">
+            <span>${s.min} ${s.unit}</span>
+            <span>${s.max} ${s.unit}</span>
+          </div>
+        </div>`;
+    });
+    MODES[mode].forEach(s => updateTrack(`slider-${s.id}`));
+  }
+
+  function updateTrack(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const pct = ((el.value - el.min) / (el.max - el.min)) * 100;
+    el.style.background =
+      `linear-gradient(to right, #f5a623 0%, #f5a623 ${pct}%, #333 ${pct}%)`;
+  }
+
+  function onSlider(id) {
+    const el  = document.getElementById(`slider-${id}`);
+    const val = parseFloat(el.value);
+    document.getElementById(`val-${id}`).textContent =
+      Number.isInteger(val) ? val : val.toFixed(1);
+    updateTrack(`slider-${id}`);
+    calculate();
+  }
+
+  function calculate() {
+    let packs, actualTiles;
+
+    if (currentMode === 'dimensions') {
+      const l = parseFloat(document.getElementById('slider-length').value);
+      const w = parseFloat(document.getElementById('slider-width').value);
+      packs = Math.ceil((l * w) / TILE_SQM / PACK_SIZE);
+    } else if (currentMode === 'sqm') {
+      const sqm = parseFloat(document.getElementById('slider-sqm').value);
+      packs = Math.ceil(sqm / TILE_SQM / PACK_SIZE);
+    } else {
+      const tiles = parseFloat(document.getElementById('slider-tiles').value);
+      packs = Math.ceil(tiles / PACK_SIZE);
+    }
+
+    actualTiles = packs * PACK_SIZE;
+    const coverage = (actualTiles * TILE_SQM).toFixed(1);
+
+    document.getElementById('out-packs').textContent    = packs;
+    document.getElementById('out-tiles').textContent    = actualTiles;
+    document.getElementById('out-coverage').textContent = coverage + ' sqm';
+    updatePrice();
+  }
+
+  function updatePrice() {
+    const packs = parseInt(document.getElementById('out-packs').textContent) || 0;
+    const ppp   = parseFloat(document.getElementById('price-per-pack').value) || 0;
+    document.getElementById('out-price').textContent =
+      '$' + (packs * ppp).toLocaleString('en-AU', { maximumFractionDigits: 0 });
+  }
+
+  function togglePrice() {
+    const sw   = document.getElementById('toggle-sw');
+    const fields = document.getElementById('price-fields');
+    sw.classList.toggle('on');
+    fields.classList.toggle('visible');
+    if (fields.classList.contains('visible')) updatePrice();
+  }
+
+  // Pill switching
+  document.querySelectorAll('.pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      currentMode = btn.dataset.mode;
+      buildSliders(currentMode);
+      calculate();
+    });
+  });
+
+  buildSliders(currentMode);
+  calculate();
+</script>
+</body>
+</html>
