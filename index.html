@@ -99,9 +99,13 @@ h1 span{color:var(--grey)}
 .s-label{font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.8px}
 .s-val{font-size:26px;font-weight:800;color:#fff;letter-spacing:-.5px}
 .s-unit{font-size:13px;font-weight:500;color:#555;margin-left:2px}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:3px;outline:none;cursor:pointer;background:#333}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;cursor:pointer;box-shadow:0 0 0 3px rgba(255,255,255,.15)}
-input[type=range]::-moz-range-thumb{width:24px;height:24px;border:none;border-radius:50%;background:#fff;cursor:pointer}
+/* Range slider — height matches thumb so overflow:hidden never clips it */
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:24px;background:transparent;outline:none;cursor:pointer;display:block}
+input[type=range]::-webkit-slider-runnable-track{height:5px;border-radius:3px;background:linear-gradient(to right,#aaa var(--fill,0%),#333 var(--fill,0%))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.4);margin-top:-9.5px}
+input[type=range]::-moz-range-track{height:5px;border-radius:3px;background:#333}
+input[type=range]::-moz-range-progress{height:5px;border-radius:3px;background:#aaa}
+input[type=range]::-moz-range-thumb{width:24px;height:24px;border:none;border-radius:50%;background:#fff;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.4)}
 .slider-limits{display:flex;justify-content:space-between;margin-top:6px}
 .slider-limits span{font-size:11px;color:#444}
 .divider{height:1px;background:#2a2a2c;margin:0 28px}
@@ -160,6 +164,24 @@ input:focus,textarea:focus{border-color:#444}
 textarea{resize:vertical;min-height:110px}
 .submit-btn{background:#fff;color:#000;font-size:15px;font-weight:800;padding:15px;border:none;border-radius:12px;cursor:pointer;transition:opacity .15s;width:100%}
 .submit-btn:hover{opacity:.85}
+
+/* ── QUOTE MODAL ── */
+.qmodal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:999;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+.qmodal-backdrop.open{opacity:1;pointer-events:all}
+.qmodal{background:#1c1c1e;border:1px solid #2a2a2c;border-radius:24px 24px 0 0;width:100%;max-width:480px;padding:28px 20px 36px;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.qmodal-backdrop.open .qmodal{transform:translateY(0)}
+.qmodal-title{font-size:18px;font-weight:800;color:#fff;text-align:center;margin-bottom:4px}
+.qmodal-sub{font-size:13px;color:#666;text-align:center;margin-bottom:20px}
+.qmodal-options{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.qmodal-btn{display:flex;align-items:center;gap:14px;background:#111;border:1px solid #2a2a2c;border-radius:14px;padding:16px 18px;text-decoration:none;transition:background .15s;cursor:pointer}
+.qmodal-btn:hover{background:#222}
+.qmodal-icon{font-size:22px;flex-shrink:0;width:36px;text-align:center}
+.qmodal-info{display:flex;flex-direction:column;flex:1}
+.qmodal-label{font-size:12px;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:.6px}
+.qmodal-value{font-size:15px;font-weight:700;color:#fff;margin-top:2px}
+.qmodal-arrow{font-size:22px;color:#444;flex-shrink:0}
+.qmodal-close{width:100%;background:transparent;border:1px solid #2a2a2c;color:#666;font-size:15px;font-weight:600;padding:14px;border-radius:12px;cursor:pointer;transition:all .15s}
+.qmodal-close:hover{background:#222;color:#fff}
 
 /* ── FOOTER ── */
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20px}
@@ -332,7 +354,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
           </div>
         </div>
         <div class="cta-wrap">
-          <a class="cta-btn" href="#contact">Get an Exact Quote &nbsp;→</a>
+          <button class="cta-btn" onclick="openQuoteModal()">Get an Exact Quote &nbsp;→</button>
           <p class="cta-note">Estimate only — contact us for a confirmed price.</p>
         </div>
       </div>
@@ -422,38 +444,74 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
           </div>
         </div>
       </div>
-      <form onsubmit="handleSubmit(event)">
+      <form id="quote-form" onsubmit="handleSubmit(event)">
         <div class="form-row">
           <div>
             <label>First Name</label>
-            <input type="text" placeholder="John" required/>
+            <input type="text" name="first_name" placeholder="John" required/>
           </div>
           <div>
             <label>Last Name</label>
-            <input type="text" placeholder="Smith"/>
+            <input type="text" name="last_name" placeholder="Smith"/>
           </div>
         </div>
         <div>
           <label>Phone</label>
-          <input type="tel" placeholder="04xx xxx xxx" required/>
+          <input type="tel" name="phone" placeholder="04xx xxx xxx" required/>
         </div>
         <div>
           <label>Email</label>
-          <input type="email" placeholder="john@email.com"/>
+          <input type="email" name="email" placeholder="john@email.com"/>
         </div>
         <div>
           <label>Suburb</label>
-          <input type="text" placeholder="Rockingham"/>
+          <input type="text" name="suburb" placeholder="Rockingham"/>
         </div>
         <div>
           <label>Message</label>
-          <textarea placeholder="Tell us about your space — garage size, tile preference, any questions..."></textarea>
+          <textarea name="message" placeholder="Tell us about your space — garage size, tile preference, any questions..."></textarea>
         </div>
-        <button type="submit" class="submit-btn">Send Enquiry →</button>
+        <button type="submit" class="submit-btn" id="submit-btn">Send Enquiry →</button>
+        <div id="form-msg" style="display:none;text-align:center;padding:16px;font-size:14px;border-radius:10px;margin-top:8px"></div>
       </form>
     </div>
   </div>
 </section>
+
+<!-- QUOTE MODAL -->
+<div id="quote-modal" class="qmodal-backdrop" onclick="closeQuoteModal(event)">
+  <div class="qmodal">
+    <p class="qmodal-title">Get in Touch</p>
+    <p class="qmodal-sub">Choose how you'd like to reach us</p>
+    <div class="qmodal-options">
+      <a class="qmodal-btn" href="tel:+61493292203">
+        <span class="qmodal-icon">📞</span>
+        <span class="qmodal-info">
+          <span class="qmodal-label">Call us</span>
+          <span class="qmodal-value">+61 493 292 203</span>
+        </span>
+        <span class="qmodal-arrow">›</span>
+      </a>
+      <a class="qmodal-btn" href="sms:+61493292203">
+        <span class="qmodal-icon">💬</span>
+        <span class="qmodal-info">
+          <span class="qmodal-label">Message us</span>
+          <span class="qmodal-value">+61 493 292 203</span>
+        </span>
+        <span class="qmodal-arrow">›</span>
+      </a>
+      <a class="qmodal-btn" href="mailto:nategaze1@gmail.com">
+        <span class="qmodal-icon">✉️</span>
+        <span class="qmodal-info">
+          <span class="qmodal-label">Email us</span>
+          <span class="qmodal-value">nategaze1@gmail.com</span>
+        </span>
+        <span class="qmodal-arrow">›</span>
+      </a>
+    </div>
+    <button class="qmodal-close" onclick="closeQuoteModal()">Cancel</button>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -512,7 +570,7 @@ function updateTrack(id){
   const el=document.getElementById(id);
   if(!el)return;
   const pct=((el.value-el.min)/(el.max-el.min))*100;
-  el.style.background=`linear-gradient(to right,#fff 0%,#fff ${pct}%,#333 ${pct}%)`;
+  el.style.setProperty('--fill',pct+'%');
 }
 function onSlider(id){
   const el=document.getElementById('slider-'+id);
@@ -575,10 +633,55 @@ function toggleFaq(i){
   });
 }
 
+// ── QUOTE MODAL ──
+function openQuoteModal(){
+  document.getElementById('quote-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeQuoteModal(e){
+  if(e&&e.target!==document.getElementById('quote-modal')&&e.type==='click')return;
+  document.getElementById('quote-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeQuoteModal();});
+
 // ── FORM ──
-function handleSubmit(e){
+// 👉 Replace YOUR_FORM_ID below with the ID from formspree.io/f/YOUR_FORM_ID
+const FORMSPREE_ID = 'mqpzjdon';
+
+async function handleSubmit(e){
   e.preventDefault();
-  e.target.innerHTML='<p style="text-align:center;padding:20px;color:#888;font-size:15px">✅ Thanks! We\'ll be in touch soon.</p>';
+  const form = document.getElementById('quote-form');
+  const btn  = document.getElementById('submit-btn');
+  const msg  = document.getElementById('form-msg');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  try {
+    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: 'POST',
+      headers: {'Accept':'application/json'},
+      body: new FormData(form)
+    });
+    if(res.ok){
+      form.reset();
+      msg.style.display='block';
+      msg.style.background='#1a2e1a';
+      msg.style.color='#6fcf97';
+      msg.style.border='1px solid #2d5a2d';
+      msg.textContent='✅ Thanks! We\'ll be in touch shortly.';
+      btn.textContent='Sent!';
+    } else {
+      throw new Error();
+    }
+  } catch {
+    msg.style.display='block';
+    msg.style.background='#2e1a1a';
+    msg.style.color='#e57373';
+    msg.style.border='1px solid #5a2d2d';
+    msg.textContent='⚠️ Something went wrong. Please call or email us directly.';
+    btn.disabled=false;
+    btn.textContent='Send Enquiry →';
+  }
 }
 </script>
 </body>
