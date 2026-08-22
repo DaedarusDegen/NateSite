@@ -109,8 +109,6 @@
       gap: 24px;
     }
 
-    .slider-block {}
-
     .slider-meta {
       display: flex;
       justify-content: space-between;
@@ -197,14 +195,14 @@
     .results {
       padding: 28px;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
 
     .result-tile {
       background: #111;
       border-radius: 14px;
-      padding: 16px;
+      padding: 18px;
       border: 1px solid #2a2a2c;
     }
 
@@ -216,6 +214,14 @@
       align-items: center;
       justify-content: space-between;
       padding: 20px 24px;
+    }
+
+    .result-tile.cost {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
     }
 
     .result-tile .r-label {
@@ -232,6 +238,10 @@
       margin-bottom: 0;
     }
 
+    .result-tile.cost .r-label {
+      margin-bottom: 0;
+    }
+
     .result-tile .r-val {
       font-size: 26px;
       font-weight: 800;
@@ -244,115 +254,15 @@
       color: #111;
     }
 
+    .result-tile.cost .r-val {
+      font-size: 28px;
+      color: #f5a623;
+    }
+
     .result-tile .r-sub {
       font-size: 11px;
       color: #555;
-      margin-top: 2px;
-    }
-
-    .result-tile.highlight .r-sub {
-      display: none;
-    }
-
-    /* ── Price toggle ── */
-    .price-toggle-wrap {
-      padding: 0 28px 20px;
-    }
-
-    .toggle-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .toggle-row span {
-      font-size: 13px;
-      font-weight: 600;
-      color: #666;
-    }
-
-    .toggle-switch {
-      width: 44px;
-      height: 26px;
-      background: #333;
-      border-radius: 13px;
-      position: relative;
-      transition: background 0.2s;
-      flex-shrink: 0;
-    }
-
-    .toggle-switch.on {
-      background: #f5a623;
-    }
-
-    .toggle-switch::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: #fff;
-      border-radius: 50%;
-      top: 3px;
-      left: 3px;
-      transition: transform 0.2s;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
-    }
-
-    .toggle-switch.on::after {
-      transform: translateX(18px);
-    }
-
-    .price-fields {
-      display: none;
-      margin-top: 18px;
-      background: #111;
-      border-radius: 14px;
-      border: 1px solid #2a2a2c;
-      overflow: hidden;
-    }
-
-    .price-fields.visible { display: block; }
-
-    .price-field-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 18px;
-      border-bottom: 1px solid #2a2a2c;
-    }
-
-    .price-field-row:last-child { border-bottom: none; }
-
-    .price-field-row label {
-      font-size: 13px;
-      font-weight: 600;
-      color: #888;
-    }
-
-    .price-field-row input {
-      background: #2a2a2c;
-      border: none;
-      border-radius: 8px;
-      padding: 7px 12px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #fff;
-      width: 100px;
-      text-align: right;
-      outline: none;
-    }
-
-    .price-field-row.total label {
-      color: #fff;
-      font-size: 14px;
-    }
-
-    .price-field-row.total .price-out {
-      font-size: 20px;
-      font-weight: 800;
-      color: #f5a623;
+      margin-top: 3px;
     }
 
     /* ── CTA ── */
@@ -380,10 +290,6 @@
 
     .cta-btn:hover { opacity: 0.88; }
 
-    .cta-arrow {
-      font-size: 18px;
-    }
-
     .cta-note {
       text-align: center;
       font-size: 11px;
@@ -397,8 +303,8 @@
 <div class="wrap">
 
   <div class="brand">
-    <div class="brand-name">Nate's Garage Tiling</div>
-    <div class="brand-tag">Garage Tile Calculator</div>
+    <div class="brand-name">Garage Pro</div>
+    <div class="brand-tag">Tile Calculator</div>
   </div>
 
   <div class="card">
@@ -423,68 +329,52 @@
     <!-- Results -->
     <div class="results">
       <div class="result-tile highlight">
-        <div>
-          <div class="r-label">Tile Packs Needed</div>
-        </div>
-        <div class="r-val" id="out-packs">15</div>
+        <div class="r-label">Tiles Needed</div>
+        <div class="r-val" id="out-tiles">225</div>
       </div>
       <div class="result-tile">
-        <div class="r-label">Total Tiles</div>
-        <div class="r-val" id="out-tiles">240</div>
-        <div class="r-sub">individual tiles</div>
-      </div>
-      <div class="result-tile" style="grid-column: span 2;">
         <div class="r-label">Coverage</div>
-        <div class="r-val" id="out-coverage">38.4 sqm</div>
-        <div class="r-sub">based on 0.4m × 0.4m tiles</div>
+        <div class="r-val" id="out-coverage">36.0 sqm</div>
+        <div class="r-sub">0.4m × 0.4m per tile</div>
+      </div>
+      <div class="result-tile">
+        <div class="r-label">At $5 per tile</div>
+        <div class="r-val" id="out-price">$1,125</div>
+        <div class="r-sub">estimate only</div>
+      </div>
+      <div class="result-tile cost">
+        <div class="r-label">Standard double garage</div>
+        <div class="r-val">From $1,099</div>
       </div>
     </div>
 
-    <div class="divider" style="margin-bottom:20px;"></div>
-
-    <!-- Price estimate toggle -->
-    <div class="price-toggle-wrap">
-      <div class="toggle-row" onclick="togglePrice()">
-        <span>Show price estimate</span>
-        <div class="toggle-switch" id="toggle-sw"></div>
-      </div>
-      <div class="price-fields" id="price-fields">
-        <div class="price-field-row">
-          <label>Price per pack ($)</label>
-          <input type="number" id="price-per-pack" value="89" min="0" oninput="updatePrice()" />
-        </div>
-        <div class="price-field-row total">
-          <label>Estimated total</label>
-          <div class="price-out" id="out-price">$1,335</div>
-        </div>
-      </div>
-    </div>
+    <div class="divider" style="margin-bottom: 24px;"></div>
 
     <!-- CTA -->
     <div class="cta-wrap">
-      <button class="cta-btn" onclick="alert('Can implement Phone Number Action / Message / e-Mail etc...')">
-        Get a Free Quote <span class="cta-arrow">→</span>
+      <button class="cta-btn">
+        Get a Free Quote &nbsp;→
       </button>
-      <p class="cta-note">Estimate only — contact us for an exact price.</p>
+      <p class="cta-note">Prices are estimates only — contact us for an exact quote.</p>
     </div>
 
   </div>
 </div>
 
 <script>
-  const TILE_SQM = 0.16;
-  const PACK_SIZE = 16;
+  const TILE_SQM    = 0.16;   // 0.4m × 0.4m
+  const PRICE_TILE  = 5;      // $5 per tile
 
   const MODES = {
     dimensions: [
-      { id: 'length', label: 'Length', min: 0.4, max: 50, step: 0.2, default: 6, unit: 'm' },
-      { id: 'width',  label: 'Width',  min: 0.4, max: 50, step: 0.2, default: 6, unit: 'm' },
+      { id: 'length', label: 'Length', min: 0.4, max: 50, step: 0.2, default: 6,   unit: 'm' },
+      { id: 'width',  label: 'Width',  min: 0.4, max: 50, step: 0.2, default: 6,   unit: 'm' },
     ],
     sqm: [
       { id: 'sqm', label: 'Area', min: 1, max: 500, step: 1, default: 36, unit: 'sqm' },
     ],
     tiles: [
-      { id: 'tiles', label: 'Tiles', min: PACK_SIZE, max: 800, step: PACK_SIZE, default: 240, unit: 'tiles' },
+      { id: 'tiles', label: 'Tiles', min: 1, max: 800, step: 1, default: 225, unit: 'tiles' },
     ],
   };
 
@@ -533,45 +423,28 @@
   }
 
   function calculate() {
-    let packs, actualTiles;
+    let tiles;
 
     if (currentMode === 'dimensions') {
       const l = parseFloat(document.getElementById('slider-length').value);
       const w = parseFloat(document.getElementById('slider-width').value);
-      packs = Math.ceil((l * w) / TILE_SQM / PACK_SIZE);
+      tiles = Math.ceil((l * w) / TILE_SQM);
     } else if (currentMode === 'sqm') {
       const sqm = parseFloat(document.getElementById('slider-sqm').value);
-      packs = Math.ceil(sqm / TILE_SQM / PACK_SIZE);
+      tiles = Math.ceil(sqm / TILE_SQM);
     } else {
-      const tiles = parseFloat(document.getElementById('slider-tiles').value);
-      packs = Math.ceil(tiles / PACK_SIZE);
+      tiles = parseInt(document.getElementById('slider-tiles').value);
     }
 
-    actualTiles = packs * PACK_SIZE;
-    const coverage = (actualTiles * TILE_SQM).toFixed(1);
+    const coverage = (tiles * TILE_SQM).toFixed(1);
+    const price    = tiles * PRICE_TILE;
 
-    document.getElementById('out-packs').textContent    = packs;
-    document.getElementById('out-tiles').textContent    = actualTiles;
+    document.getElementById('out-tiles').textContent    = tiles.toLocaleString();
     document.getElementById('out-coverage').textContent = coverage + ' sqm';
-    updatePrice();
+    document.getElementById('out-price').textContent    =
+      '$' + price.toLocaleString('en-AU', { maximumFractionDigits: 0 });
   }
 
-  function updatePrice() {
-    const packs = parseInt(document.getElementById('out-packs').textContent) || 0;
-    const ppp   = parseFloat(document.getElementById('price-per-pack').value) || 0;
-    document.getElementById('out-price').textContent =
-      '$' + (packs * ppp).toLocaleString('en-AU', { maximumFractionDigits: 0 });
-  }
-
-  function togglePrice() {
-    const sw   = document.getElementById('toggle-sw');
-    const fields = document.getElementById('price-fields');
-    sw.classList.toggle('on');
-    fields.classList.toggle('visible');
-    if (fields.classList.contains('visible')) updatePrice();
-  }
-
-  // Pill switching
   document.querySelectorAll('.pill').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
