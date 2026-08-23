@@ -78,10 +78,12 @@ h1 span{color:var(--grey)}
 #portfolio{}
 .port-head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:32px}
 .port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.port-item{aspect-ratio:4/3;background:var(--bg3);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:pointer}
-.port-item::before{content:'📷';font-size:28px;opacity:.2}
-.port-placeholder{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.7));padding:12px;font-size:12px;color:#666;text-align:center}
-.port-note{font-size:13px;color:#444;margin-top:16px;text-align:center}
+.port-item{aspect-ratio:4/3;background:var(--bg3);border:1px solid var(--border);border-radius:12px;position:relative;overflow:hidden;cursor:pointer}
+.port-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.port-item:hover img{transform:scale(1.04)}
+.port-featured{grid-column:span 2;aspect-ratio:16/9}
+.port-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.65));padding:14px 12px 10px;font-size:12px;font-weight:500;color:#ccc;opacity:0;transition:opacity .25s}
+.port-item:hover .port-caption{opacity:1}
 
 /* ── CALCULATOR ── */
 #calculator{background:var(--bg2)}
@@ -128,14 +130,16 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border:none;border-ra
 /* ── FAQ ── */
 #faq{}
 .faq-list{margin-top:40px;display:flex;flex-direction:column;gap:2px}
-.faq-item{background:var(--bg3);border:1px solid var(--border);border-radius:12px;overflow:hidden}
-.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;cursor:pointer;gap:16px}
+.faq-item{background:var(--bg3);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .25s}
+.faq-item.open{border-color:#333}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;cursor:pointer;gap:16px;user-select:none}
 .faq-q span{font-size:15px;font-weight:600;line-height:1.4}
-.faq-icon{flex-shrink:0;width:28px;height:28px;background:#222;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;transition:transform .25s;color:#888}
-.faq-item.open .faq-icon{transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s}
-.faq-a p{padding:0 24px 20px;font-size:14px;color:var(--grey);line-height:1.7}
-.faq-item.open .faq-a{max-height:400px}
+.faq-icon{flex-shrink:0;width:28px;height:28px;background:#222;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;transition:transform .35s cubic-bezier(.4,0,.2,1),background .25s;color:#888}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:#2a2a2a}
+.faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s cubic-bezier(.4,0,.2,1)}
+.faq-a p{min-height:0;overflow:hidden;padding:0 24px;font-size:14px;color:var(--grey);line-height:1.7;transition:padding .35s cubic-bezier(.4,0,.2,1)}
+.faq-item.open .faq-a{grid-template-rows:1fr}
+.faq-item.open .faq-a p{padding:0 24px 20px}
 
 /* ── TESTIMONIALS ── */
 #testimonials{background:var(--bg2)}
@@ -183,6 +187,52 @@ textarea{resize:vertical;min-height:110px}
 .qmodal-close{width:100%;background:transparent;border:1px solid #2a2a2c;color:#666;font-size:15px;font-weight:600;padding:14px;border-radius:12px;cursor:pointer;transition:all .15s}
 .qmodal-close:hover{background:#222;color:#fff}
 
+/* ── ANIMATIONS ── */
+
+/* Base state — elements start invisible and shifted down */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* Stagger delays for grids */
+.stagger-1{transition-delay:.05s}
+.stagger-2{transition-delay:.13s}
+.stagger-3{transition-delay:.21s}
+.stagger-4{transition-delay:.29s}
+.stagger-5{transition-delay:.37s}
+.stagger-6{transition-delay:.45s}
+
+/* Hero entrance — runs on load, not scroll */
+.hero-tag{opacity:0;transform:translateY(16px);animation:heroIn .6s .1s cubic-bezier(.4,0,.2,1) forwards}
+h1{opacity:0;transform:translateY(20px);animation:heroIn .7s .25s cubic-bezier(.4,0,.2,1) forwards}
+.hero-sub{opacity:0;transform:translateY(16px);animation:heroIn .6s .45s cubic-bezier(.4,0,.2,1) forwards}
+.btn-row{opacity:0;transform:translateY(16px);animation:heroIn .6s .6s cubic-bezier(.4,0,.2,1) forwards}
+.hero-stats{opacity:0;animation:heroIn .6s .8s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes heroIn{to{opacity:1;transform:translateY(0)}}
+
+/* Button interactions */
+.btn-primary,.btn-secondary,.nav-cta,.submit-btn,.cta-btn{transition:opacity .15s,transform .15s,box-shadow .15s}
+.btn-primary:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,.15)}
+.btn-primary:active{transform:translateY(0) scale(.97)}
+.btn-secondary:hover{transform:translateY(-2px)}
+.btn-secondary:active{transform:scale(.97)}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(255,255,255,.12)}
+.nav-cta:active{transform:scale(.96)}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,.15)}
+.submit-btn:active{transform:scale(.97)}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,.15)}
+.cta-btn:active{transform:scale(.97)}
+
+/* Card hover lift */
+.why-card{transition:transform .2s,border-color .2s,box-shadow .2s}
+.why-card:hover{transform:translateY(-4px);border-color:#333;box-shadow:0 12px 32px rgba(0,0,0,.4)}
+.testi-card{transition:transform .2s,border-color .2s}
+.testi-card:hover{transform:translateY(-3px);border-color:#333}
+.port-item{transition:transform .2s,border-color .2s}
+.port-item:hover{transform:translateY(-3px);border-color:#333}
+
+/* Pill active transition */
+.pill{transition:all .2s cubic-bezier(.4,0,.2,1)}
+
 /* ── FOOTER ── */
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20px}
 .footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
@@ -199,6 +249,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   section{padding:60px 20px}
   .why-grid{grid-template-columns:1fr}
   .port-grid{grid-template-columns:repeat(2,1fr)}
+  .port-featured{grid-column:span 2;aspect-ratio:16/9}
   .testi-grid{grid-template-columns:1fr}
   .contact-grid{grid-template-columns:1fr}
   .form-row{grid-template-columns:1fr}
@@ -264,25 +315,25 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 <!-- WHY US -->
 <section id="why">
   <div class="container">
-    <div class="section-label">Why Garage Pro</div>
-    <div class="section-title">Built for real garages.<br/>Made to last.</div>
+    <div class="section-label fade-up">Why Garage Pro</div>
+    <div class="section-title fade-up stagger-1">Built for real garages.<br/>Made to last.</div>
     <div class="why-grid">
-      <div class="why-card">
+      <div class="why-card fade-up stagger-1">
         <div class="why-icon">🔧</div>
         <h3>Easy DIY Install</h3>
         <p>Tiles click together by hand or with a rubber mallet. No glue, no curing time. Most single or double garages are done in a few hours.</p>
       </div>
-      <div class="why-card">
+      <div class="why-card fade-up stagger-2">
         <div class="why-icon">🚗</div>
         <h3>Heavy Duty Rated</h3>
         <p>Supports cars, 4WDs, tools, and workshop equipment without cracking or shifting. Built for the demands of an Australian garage.</p>
       </div>
-      <div class="why-card">
+      <div class="why-card fade-up stagger-3">
         <div class="why-icon">☀️</div>
         <h3>UV & Oil Resistant</h3>
         <p>UV-stabilised polypropylene resists oil, fuel, brake fluid, and chemicals. Colour stays stable even in bright or outdoor spaces.</p>
       </div>
-      <div class="why-card">
+      <div class="why-card fade-up stagger-4">
         <div class="why-icon">📍</div>
         <h3>Perth Local</h3>
         <p>Delivery across Perth & Peel regions. Pickup available at Port Kennedy and Baldivis. Local service, no middleman.</p>
@@ -296,19 +347,32 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   <div class="container">
     <div class="port-head">
       <div>
-        <div class="section-label">Our Work</div>
-        <div class="section-title">Recent Installs</div>
+        <div class="section-label fade-up">Our Work</div>
+        <div class="section-title fade-up stagger-1">Recent Installs</div>
       </div>
     </div>
     <div class="port-grid">
-      <div class="port-item"><div class="port-placeholder">Photo coming soon</div></div>
-      <div class="port-item"><div class="port-placeholder">Photo coming soon</div></div>
-      <div class="port-item"><div class="port-placeholder">Photo coming soon</div></div>
-      <div class="port-item"><div class="port-placeholder">Photo coming soon</div></div>
-      <div class="port-item"><div class="port-placeholder">Photo coming soon</div></div>
-      <div class="port-item"><div class="port-placeholder">Photo coming soon</div></div>
+      <div class="port-item port-featured fade-up stagger-1">
+        <img src="./photos/supra-red-black.png" alt="Red and black garage tiles with Toyota Supra" loading="lazy"/>
+        <div class="port-caption">Showroom — red &amp; black custom layout</div>
+      </div>
+      <div class="port-item fade-up stagger-2">
+        <img src="./photos/showroom-hex-lights.jpg" alt="Showroom with hexagonal LED lights and custom tile pattern" loading="lazy"/>
+        <div class="port-caption">Showroom fit-out — hex lighting &amp; custom pattern</div>
+      </div>
+      <div class="port-item fade-up stagger-1">
+        <img src="./photos/shed-charcoal.jpg" alt="Shed with charcoal interlocking garage tiles" loading="lazy"/>
+        <div class="port-caption">Shed — full charcoal tile floor</div>
+      </div>
+      <div class="port-item fade-up stagger-2">
+        <img src="./photos/double-garage.jpg" alt="Double garage with black and charcoal garage tiles" loading="lazy"/>
+        <div class="port-caption">Double garage — black &amp; charcoal finish</div>
+      </div>
+      <div class="port-item fade-up stagger-3">
+        <img src="./photos/shed-checkerboard.jpg" alt="Shed with black and grey checkerboard tile pattern" loading="lazy"/>
+        <div class="port-caption">Shed — black &amp; grey checkerboard</div>
+      </div>
     </div>
-    <p class="port-note">Photos coming soon — follow us on <a href="https://instagram.com/garagepro_au" target="_blank" style="color:#888;text-decoration:underline">@garagepro_au</a></p>
   </div>
 </section>
 
@@ -316,11 +380,11 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 <section id="calculator">
   <div class="container">
     <div style="text-align:center;margin-bottom:8px">
-      <div class="section-label" style="text-align:center">Tile Calculator</div>
-      <div class="section-title" style="text-align:center">How much do you need?</div>
-      <p class="section-sub" style="margin:12px auto 0;text-align:center">Enter your garage dimensions and get an instant estimate.</p>
+      <div class="section-label fade-up" style="text-align:center">Tile Calculator</div>
+      <div class="section-title fade-up stagger-1" style="text-align:center">How much do you need?</div>
+      <p class="section-sub fade-up stagger-2" style="margin:12px auto 0;text-align:center">Enter your garage dimensions and get an instant estimate.</p>
     </div>
-    <div class="calc-wrap">
+    <div class="calc-wrap fade-up stagger-2">
       <div class="card">
         <div class="calc-section-head">
           <h2>Calculate your space</h2>
@@ -365,8 +429,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 <!-- FAQ -->
 <section id="faq">
   <div class="container">
-    <div class="section-label">FAQ</div>
-    <div class="section-title">Common Questions</div>
+    <div class="section-label fade-up">FAQ</div>
+    <div class="section-title fade-up stagger-1">Common Questions</div>
     <div class="faq-list" id="faq-list"></div>
   </div>
 </section>
@@ -374,22 +438,22 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 <!-- TESTIMONIALS -->
 <section id="testimonials">
   <div class="container">
-    <div class="section-label">Reviews</div>
-    <div class="section-title">What customers say</div>
+    <div class="section-label fade-up">Reviews</div>
+    <div class="section-title fade-up stagger-1">What customers say</div>
     <div class="testi-grid">
-      <div class="testi-card">
+      <div class="testi-card fade-up stagger-1">
         <div class="stars">★★★★★</div>
         <p>"Honestly couldn't believe how easy these were to install. Did the whole garage in a Saturday afternoon. Looks incredible."</p>
         <div class="testi-name">Jason M.</div>
         <div class="testi-loc">Rockingham</div>
       </div>
-      <div class="testi-card">
+      <div class="testi-card fade-up stagger-2">
         <div class="stars">★★★★★</div>
         <p>"Great product and fast delivery to Mandurah. The tiles feel solid under the car and cleaning them is a breeze."</p>
         <div class="testi-name">Sarah K.</div>
         <div class="testi-loc">Mandurah</div>
       </div>
-      <div class="testi-card">
+      <div class="testi-card fade-up stagger-3">
         <div class="stars">★★★★★</div>
         <p>"Used these for my workshop. They've held up perfectly under heavy equipment and foot traffic. Highly recommend."</p>
         <div class="testi-name">Dave T.</div>
@@ -403,10 +467,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <div class="section-label">Contact</div>
-    <div class="section-title">Get a Free Quote</div>
+    <div class="section-label fade-up">Contact</div>
+    <div class="section-title fade-up stagger-1">Get a Free Quote</div>
     <div class="contact-grid">
-      <div class="contact-info">
+      <div class="contact-info fade-up stagger-2">
         <h3>Get in touch</h3>
         <div class="contact-detail">
           <div class="icon">📞</div>
@@ -444,7 +508,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
           </div>
         </div>
       </div>
-      <form id="quote-form" onsubmit="handleSubmit(event)">
+      <form id="quote-form" class="fade-up stagger-3" onsubmit="handleSubmit(event)">
         <div class="form-row">
           <div>
             <label>First Name</label>
@@ -621,7 +685,7 @@ const faqs=[
 const faqList=document.getElementById('faq-list');
 faqs.forEach((f,i)=>{
   const item=document.createElement('div');
-  item.className='faq-item';
+  item.className='faq-item fade-up';
   item.innerHTML=`<div class="faq-q" onclick="toggleFaq(${i})"><span>${f.q}</span><div class="faq-icon">+</div></div><div class="faq-a"><p>${f.a}</p></div>`;
   faqList.appendChild(item);
 });
@@ -632,6 +696,12 @@ function toggleFaq(i){
     else item.classList.remove('open');
   });
 }
+
+// ── SCROLL ANIMATIONS ──
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});
+},{threshold:0.12});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
 
 // ── QUOTE MODAL ──
 function openQuoteModal(){
@@ -646,7 +716,7 @@ function closeQuoteModal(e){
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeQuoteModal();});
 
 // ── FORM ──
-//  Replace YOUR_FORM_ID below with the ID from formspree.io/f/YOUR_FORM_ID
+// Replace YOUR_FORM_ID below with the ID from formspree.io/f/YOUR_FORM_ID
 const FORMSPREE_ID = 'mqpzjdon';
 
 async function handleSubmit(e){
