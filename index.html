@@ -233,6 +233,23 @@ h1{opacity:0;transform:translateY(20px);animation:heroIn .7s .25s cubic-bezier(.
 /* Pill active transition */
 .pill{transition:all .2s cubic-bezier(.4,0,.2,1)}
 
+/* ── LIGHTBOX ── */
+.lb-backdrop{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.93);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px}
+.lb-backdrop.open{display:flex}
+.lb-stage{position:relative;display:flex;flex-direction:column;align-items:center;max-width:min(92vw,1000px);width:100%}
+#lb-img{max-width:100%;max-height:78vh;object-fit:contain;border-radius:10px;user-select:none;display:block}
+.lb-caption{color:#aaa;font-size:13px;margin-top:10px;text-align:center}
+.lb-counter{color:#555;font-size:11px;margin-top:3px;letter-spacing:.5px}
+.lb-close{position:fixed;top:16px;right:16px;background:rgba(255,255,255,.1);border:none;color:#fff;font-size:18px;line-height:1;width:40px;height:40px;border-radius:50%;cursor:pointer;transition:background .15s;z-index:201;display:flex;align-items:center;justify-content:center}
+.lb-close:hover{background:rgba(255,255,255,.22)}
+.lb-arrow{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:none;color:#fff;font-size:28px;width:48px;height:48px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;z-index:201}
+.lb-arrow:hover{background:rgba(255,255,255,.22)}
+.lb-prev{left:12px}.lb-next{right:12px}
+.lb-dots{display:flex;gap:8px;margin-top:16px}
+.lb-dot{width:7px;height:7px;border-radius:50%;background:#333;border:none;cursor:pointer;padding:0;transition:background .2s,transform .2s}
+.lb-dot.active{background:#fff;transform:scale(1.25)}
+@media(max-width:600px){.lb-arrow{width:38px;height:38px;font-size:22px}.lb-prev{left:4px}.lb-next{right:4px}}
+
 /* ── FOOTER ── */
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20px}
 .footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
@@ -352,23 +369,23 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
       </div>
     </div>
     <div class="port-grid">
-      <div class="port-item port-featured fade-up stagger-1">
+      <div class="port-item port-featured fade-up stagger-1" onclick="openLightbox(0)" role="button" aria-label="View photo 1">
         <img src="./photos/supra-red-black.png" alt="Red and black garage tiles with Toyota Supra" loading="lazy"/>
         <div class="port-caption">Showroom — red &amp; black custom layout</div>
       </div>
-      <div class="port-item fade-up stagger-2">
+      <div class="port-item fade-up stagger-2" onclick="openLightbox(1)" role="button" aria-label="View photo 2">
         <img src="./photos/showroom-hex-lights.jpg" alt="Showroom with hexagonal LED lights and custom tile pattern" loading="lazy"/>
         <div class="port-caption">Showroom fit-out — hex lighting &amp; custom pattern</div>
       </div>
-      <div class="port-item fade-up stagger-1">
+      <div class="port-item fade-up stagger-1" onclick="openLightbox(2)" role="button" aria-label="View photo 3">
         <img src="./photos/shed-charcoal.jpg" alt="Shed with charcoal interlocking garage tiles" loading="lazy"/>
         <div class="port-caption">Shed — full charcoal tile floor</div>
       </div>
-      <div class="port-item fade-up stagger-2">
+      <div class="port-item fade-up stagger-2" onclick="openLightbox(3)" role="button" aria-label="View photo 4">
         <img src="./photos/double-garage.jpg" alt="Double garage with black and charcoal garage tiles" loading="lazy"/>
         <div class="port-caption">Double garage — black &amp; charcoal finish</div>
       </div>
-      <div class="port-item fade-up stagger-3">
+      <div class="port-item fade-up stagger-3" onclick="openLightbox(4)" role="button" aria-label="View photo 5">
         <img src="./photos/shed-checkerboard.jpg" alt="Shed with black and grey checkerboard tile pattern" loading="lazy"/>
         <div class="port-caption">Shed — black &amp; grey checkerboard</div>
       </div>
@@ -577,6 +594,19 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   </div>
 </div>
 
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lb-backdrop" onclick="lbBackdropClick(event)">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-arrow lb-prev" onclick="lbPrev(event)">‹</button>
+  <div class="lb-stage">
+    <img id="lb-img" src="" alt=""/>
+    <div id="lb-caption" class="lb-caption"></div>
+    <div id="lb-counter" class="lb-counter"></div>
+    <div class="lb-dots" id="lb-dots"></div>
+  </div>
+  <button class="lb-arrow lb-next" onclick="lbNext(event)">›</button>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -697,6 +727,63 @@ function toggleFaq(i){
   });
 }
 
+// ── LIGHTBOX ──
+const LB_PHOTOS=[
+  {src:'./photos/supra-red-black.png',  cap:'Showroom — red & black custom layout'},
+  {src:'./photos/showroom-hex-lights.jpg', cap:'Showroom fit-out — hex lighting & custom pattern'},
+  {src:'./photos/shed-charcoal.jpg',    cap:'Shed — full charcoal tile floor'},
+  {src:'./photos/double-garage.jpg',    cap:'Double garage — black & charcoal finish'},
+  {src:'./photos/shed-checkerboard.jpg',cap:'Shed — black & grey checkerboard'},
+];
+let lbIndex=0;
+function openLightbox(i){
+  lbIndex=i; lbRender();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+function lbPrev(e){if(e)e.stopPropagation();lbIndex=(lbIndex-1+LB_PHOTOS.length)%LB_PHOTOS.length;lbRender();}
+function lbNext(e){if(e)e.stopPropagation();lbIndex=(lbIndex+1)%LB_PHOTOS.length;lbRender();}
+function lbRender(){
+  const p=LB_PHOTOS[lbIndex];
+  const img=document.getElementById('lb-img');
+  img.style.opacity='0';
+  img.src=p.src; img.alt=p.cap;
+  img.onload=()=>{img.style.transition='opacity .2s';img.style.opacity='1';};
+  document.getElementById('lb-caption').textContent=p.cap;
+  document.getElementById('lb-counter').textContent=(lbIndex+1)+' / '+LB_PHOTOS.length;
+  document.querySelectorAll('.lb-dot').forEach((d,i)=>d.classList.toggle('active',i===lbIndex));
+}
+function lbBackdropClick(e){if(e.target===document.getElementById('lightbox'))closeLightbox();}
+// Build dots
+const lbDotsEl=document.getElementById('lb-dots');
+LB_PHOTOS.forEach((_,i)=>{
+  const d=document.createElement('button');
+  d.className='lb-dot'+(i===0?' active':'');
+  d.setAttribute('aria-label','Photo '+(i+1));
+  d.onclick=(e)=>{e.stopPropagation();lbIndex=i;lbRender();};
+  lbDotsEl.appendChild(d);
+});
+// Keyboard nav
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lightbox').classList.contains('open'))return;
+  if(e.key==='ArrowLeft')lbPrev();
+  else if(e.key==='ArrowRight')lbNext();
+  else if(e.key==='Escape')closeLightbox();
+});
+// Swipe support
+let lbTouchX=null;
+document.getElementById('lightbox').addEventListener('touchstart',e=>{lbTouchX=e.touches[0].clientX;},{passive:true});
+document.getElementById('lightbox').addEventListener('touchend',e=>{
+  if(lbTouchX===null)return;
+  const dx=e.changedTouches[0].clientX-lbTouchX;
+  if(Math.abs(dx)>50){dx<0?lbNext():lbPrev();}
+  lbTouchX=null;
+},{passive:true});
+
 // ── SCROLL ANIMATIONS ──
 const observer=new IntersectionObserver((entries)=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});
@@ -716,7 +803,7 @@ function closeQuoteModal(e){
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeQuoteModal();});
 
 // ── FORM ──
-// Replace YOUR_FORM_ID below with the ID from formspree.io/f/YOUR_FORM_ID
+// 👉 Replace YOUR_FORM_ID below with the ID from formspree.io/f/YOUR_FORM_ID
 const FORMSPREE_ID = 'mqpzjdon';
 
 async function handleSubmit(e){
