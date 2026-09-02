@@ -58,16 +58,19 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.92);backdrop-fil
 
 /* ── SPECS SECTION ── */
 #specs{padding:80px 0}
-.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-.specs-photo{border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3}
-.specs-photo img{width:100%;height:100%;object-fit:cover}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.tile-diagram{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.tile-diagram svg{width:100%;max-width:340px;height:auto}
+.tile-diagram .diagram-legend{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.tile-diagram .leg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--grey)}
+.tile-diagram .leg-swatch{width:14px;height:14px;border-radius:3px;border:1px solid var(--border);flex-shrink:0}
 .specs-table{display:grid;gap:0}
-.spec-row{display:flex;align-items:baseline;gap:12px;padding:14px 0;border-bottom:1px solid var(--border)}
+.spec-row{display:flex;align-items:baseline;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
 .spec-row:first-child{border-top:1px solid var(--border)}
-.spec-name{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--grey);min-width:130px;flex-shrink:0}
+.spec-name{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--grey);min-width:130px;flex-shrink:0}
 .spec-value{font-size:14px;color:var(--text);font-weight:500}
 .spec-badge{display:inline-block;background:rgba(212,160,23,.15);color:var(--accent);font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;margin-left:6px}
-@media(max-width:768px){.specs-grid{grid-template-columns:1fr}.specs-photo{aspect-ratio:16/9}}
+@media(max-width:768px){.specs-grid{grid-template-columns:1fr}}
 
 /* ── COLOURS SECTION ── */
 #colours{padding:80px 0;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
@@ -155,6 +158,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.92);backdrop-fil
     <span><a href="./index.html#portfolio">Gallery</a></span>
     <span><a href="#colours">Colours</a></span>
     <span><a href="#patterns">Patterns</a></span>
+    <span><a href="./install.html">Install Guide</a></span>
     <a class="nav-cta" href="./index.html#contact">Get a Quote →</a>
   </div>
 </nav>
@@ -173,49 +177,118 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.92);backdrop-fil
 <section id="specs">
   <div class="container">
     <div class="specs-grid">
-      <div class="specs-photo">
-        <img src="./product-photos/IMG_3505_c.jpg" alt="Close-up of interlocking tile texture showing diamond ribbed pattern" loading="lazy"/>
+
+      <!-- SVG TILE DIAGRAM -->
+      <div class="tile-diagram fade-up">
+        <svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg" aria-label="Diagram showing tile, edge ramp and corner piece dimensions">
+          <defs>
+            <pattern id="ribgrid" x="0" y="0" width="18" height="18" patternUnits="userSpaceOnUse">
+              <rect width="9" height="9" fill="#1f1f1f"/>
+              <rect x="9" y="9" width="9" height="9" fill="#1f1f1f"/>
+              <rect x="9" y="0" width="9" height="9" fill="#232323"/>
+              <rect x="0" y="9" width="9" height="9" fill="#232323"/>
+            </pattern>
+          </defs>
+
+          <!-- Left edge ramp -->
+          <rect x="1" y="1" width="54" height="284" fill="#202020" stroke="#d4a017" stroke-width="1.5" rx="3"/>
+          <text font-size="9" fill="#888" font-family="-apple-system,sans-serif" font-weight="600" text-anchor="middle" transform="translate(28,143) rotate(-90)">Edge Ramp</text>
+
+          <!-- Corner piece -->
+          <rect x="1" y="285" width="54" height="54" fill="#282828" stroke="#d4a017" stroke-width="1.5" rx="3"/>
+          <text x="28" y="310" text-anchor="middle" font-size="9" fill="#888" font-family="-apple-system,sans-serif" font-weight="600">60 mm</text>
+          <text x="28" y="322" text-anchor="middle" font-size="8" fill="#666" font-family="-apple-system,sans-serif">Corner</text>
+
+          <!-- Bottom edge ramp -->
+          <rect x="55" y="285" width="304" height="54" fill="#202020" stroke="#d4a017" stroke-width="1.5" rx="3"/>
+          <text x="207" y="311" text-anchor="middle" font-size="11" fill="#d4a017" font-family="-apple-system,sans-serif" font-weight="700">Edge Ramp</text>
+          <text x="207" y="326" text-anchor="middle" font-size="10" fill="#888" font-family="-apple-system,sans-serif">400 × 60 mm</text>
+
+          <!-- Main tile body -->
+          <rect x="55" y="1" width="304" height="284" fill="#1a1a1a" stroke="#d4a017" stroke-width="1.5" rx="3"/>
+          <rect x="55" y="1" width="304" height="284" fill="url(#ribgrid)" opacity="0.7" rx="3"/>
+
+          <!-- Tile label -->
+          <text x="207" y="128" text-anchor="middle" font-size="13" fill="#d4a017" font-family="-apple-system,sans-serif" font-weight="800" letter-spacing="1">TILE</text>
+          <text x="207" y="148" text-anchor="middle" font-size="15" fill="#e8e8e8" font-family="-apple-system,sans-serif" font-weight="700">400 × 400 mm</text>
+          <text x="207" y="168" text-anchor="middle" font-size="11" fill="#666" font-family="-apple-system,sans-serif">18 mm thick · 600 g</text>
+
+          <!-- Dimension callout: width of tile -->
+          <line x1="55" y1="348" x2="359" y2="348" stroke="#333" stroke-width="1"/>
+          <line x1="55" y1="344" x2="55" y2="352" stroke="#333" stroke-width="1"/>
+          <line x1="359" y1="344" x2="359" y2="352" stroke="#333" stroke-width="1"/>
+          <text x="207" y="359" text-anchor="middle" font-size="9" fill="#555" font-family="-apple-system,sans-serif">400 mm</text>
+
+          <!-- Dimension callout: height of tile -->
+          <line x1="348" y1="1" x2="348" y2="285" stroke="#333" stroke-width="1"/>
+          <line x1="344" y1="1" x2="352" y2="1" stroke="#333" stroke-width="1"/>
+          <line x1="344" y1="285" x2="352" y2="285" stroke="#333" stroke-width="1"/>
+          <text x="358" y="143" text-anchor="middle" font-size="9" fill="#555" font-family="-apple-system,sans-serif" transform="rotate(90 358 143)">400 mm</text>
+        </svg>
+        <div class="diagram-legend">
+          <div class="leg-item"><div class="leg-swatch" style="background:#1a1a1a;border-color:#d4a017"></div>Tile — 400×400×18mm</div>
+          <div class="leg-item"><div class="leg-swatch" style="background:#202020;border-color:#d4a017"></div>Edge Ramp — 400×60×18mm</div>
+          <div class="leg-item"><div class="leg-swatch" style="background:#282828;border-color:#d4a017"></div>Corner Piece — 60×60×18mm</div>
+        </div>
       </div>
+
+      <!-- SPEC TABLE -->
       <div>
         <div class="section-label fade-up">The Tile</div>
         <div class="section-title fade-up stagger-1">Engineered for garages</div>
-        <div class="section-sub fade-up stagger-2">Every tile is made from virgin polypropylene — the same material used in industrial flooring — and snaps together without adhesives or special tools.</div>
+        <div class="section-sub fade-up stagger-2">Made from premium virgin polypropylene — clicks together by hand, no adhesives or special tools needed.</div>
         <div class="specs-table fade-up stagger-3">
           <div class="spec-row">
-            <span class="spec-name">Tile Size</span>
-            <span class="spec-value">400 mm × 400 mm</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-name">Thickness</span>
-            <span class="spec-value">19 mm</span>
-          </div>
-          <div class="spec-row">
             <span class="spec-name">Material</span>
-            <span class="spec-value">Virgin Polypropylene (PP)</span>
+            <span class="spec-value">Premium Virgin Polypropylene</span>
           </div>
           <div class="spec-row">
-            <span class="spec-name">Load Rating</span>
-            <span class="spec-value">800 kg per tile <span class="spec-badge">Heavy Duty</span></span>
+            <span class="spec-name">Tile Size</span>
+            <span class="spec-value">400 × 400 × 18 mm</span>
           </div>
           <div class="spec-row">
-            <span class="spec-name">Surface</span>
-            <span class="spec-value">Diamond-ribbed anti-slip texture</span>
+            <span class="spec-name">Edge Ramp</span>
+            <span class="spec-value">400 × 60 × 18 mm</span>
           </div>
           <div class="spec-row">
-            <span class="spec-name">Installation</span>
-            <span class="spec-value">Tool-free interlocking click system</span>
+            <span class="spec-name">Corner Piece</span>
+            <span class="spec-value">60 × 60 × 18 mm</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-name">Tile Weight</span>
+            <span class="spec-value">600 g</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-name">Strength</span>
+            <span class="spec-value">Heavy vehicles &amp; commercial use <span class="spec-badge">Heavy Duty</span></span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-name">Temp. Range</span>
+            <span class="spec-value">−30°C to 120°C</span>
           </div>
           <div class="spec-row">
             <span class="spec-name">UV Stabilised</span>
-            <span class="spec-value">Yes — colour-fast, won't fade</span>
+            <span class="spec-value">Yes</span>
           </div>
           <div class="spec-row">
-            <span class="spec-name">Chemical Resistant</span>
-            <span class="spec-value">Oil, petrol, brake fluid, cleaners</span>
+            <span class="spec-name">Oil Resistance</span>
+            <span class="spec-value">Yes</span>
           </div>
           <div class="spec-row">
-            <span class="spec-name">Self-Draining</span>
-            <span class="spec-value">Raised grid — fluids drain below</span>
+            <span class="spec-name">Chemical Resistance</span>
+            <span class="spec-value">Yes</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-name">Non-Slip Surface</span>
+            <span class="spec-value">Yes</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-name">Drainage</span>
+            <span class="spec-value">Self draining system</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-name">Installation</span>
+            <span class="spec-value">DIY</span>
           </div>
           <div class="spec-row">
             <span class="spec-name">Colours Available</span>
@@ -223,6 +296,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.92);backdrop-fil
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -245,7 +319,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.92);backdrop-fil
           </div>
           <div class="swatch">
             <div class="swatch-color" style="background:#3a3a3a"></div>
-            <div class="swatch-name">Dark Grey</div>
+            <div class="swatch-name">Charcoal Grey</div>
           </div>
           <div class="swatch">
             <div class="swatch-color" style="background:#909090"></div>
@@ -254,6 +328,30 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.92);backdrop-fil
           <div class="swatch">
             <div class="swatch-color" style="background:#e8e8e8"></div>
             <div class="swatch-name">White</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background:#18b89c"></div>
+            <div class="swatch-name">Turquoise Blue</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background:#5ab4e0"></div>
+            <div class="swatch-name">Sky Blue</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background:#1470c8"></div>
+            <div class="swatch-name">Ocean Blue</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background:#2040b8"></div>
+            <div class="swatch-name">Royal Blue</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background:#7030c0"></div>
+            <div class="swatch-name">Purple</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background:#c82888"></div>
+            <div class="swatch-name">Pink</div>
           </div>
           <div class="swatch">
             <div class="swatch-color" style="background:#e63434"></div>
@@ -273,34 +371,27 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.92);backdrop-fil
           </div>
           <div class="swatch">
             <div class="swatch-color" style="background:#1a8c3a"></div>
-            <div class="swatch-name">Dark Green</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#18b89c"></div>
-            <div class="swatch-name">Teal</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#5ab4e0"></div>
-            <div class="swatch-name">Light Blue</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#2040b8"></div>
-            <div class="swatch-name">Royal Blue</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#7030c0"></div>
-            <div class="swatch-name">Purple</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#c82888"></div>
-            <div class="swatch-name">Pink</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#1a5c28"></div>
-            <div class="swatch-name">Emerald</div>
+            <div class="swatch-name">Green</div>
           </div>
         </div>
-        <p style="font-size:12px;color:var(--grey);margin-top:20px;line-height:1.6">Swatches are indicative only. Screen colours vary — view our colour chart photo for true-to-life shades, or contact us to arrange a sample.</p>
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
+          <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--grey);margin-bottom:12px">Edge &amp; Corner Piece Colours</p>
+          <div style="display:flex;gap:10px">
+            <div class="swatch" style="flex:1">
+              <div class="swatch-color" style="background:#111111"></div>
+              <div class="swatch-name">Black</div>
+            </div>
+            <div class="swatch" style="flex:1">
+              <div class="swatch-color" style="background:#3a3a3a"></div>
+              <div class="swatch-name">Grey</div>
+            </div>
+            <div class="swatch" style="flex:1">
+              <div class="swatch-color" style="background:#909090"></div>
+              <div class="swatch-name">Light Grey</div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--grey);margin-top:16px;line-height:1.6">Swatches are indicative only. Screen colours vary — view our colour chart photo for true-to-life shades, or contact us to arrange a sample.</p>
       </div>
     </div>
   </div>
@@ -313,6 +404,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.92);backdrop-fil
     <div class="section-title fade-up stagger-1">9 signature designs</div>
     <div class="section-sub fade-up stagger-2">From clean single-colour installs to bold multi-colour feature patterns. Every design is installed in the same day.</div>
     <img class="patterns-img fade-up stagger-3" src="./product-photos/Untitled_design.jpg" alt="9 garage tile layout pattern options including border frames, racing stripes, checkerboard and more" loading="lazy"/>
+    <div class="fade-up stagger-4" style="margin-bottom:36px;padding:20px 24px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius)">
+      <p style="font-size:15px;color:var(--text);margin-bottom:8px;font-weight:600">Popular designs and patterns: <span style="font-weight:400">Contact us for a custom design for your space.</span></p>
+      <p style="font-size:13px;color:var(--grey);line-height:1.65">These designs are based on a standard 6m × 6m double garage, requiring approximately 225 tiles using a 15×15 tile layout.</p>
+    </div>
     <div class="patterns-grid">
       <div class="pattern-card fade-up stagger-1">
         <div class="icon">⬛</div>
@@ -433,6 +528,11 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.92);backdrop-fil
     </div>
   </div>
 </section>
+
+<!-- FOOTER -->
+<footer style="background:var(--bg2);border-top:1px solid var(--border);padding:28px 24px;text-align:center">
+  <p style="font-size:12px;color:#444">© 2026 Garage Pro. Perth, Western Australia. ABN 27 703 921 623 · All rights reserved.</p>
+</footer>
 
 <!-- MOBILE CTA BAR -->
 <div class="mobile-cta-bar">

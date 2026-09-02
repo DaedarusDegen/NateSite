@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>DIY Installation Guide — Garage Pro Interlocking Tiles Perth</title>
+<meta name="description" content="Step-by-step DIY installation guide for Garage Pro interlocking garage tiles. No glue, no tools needed. Most garages done in a few hours. Serving Perth & Peel."/>
+<meta property="og:title" content="Garage Pro — DIY Installation Guide"/>
+<meta property="og:description" content="How to install your Garage Pro tiles. 5 simple steps, no trade required."/>
+<meta property="og:image" content="./product-photos/IMG_3686.jpg"/>
+<meta property="og:type" content="website"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏁</text></svg>"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0d0d;
+  --bg2:#141414;
+  --bg3:#1a1a1a;
+  --border:#252525;
+  --text:#e8e8e8;
+  --grey:#888;
+  --accent:#d4a017;
+  --accent2:#e8b420;
+  --radius:12px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6;padding-bottom:70px}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:16px;color:var(--text)}
+.nav-logo img{height:32px;width:auto}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-links a{color:var(--grey);text-decoration:none;font-size:13px;font-weight:500;padding:6px 12px;border-radius:8px;transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--text);background:var(--bg3)}
+.nav-links a.active{color:var(--accent)}
+.nav-cta{background:var(--accent);color:#000!important;font-weight:700!important;border-radius:8px!important;padding:7px 14px!important}
+.nav-cta:hover{background:var(--accent2)!important;color:#000!important}
+@media(max-width:768px){.nav-links span{display:none}.nav-links a:not(.nav-cta){display:none}}
+
+/* ── HERO ── */
+.install-hero{position:relative;height:55vh;min-height:360px;display:flex;align-items:flex-end;overflow:hidden}
+.install-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.install-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,13,1) 0%,rgba(13,13,13,.7) 35%,rgba(13,13,13,.2) 70%,transparent 100%)}
+.install-hero-content{position:relative;z-index:1;padding:48px 40px;max-width:680px}
+.install-hero-content .label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.install-hero-content h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;line-height:1.1;margin-bottom:16px}
+.install-hero-content p{font-size:16px;color:#bbb;max-width:520px}
+@media(max-width:600px){.install-hero-content{padding:32px 20px}}
+
+/* ── CONTAINER ── */
+.container{max-width:1000px;margin:0 auto;padding:0 24px}
+
+/* ── SECTION LABELS ── */
+.section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.section-title{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;line-height:1.15;margin-bottom:8px}
+.section-sub{font-size:15px;color:var(--grey);margin-bottom:48px;max-width:600px}
+
+/* ── STEPS ── */
+#steps{padding:80px 0}
+.steps-list{display:flex;flex-direction:column;gap:0}
+.step-item{display:grid;grid-template-columns:80px 1fr;gap:0;position:relative}
+.step-item:not(:last-child)::before{content:'';position:absolute;left:39px;top:76px;bottom:0;width:2px;background:var(--border);z-index:0}
+.step-num-wrap{display:flex;flex-direction:column;align-items:center;padding-top:24px;z-index:1}
+.step-circle{width:54px;height:54px;border-radius:50%;background:var(--bg3);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:var(--accent);flex-shrink:0}
+.step-body{padding:24px 0 48px 8px}
+.step-body h2{font-size:22px;font-weight:800;margin-bottom:12px;color:var(--text)}
+.step-body p{font-size:15px;color:var(--grey);line-height:1.75;max-width:580px}
+.step-tip{display:inline-flex;align-items:flex-start;gap:10px;background:rgba(212,160,23,.08);border:1px solid rgba(212,160,23,.2);border-radius:10px;padding:12px 16px;margin-top:16px;max-width:540px}
+.step-tip .tip-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.step-tip p{font-size:13px;color:#ccc;margin:0}
+@media(max-width:600px){
+  .step-item{grid-template-columns:56px 1fr}
+  .step-item:not(:last-child)::before{left:27px}
+  .step-circle{width:40px;height:40px;font-size:16px}
+  .step-body h2{font-size:18px}
+}
+
+/* ── TOOLS SECTION ── */
+#tools{padding:60px 0;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.tool-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center}
+.tool-card .icon{font-size:28px;margin-bottom:10px}
+.tool-card h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.tool-card p{font-size:12px;color:var(--grey)}
+@media(max-width:600px){.tools-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ── CTA ── */
+#install-cta{padding:80px 0;text-align:center}
+#install-cta .section-title{margin-bottom:16px}
+#install-cta p{color:var(--grey);font-size:15px;margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto}
+.cta-buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:#000;border:none;padding:14px 28px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;transition:background .2s,transform .15s}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-1px)}
+.btn-secondary{background:transparent;color:var(--text);border:1px solid var(--border);padding:14px 28px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;transition:border-color .2s,color .2s}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ── MOBILE CTA BAR ── */
+.mobile-cta-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:150;background:rgba(20,20,20,.97);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:10px 16px;gap:10px}
+@media(max-width:768px){.mobile-cta-bar{display:flex}}
+.mcta-call{flex:1;background:var(--bg3);color:var(--text);text-align:center;padding:11px;border-radius:9px;text-decoration:none;font-size:14px;font-weight:600;border:1px solid var(--border)}
+.mcta-quote{flex:2;background:var(--accent);color:#000;text-align:center;padding:11px;border-radius:9px;text-decoration:none;font-size:14px;font-weight:700;border:none;cursor:pointer}
+
+/* ── FADE ANIMATIONS ── */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.fade-up.visible{opacity:1;transform:none}
+.stagger-1{transition-delay:.08s}.stagger-2{transition-delay:.16s}.stagger-3{transition-delay:.24s}
+.stagger-4{transition-delay:.32s}.stagger-5{transition-delay:.40s}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="./index.html">
+    <img src="./logo.png" alt="Garage Pro logo" onerror="this.style.display='none'"/>
+    Garage Pro
+  </a>
+  <div class="nav-links">
+    <span><a href="./index.html">Home</a></span>
+    <span><a href="./products.html">Products</a></span>
+    <span><a href="./products.html#colours">Colours</a></span>
+    <span><a href="#steps">Steps</a></span>
+    <a class="active" style="color:var(--accent);padding:6px 12px;font-size:13px;font-weight:500">Install Guide</a>
+    <a class="nav-cta" href="./index.html#contact">Get a Quote →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="install-hero">
+  <img src="./product-photos/IMG_3662.jpg" alt="Professional garage tile installation — orange and charcoal pattern" loading="eager"/>
+  <div class="install-hero-content">
+    <div class="label">DIY Installation Guide</div>
+    <h1>Installed in hours.<br/>No trades needed.</h1>
+    <p>Our tiles click together by hand or with a rubber mallet — no glue, no curing time. Here's how to do it.</p>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section id="steps">
+  <div class="container">
+    <div class="section-label fade-up">How to Install</div>
+    <div class="section-title fade-up stagger-1">5 simple steps</div>
+    <div class="section-sub fade-up stagger-2">Follow these steps and most garages are done in a few hours. You can drive on the tiles the same day.</div>
+
+    <div class="steps-list">
+
+      <!-- STEP 1 -->
+      <div class="step-item fade-up">
+        <div class="step-num-wrap">
+          <div class="step-circle">1</div>
+        </div>
+        <div class="step-body">
+          <h2>Measure your space</h2>
+          <p>Measure the length and width of your garage floor in metres. Multiply the two together to get your total area in square metres. Each tile covers 0.16 m² (400 mm × 400 mm). Use our tile calculator on the home page to get an exact tile count.</p>
+          <div class="step-tip">
+            <span class="tip-icon">💡</span>
+            <p>We recommend ordering an extra 5–10% to allow for cuts around walls, posts, or drains — especially if your layout includes cuts.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-item fade-up stagger-1">
+        <div class="step-num-wrap">
+          <div class="step-circle">2</div>
+        </div>
+        <div class="step-body">
+          <h2>Choose your colour and pattern</h2>
+          <p>Pick from 15 available colours in any combination. You can go single colour, checkerboard, border frame, racing stripes, or any custom design. Not sure what will look best? Contact us and we'll help you plan your layout before you order.</p>
+          <div class="step-tip">
+            <span class="tip-icon">🎨</span>
+            <p>Check out our <a href="./products.html#patterns" style="color:var(--accent)">Patterns page</a> for inspiration — designs are shown on a standard 6 m × 6 m double garage using a 15×15 tile layout.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-item fade-up stagger-2">
+        <div class="step-num-wrap">
+          <div class="step-circle">3</div>
+        </div>
+        <div class="step-body">
+          <h2>Prepare your floor</h2>
+          <p>Sweep or vacuum the floor to remove dirt, dust, and debris. The floor should be dry and reasonably flat. Garage Pro tiles work on both sealed and unsealed concrete. No adhesive or primer is needed — the tiles sit directly on the floor.</p>
+          <div class="step-tip">
+            <span class="tip-icon">✅</span>
+            <p>If your floor has a large crack or significant uneven area, pack or sand it flat first. Small imperfections are fine — the tiles will bridge them.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-item fade-up stagger-3">
+        <div class="step-num-wrap">
+          <div class="step-circle">4</div>
+        </div>
+        <div class="step-body">
+          <h2>Start from a corner, work outward</h2>
+          <p>Begin at the back corner of your garage and work toward the door opening. Click the tiles together by hand or with a light tap from a rubber mallet — they should snap together firmly with no gaps. Work in rows, one at a time. Leave a small expansion gap of 5–10 mm at the walls to allow for temperature movement.</p>
+          <div class="step-tip">
+            <span class="tip-icon">🔧</span>
+            <p>For tight spots or corners, a rubber mallet makes seating tiles easier. A standard jigsaw or drop saw cuts tiles cleanly for around posts, drains, or odd-shaped walls.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step-item fade-up stagger-4">
+        <div class="step-num-wrap">
+          <div class="step-circle">5</div>
+        </div>
+        <div class="step-body">
+          <h2>Finish with edge ramps and corner pieces</h2>
+          <p>Once all tiles are down, snap edge ramps along the garage door opening and any exposed edges. Use corner pieces where two edge ramps meet. Edge ramps create a smooth, safe ramp for tyres to roll onto — no trip hazard, no lifting of tiles at the entry.</p>
+          <div class="step-tip">
+            <span class="tip-icon">🏁</span>
+            <p>Edge ramps and corner pieces are available in Black, Grey, and Light Grey. Your garage is now ready to use — you can drive on it immediately.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS YOU'LL NEED -->
+<section id="tools">
+  <div class="container">
+    <div class="section-label fade-up">What You'll Need</div>
+    <div class="section-title fade-up stagger-1">Tools &amp; materials</div>
+    <div class="tools-grid">
+      <div class="tool-card fade-up stagger-1">
+        <div class="icon">📏</div>
+        <h4>Tape Measure</h4>
+        <p>For measuring your floor dimensions and planning your layout.</p>
+      </div>
+      <div class="tool-card fade-up stagger-2">
+        <div class="icon">🔨</div>
+        <h4>Rubber Mallet</h4>
+        <p>Optional but helpful for tapping tiles firmly into place.</p>
+      </div>
+      <div class="tool-card fade-up stagger-3">
+        <div class="icon">🪚</div>
+        <h4>Jigsaw or Drop Saw</h4>
+        <p>For cutting tiles around posts, drains, and edges.</p>
+      </div>
+      <div class="tool-card fade-up stagger-1">
+        <div class="icon">🧹</div>
+        <h4>Broom or Vacuum</h4>
+        <p>Clean the floor before laying to ensure tiles sit flat.</p>
+      </div>
+      <div class="tool-card fade-up stagger-2">
+        <div class="icon">📐</div>
+        <h4>Chalk Line (optional)</h4>
+        <p>Helps keep rows straight on larger floors.</p>
+      </div>
+      <div class="tool-card fade-up stagger-3">
+        <div class="icon">📦</div>
+        <h4>Your Tile Order</h4>
+        <p>Including edge ramps and corner pieces for a clean finish.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="install-cta">
+  <div class="container">
+    <div class="section-label fade-up">Ready to get started?</div>
+    <div class="section-title fade-up stagger-1">Get your free quote today</div>
+    <p class="fade-up stagger-2">Tell us your garage dimensions and colour ideas — we'll get back to you with an exact price and layout plan, usually within 24 hours.</p>
+    <div class="cta-buttons fade-up stagger-3">
+      <a class="btn-primary" href="./index.html#contact">Contact Us →</a>
+      <a class="btn-secondary" href="./products.html">Browse Colours &amp; Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:var(--bg2);border-top:1px solid var(--border);padding:28px 24px;text-align:center">
+  <p style="font-size:12px;color:#444">© 2026 Garage Pro. Perth, Western Australia. ABN 27 703 921 623 · All rights reserved.</p>
+</footer>
+
+<!-- MOBILE CTA BAR -->
+<div class="mobile-cta-bar">
+  <a class="mcta-call" href="tel:+61493292203">📞 Call Now</a>
+  <a class="mcta-quote" href="./index.html#contact">Get a Quote →</a>
+</div>
+
+<script>
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible');});
+},{threshold:0.10});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
