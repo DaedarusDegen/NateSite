@@ -36,7 +36,17 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.92);backdrop-fil
 .nav-links a.active{color:var(--accent)}
 .nav-cta{background:var(--accent);color:#000!important;font-weight:700!important;border-radius:8px!important;padding:7px 14px!important}
 .nav-cta:hover{background:var(--accent2)!important;color:#000!important}
-@media(max-width:768px){.nav-links span{display:none}.nav-links a:not(.nav-cta){display:none}}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-nav{display:none;position:fixed;top:60px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:16px 20px;z-index:99}
+.mobile-nav.open{display:block}
+.mobile-nav a{display:block;color:var(--grey);text-decoration:none;font-size:16px;font-weight:500;padding:13px 0;border-bottom:1px solid var(--border);transition:color .2s}
+.mobile-nav a:hover{color:var(--text)}
+.mobile-nav .mob-cta{border:none!important;margin-top:12px;background:var(--accent);color:#000!important;text-align:center;border-radius:10px;padding:14px;font-weight:700;display:block}
+@media(max-width:768px){.nav-links span{display:none}.nav-links .nav-cta{display:none}.hamburger{display:flex}}
 
 /* ── HERO ── */
 .install-hero{position:relative;height:55vh;min-height:360px;display:flex;align-items:flex-end;overflow:hidden}
@@ -119,11 +129,24 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.92);backdrop-fil
     <span><a href="./index.html">Home</a></span>
     <span><a href="./products.html">Products</a></span>
     <span><a href="./products.html#colours">Colours</a></span>
-    <span><a href="#steps">Steps</a></span>
-    <a class="active" style="color:var(--accent);padding:6px 12px;font-size:13px;font-weight:500">Install Guide</a>
+    <span><a href="./products.html#patterns">Patterns</a></span>
+    <span><a href="#steps" style="color:var(--accent)">Install Guide</a></span>
     <a class="nav-cta" href="./index.html#contact">Get a Quote →</a>
   </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-nav" id="mobile-nav">
+  <a href="./index.html" onclick="closeMenu()">Home</a>
+  <a href="./products.html" onclick="closeMenu()">Products</a>
+  <a href="./products.html#colours" onclick="closeMenu()">Colours</a>
+  <a href="./products.html#patterns" onclick="closeMenu()">Patterns</a>
+  <a href="#steps" onclick="closeMenu()">Install Guide</a>
+  <a class="mob-cta" href="./index.html#contact" onclick="closeMenu()">Get a Quote →</a>
+</div>
 
 <!-- HERO -->
 <section class="install-hero">
@@ -288,6 +311,16 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.92);backdrop-fil
 </div>
 
 <script>
+// ── MOBILE MENU ──
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobile-nav').classList.remove('open');
+}
+
 const observer=new IntersectionObserver((entries)=>{
   entries.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible');});
 },{threshold:0.10});
