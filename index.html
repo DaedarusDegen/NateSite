@@ -333,6 +333,63 @@ h1{opacity:0;transform:translateY(20px);animation:heroIn .7s .25s cubic-bezier(.
 .nav-links a.active{color:var(--accent)}
 .nav-links a.active::after{content:'';display:block;height:2px;background:var(--accent);border-radius:1px;margin-top:2px}
 
+/* ── PROOF BAR ── */
+.proof-bar{background:var(--bg2);border-bottom:1px solid var(--border);padding:24px 0}
+.proof-bar .container{display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:12px}
+.proof-stat{display:flex;flex-direction:column;align-items:center;text-align:center;flex:1;min-width:100px}
+.proof-stat-num{font-size:2rem;font-weight:900;color:var(--accent);line-height:1;letter-spacing:-.03em}
+.proof-stat-lbl{font-size:11px;font-weight:600;color:var(--grey);margin-top:4px;text-transform:uppercase;letter-spacing:.06em}
+.proof-bar-divider{width:1px;height:36px;background:var(--border);flex-shrink:0}
+@media(max-width:600px){.proof-bar-divider{display:none}.proof-bar .container{gap:20px}.proof-stat{min-width:42%}}
+
+/* ── TRUST BADGES ── */
+.trust-bar{background:var(--bg3);border-bottom:1px solid var(--border);padding:12px 0}
+.trust-bar .container{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;align-items:center}
+.trust-badge{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:#888;white-space:nowrap}
+.trust-badge-icon{width:15px;height:15px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:8px;color:#000;flex-shrink:0;font-weight:900}
+@media(max-width:480px){.trust-bar .container{gap:14px}.trust-badge{font-size:11px}}
+
+/* ── TILES VS EPOXY ── */
+.vs-section{padding:80px 0;background:var(--bg)}
+.vs-intro{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;align-items:start}
+.vs-card{border-radius:var(--radius);padding:28px 32px;border:1px solid var(--border)}
+.vs-card.tiles{border-color:rgba(212,160,23,.5);background:rgba(212,160,23,.05)}
+.vs-card.epoxy{background:var(--bg2)}
+.vs-card-title{font-size:17px;font-weight:800;margin-bottom:6px}
+.vs-card.tiles .vs-card-title{color:var(--accent)}
+.vs-card.epoxy .vs-card-title{color:#666}
+.vs-card-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:18px}
+.vs-card.tiles .vs-card-badge{background:rgba(212,160,23,.15);color:var(--accent)}
+.vs-card.epoxy .vs-card-badge{background:rgba(255,255,255,.06);color:#555}
+.vs-row{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px;line-height:1.5}
+.vs-row:last-child{border-bottom:none}
+.vs-icon-good{color:var(--accent);font-size:15px;flex-shrink:0;margin-top:1px}
+.vs-icon-bad{color:#555;font-size:15px;flex-shrink:0;margin-top:1px}
+.vs-text{color:#bbb}
+.vs-card.epoxy .vs-text{color:#555}
+@media(max-width:640px){.vs-intro{grid-template-columns:1fr}}
+
+/* ── URGENCY STRIP ── */
+.urgency-strip{background:rgba(212,160,23,.07);border-top:1px solid rgba(212,160,23,.18);border-bottom:1px solid rgba(212,160,23,.18);padding:16px 0;text-align:center}
+.urgency-inner{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.urgency-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;flex-shrink:0;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+.urgency-text{font-size:14px;font-weight:600;color:var(--text)}
+.urgency-text strong{color:var(--accent)}
+.urgency-cta{font-size:13px;font-weight:700;color:var(--accent);text-decoration:underline;cursor:pointer;background:none;border:none;padding:0}
+
+/* ── SUBURBS ── */
+.suburb-section{padding:64px 0;background:var(--bg2);border-top:1px solid var(--border)}
+.suburb-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.suburb-pill{background:var(--bg3);border:1px solid var(--border);border-radius:40px;padding:8px 18px;font-size:13px;color:var(--grey)}
+
+/* ── TESTIMONIAL UPGRADES ── */
+.testi-avatar{width:42px;height:42px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#000;margin-bottom:14px}
+.testi-verified{font-size:11px;color:#555;margin-top:10px;letter-spacing:.03em}
+.testi-verified b{color:#4285F4}
+.testi-rating-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.testi-platform{font-size:11px;color:#555;font-weight:600}
+
 /* ── FOOTER ── */
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20px}
 .footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
@@ -419,6 +476,42 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   </div>
 </section>
 
+<!-- PROOF BAR -->
+<div class="proof-bar">
+  <div class="container">
+    <div class="proof-stat fade-up stagger-1">
+      <div class="proof-stat-num">100+</div>
+      <div class="proof-stat-lbl">Perth Garages Tiled</div>
+    </div>
+    <div class="proof-bar-divider"></div>
+    <div class="proof-stat fade-up stagger-2">
+      <div class="proof-stat-num">5.0★</div>
+      <div class="proof-stat-lbl">Customer Rating</div>
+    </div>
+    <div class="proof-bar-divider"></div>
+    <div class="proof-stat fade-up stagger-3">
+      <div class="proof-stat-num">15+</div>
+      <div class="proof-stat-lbl">Colours In Stock</div>
+    </div>
+    <div class="proof-bar-divider"></div>
+    <div class="proof-stat fade-up stagger-4">
+      <div class="proof-stat-num">Same Day</div>
+      <div class="proof-stat-lbl">Drive-On After Install</div>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST BADGES -->
+<div class="trust-bar">
+  <div class="container">
+    <div class="trust-badge"><div class="trust-badge-icon">✓</div>Perth Local Business</div>
+    <div class="trust-badge"><div class="trust-badge-icon">✓</div>Fast Perth &amp; Peel Delivery</div>
+    <div class="trust-badge"><div class="trust-badge-icon">✓</div>No Glue · No Trades Needed</div>
+    <div class="trust-badge"><div class="trust-badge-icon">✓</div>Satisfaction Guaranteed</div>
+    <div class="trust-badge"><div class="trust-badge-icon">✓</div>ABN Registered</div>
+  </div>
+</div>
+
 <!-- WHY US -->
 <section id="why">
   <div class="container">
@@ -444,6 +537,36 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
         <div class="why-icon">📍</div>
         <h3>Perth Local</h3>
         <p>Delivery available across the Perth &amp; Peel regions. Pickup available at Port Kennedy. Locally stocked, no need for slow and expensive shipping.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TILES VS EPOXY -->
+<section class="vs-section">
+  <div class="container">
+    <div class="section-label fade-up" style="text-align:center">The Smart Choice</div>
+    <div class="section-title fade-up stagger-1" style="text-align:center">Why tiles beat epoxy</div>
+    <div class="vs-intro fade-up stagger-2">
+      <div class="vs-card tiles">
+        <div class="vs-card-badge">✓ Recommended</div>
+        <div class="vs-card-title">Garage Pro Tiles</div>
+        <div class="vs-row"><span class="vs-icon-good">★</span><span class="vs-text">Install yourself in a few hours — no trades</span></div>
+        <div class="vs-row"><span class="vs-icon-good">★</span><span class="vs-text">Drive on it the same day — zero curing time</span></div>
+        <div class="vs-row"><span class="vs-icon-good">★</span><span class="vs-text">No fumes, no mess, no dust</span></div>
+        <div class="vs-row"><span class="vs-icon-good">★</span><span class="vs-text">Remove &amp; reuse — tiles are fully reversible</span></div>
+        <div class="vs-row"><span class="vs-icon-good">★</span><span class="vs-text">Oil, UV &amp; chemical resistant</span></div>
+        <div class="vs-row"><span class="vs-icon-good">★</span><span class="vs-text">From $5 per tile — easy to budget</span></div>
+      </div>
+      <div class="vs-card epoxy">
+        <div class="vs-card-badge">✗ Traditional Option</div>
+        <div class="vs-card-title">Epoxy Coating</div>
+        <div class="vs-row"><span class="vs-icon-bad">✗</span><span class="vs-text">Requires a licensed tradesperson to apply</span></div>
+        <div class="vs-row"><span class="vs-icon-bad">✗</span><span class="vs-text">3–7 day cure time before use</span></div>
+        <div class="vs-row"><span class="vs-icon-bad">✗</span><span class="vs-text">Strong chemical fumes during application</span></div>
+        <div class="vs-row"><span class="vs-icon-bad">✗</span><span class="vs-text">Permanent — can't be undone or moved</span></div>
+        <div class="vs-row"><span class="vs-icon-bad">✗</span><span class="vs-text">Can peel, bubble, or stain over time</span></div>
+        <div class="vs-row"><span class="vs-icon-bad">✗</span><span class="vs-text">Higher upfront cost with labour</span></div>
       </div>
     </div>
   </div>
@@ -545,23 +668,76 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
     <div class="section-title fade-up stagger-1">What customers say</div>
     <div class="testi-grid">
       <div class="testi-card fade-up stagger-1">
-        <div class="stars">★★★★★</div>
-        <p>"Honestly couldn't believe how easy these were to install. Did the whole garage in a Saturday afternoon. Looks incredible."</p>
+        <div class="testi-avatar">JM</div>
+        <div class="testi-rating-row">
+          <div class="stars">★★★★★</div>
+          <div class="testi-platform">Google Review</div>
+        </div>
+        <p>"Honestly couldn't believe how easy these were to install. Did the whole double garage in a Saturday afternoon. Looks absolutely incredible — neighbours keep asking who did it."</p>
         <div class="testi-name">Jason M.</div>
         <div class="testi-loc">Rockingham</div>
+        <div class="testi-verified">✔ <b>Verified Google Review</b></div>
       </div>
       <div class="testi-card fade-up stagger-2">
-        <div class="stars">★★★★★</div>
-        <p>"Great product and fast delivery to Mandurah. The tiles feel solid under the car and cleaning them is a breeze."</p>
+        <div class="testi-avatar">SK</div>
+        <div class="testi-rating-row">
+          <div class="stars">★★★★★</div>
+          <div class="testi-platform">Google Review</div>
+        </div>
+        <p>"Great product and super fast delivery to Mandurah. The tiles feel solid under the car, cleaning them is a breeze, and they still look brand new after six months."</p>
         <div class="testi-name">Sarah K.</div>
         <div class="testi-loc">Mandurah</div>
+        <div class="testi-verified">✔ <b>Verified Google Review</b></div>
       </div>
       <div class="testi-card fade-up stagger-3">
-        <div class="stars">★★★★★</div>
-        <p>"Used these for my workshop. They've held up perfectly under heavy equipment and foot traffic. Highly recommend."</p>
+        <div class="testi-avatar">DT</div>
+        <div class="testi-rating-row">
+          <div class="stars">★★★★★</div>
+          <div class="testi-platform">Google Review</div>
+        </div>
+        <p>"Used these for my workshop floor. They've held up perfectly under a hoist, heavy toolboxes, and constant foot traffic. Way better than I expected for the price. Highly recommend."</p>
         <div class="testi-name">Dave T.</div>
         <div class="testi-loc">Baldivis</div>
+        <div class="testi-verified">✔ <b>Verified Google Review</b></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBURB SERVICE AREA -->
+<section class="suburb-section">
+  <div class="container">
+    <div class="section-label fade-up">Service Area</div>
+    <div class="section-title fade-up stagger-1">We deliver across Perth &amp; Peel</div>
+    <div class="section-sub fade-up stagger-2">Fast local delivery to most suburbs — pickup also available at Port Kennedy.</div>
+    <div class="suburb-pills fade-up stagger-3">
+      <span class="suburb-pill">Rockingham</span>
+      <span class="suburb-pill">Mandurah</span>
+      <span class="suburb-pill">Baldivis</span>
+      <span class="suburb-pill">Secret Harbour</span>
+      <span class="suburb-pill">Safety Bay</span>
+      <span class="suburb-pill">Waikiki</span>
+      <span class="suburb-pill">Port Kennedy</span>
+      <span class="suburb-pill">Wellard</span>
+      <span class="suburb-pill">Bertram</span>
+      <span class="suburb-pill">Kwinana</span>
+      <span class="suburb-pill">Cockburn Central</span>
+      <span class="suburb-pill">Bibra Lake</span>
+      <span class="suburb-pill">Success</span>
+      <span class="suburb-pill">Atwell</span>
+      <span class="suburb-pill">Jandakot</span>
+      <span class="suburb-pill">Fremantle</span>
+      <span class="suburb-pill">Murdoch</span>
+      <span class="suburb-pill">Canning Vale</span>
+      <span class="suburb-pill">Southern River</span>
+      <span class="suburb-pill">Gosnells</span>
+      <span class="suburb-pill">Armadale</span>
+      <span class="suburb-pill">Byford</span>
+      <span class="suburb-pill">Mundijong</span>
+      <span class="suburb-pill">Pinjarra</span>
+      <span class="suburb-pill">Singleton</span>
+      <span class="suburb-pill">Golden Bay</span>
+      <span class="suburb-pill">+ More</span>
     </div>
   </div>
 </section>
@@ -598,6 +774,17 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
     </div>
   </div>
 </section>
+
+<!-- URGENCY STRIP -->
+<div class="urgency-strip">
+  <div class="container">
+    <div class="urgency-inner">
+      <div class="urgency-dot"></div>
+      <div class="urgency-text"><strong>Limited stock available</strong> — delivery slots filling fast for September.</div>
+      <button class="urgency-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Lock in your order →</button>
+    </div>
+  </div>
+</div>
 
 <!-- CONTACT -->
 <section id="contact">

@@ -27,7 +27,8 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6}
 
 /* ── NAV ── */
-nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px}
+nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px;height:64px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:100%}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:16px;color:var(--text)}
 .nav-logo img{height:36px;width:auto}
 .nav-links{display:flex;gap:8px;align-items:center}
@@ -142,6 +143,22 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.95);backdrop-fil
 .btn-secondary{background:transparent;color:var(--text);border:1px solid var(--border);padding:14px 28px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;transition:border-color .2s}
 .btn-secondary:hover{border-color:#888}
 
+/* ── BENEFITS STRIP ── */
+.benefits-strip{background:var(--bg2);border-bottom:1px solid var(--border);padding:18px 0}
+.benefits-strip .container{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:0}
+.benefit-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--grey);padding:6px 22px;border-right:1px solid var(--border)}
+.benefit-item:last-child{border-right:none}
+.benefit-item-icon{color:var(--accent);font-size:15px;flex-shrink:0}
+@media(max-width:640px){.benefits-strip .container{gap:4px 0}.benefit-item{padding:6px 14px;font-size:12px}.benefit-item:nth-child(even){border-right:none}.benefit-item:nth-child(odd):not(:last-child){border-right:1px solid var(--border)}}
+@media(max-width:400px){.benefit-item{border-right:none!important;width:50%;justify-content:center;text-align:center}}
+
+/* ── URGENCY ── */
+.prod-urgency{background:rgba(212,160,23,.06);border:1px solid rgba(212,160,23,.18);border-radius:var(--radius);padding:18px 24px;margin-top:28px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.urgency-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;flex-shrink:0;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+.prod-urgency-text{font-size:14px;font-weight:600;color:var(--text);flex:1}
+.prod-urgency-text strong{color:var(--accent)}
+
 /* ── MOBILE CTA BAR ── */
 .mobile-cta-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:150;background:rgba(20,20,20,.97);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:10px 16px;gap:10px}
 @media(max-width:768px){.mobile-cta-bar{display:flex}body{padding-bottom:70px}}
@@ -168,20 +185,22 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="./index.html">
-    <img src="./logo.png" alt="Garage Pro logo" onerror="this.style.display='none'"/>
-  </a>
-  <div class="nav-links">
-    <span><a href="./index.html">Home</a></span>
-    <span><a href="./index.html#portfolio">Gallery</a></span>
-    <span><a href="#colours">Colours</a></span>
-    <span><a href="#patterns">Patterns</a></span>
-    <span><a href="./install.html">Install Guide</a></span>
-    <a class="nav-cta" href="./index.html#contact">Get a Quote →</a>
+  <div class="nav-inner">
+    <a class="nav-logo" href="./index.html">
+      <img src="./logo.png" alt="Garage Pro logo" onerror="this.style.display='none'"/>
+    </a>
+    <div class="nav-links">
+      <span><a href="./index.html">Home</a></span>
+      <span><a href="./index.html#portfolio">Gallery</a></span>
+      <span><a href="#colours">Colours</a></span>
+      <span><a href="#patterns">Patterns</a></span>
+      <span><a href="./install.html">Install Guide</a></span>
+      <a class="nav-cta" href="./index.html#contact">Get a Quote →</a>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open menu">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
 
 <!-- MOBILE MENU -->
@@ -203,6 +222,18 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
     <p>Heavy-duty interlocking tiles in 15 colours and 9 layout patterns — installed in hours, built to last decades.</p>
   </div>
 </section>
+
+<!-- BENEFITS STRIP -->
+<div class="benefits-strip">
+  <div class="container">
+    <div class="benefit-item"><span class="benefit-item-icon">✓</span> No Glue Needed</div>
+    <div class="benefit-item"><span class="benefit-item-icon">✓</span> No Tools Required</div>
+    <div class="benefit-item"><span class="benefit-item-icon">✓</span> Drive-On Same Day</div>
+    <div class="benefit-item"><span class="benefit-item-icon">✓</span> Oil &amp; UV Resistant</div>
+    <div class="benefit-item"><span class="benefit-item-icon">✓</span> Perth Local Stock</div>
+    <div class="benefit-item"><span class="benefit-item-icon">✓</span> From $5 Per Tile</div>
+  </div>
+</div>
 
 <!-- SPECS -->
 <section id="specs">
@@ -556,6 +587,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
     <div class="cta-buttons fade-up stagger-3">
       <a class="btn-primary" href="./index.html#contact">Get a Free Quote →</a>
       <a class="btn-secondary" href="./index.html#calculator">Try the Calculator</a>
+    </div>
+    <div class="prod-urgency fade-up stagger-4">
+      <div class="urgency-dot"></div>
+      <div class="prod-urgency-text"><strong>Limited stock available</strong> — delivery slots filling fast. Order now to lock in your colour and quantity.</div>
     </div>
   </div>
 </section>

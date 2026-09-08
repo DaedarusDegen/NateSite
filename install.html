@@ -27,7 +27,8 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6}
 
 /* ── NAV ── */
-nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px}
+nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px;height:64px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:100%}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:16px;color:var(--text)}
 .nav-logo img{height:36px;width:auto}
 .nav-links{display:flex;gap:8px;align-items:center}
@@ -60,6 +61,14 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.95);backdrop-fil
 
 /* ── CONTAINER ── */
 .container{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* ── REASSURANCE STRIP ── */
+.reassurance-strip{background:var(--bg2);border-bottom:1px solid var(--border);padding:18px 0}
+.reassurance-strip .container{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:0}
+.reassurance-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--grey);padding:6px 22px;border-right:1px solid var(--border)}
+.reassurance-item:last-child{border-right:none}
+.reassurance-item-icon{color:var(--accent);font-size:15px;flex-shrink:0}
+@media(max-width:600px){.reassurance-strip .container{gap:4px 0}.reassurance-item{padding:6px 14px;font-size:12px}.reassurance-item:last-child{border-right:none}}
 
 /* ── SECTION LABELS ── */
 .section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
@@ -131,20 +140,22 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="./index.html">
-    <img src="./logo.png" alt="Garage Pro logo" onerror="this.style.display='none'"/>
-  </a>
-  <div class="nav-links">
-    <span><a href="./index.html">Home</a></span>
-    <span><a href="./products.html">Products</a></span>
-    <span><a href="./products.html#colours">Colours</a></span>
-    <span><a href="./products.html#patterns">Patterns</a></span>
-    <span><a href="#steps" style="color:var(--accent)">Install Guide</a></span>
-    <a class="nav-cta" href="./index.html#contact">Get a Quote →</a>
+  <div class="nav-inner">
+    <a class="nav-logo" href="./index.html">
+      <img src="./logo.png" alt="Garage Pro logo" onerror="this.style.display='none'"/>
+    </a>
+    <div class="nav-links">
+      <span><a href="./index.html">Home</a></span>
+      <span><a href="./products.html">Products</a></span>
+      <span><a href="./products.html#colours">Colours</a></span>
+      <span><a href="./products.html#patterns">Patterns</a></span>
+      <span><a href="#steps" style="color:var(--accent)">Install Guide</a></span>
+      <a class="nav-cta" href="./index.html#contact">Get a Quote →</a>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open menu">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
 
 <!-- MOBILE MENU -->
@@ -166,6 +177,17 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
     <p>Our tiles click together by hand or with a rubber mallet — no glue, no curing time. Here's how to do it.</p>
   </div>
 </section>
+
+<!-- REASSURANCE STRIP -->
+<div class="reassurance-strip">
+  <div class="container">
+    <div class="reassurance-item"><span class="reassurance-item-icon">✓</span> No Glue Required</div>
+    <div class="reassurance-item"><span class="reassurance-item-icon">✓</span> No Power Tools</div>
+    <div class="reassurance-item"><span class="reassurance-item-icon">✓</span> Single Garage: ~2 hrs</div>
+    <div class="reassurance-item"><span class="reassurance-item-icon">✓</span> Double Garage: ~3–4 hrs</div>
+    <div class="reassurance-item"><span class="reassurance-item-icon">✓</span> Drive On Same Day</div>
+  </div>
+</div>
 
 <!-- STEPS -->
 <section id="steps">
