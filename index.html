@@ -22,6 +22,8 @@
 <meta name="twitter:image" content="./photos/supra-red-black.png"/>
 <!-- Favicon -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏁</text></svg>"/>
+<!-- Preload LCP hero image — tells browser to fetch it immediately, in parallel with CSS -->
+<link rel="preload" as="image" href="./product-photos/IMG_3686.jpg" fetchpriority="high"/>
 <!-- LocalBusiness structured data -->
 <script type="application/ld+json">
 {
@@ -97,8 +99,8 @@ section{padding:80px 20px}
 
 /* ── HERO ── */
 #hero{min-height:100svh;display:flex;align-items:center;padding-top:100px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0}
-.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;transform-origin:center;animation:kenburns 18s ease-in-out infinite alternate}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0a0a0a 0%,#181208 50%,#0d0d0d 100%)}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;transform-origin:center;animation:kenburns 18s ease-in-out infinite alternate;opacity:0;transition:opacity .5s ease}
 @keyframes kenburns{
   0%  {transform:scale(1)    translateX(0)     translateY(0)}
   33% {transform:scale(1.06) translateX(-1%)   translateY(-0.5%)}
@@ -417,6 +419,11 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 @media(min-width:769px) and (max-width:1024px){
   .testi-grid{grid-template-columns:repeat(2,1fr)}
 }
+/* ── PERF: skip rendering off-screen sections until scrolled to ── */
+#portfolio,#calculator,#faq,#testimonials,.suburb-section,#how-it-works{
+  content-visibility:auto;
+  contain-intrinsic-size:auto 500px
+}
 </style>
 </head>
 <body>
@@ -456,7 +463,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg">
-    <img src="./product-photos/IMG_3686.jpg" alt="Premium garage tile showroom with Toyota Supra and hex lighting" loading="eager" fetchpriority="high"/>
+    <img src="./product-photos/IMG_3686.jpg" alt="Premium garage tile showroom with Toyota Supra and hex lighting" loading="eager" fetchpriority="high" decoding="async"/>
   </div>
   <div class="container">
     <div class="hero-content">
@@ -943,6 +950,17 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 </footer>
 
 <script>
+// ── HERO IMAGE FADE-IN ──
+// Reveal the hero image the moment it's loaded/decoded so the placeholder
+// gradient shows instead of a blank white flash during download.
+(function(){
+  var img = document.querySelector('.hero-bg img');
+  if(!img) return;
+  function reveal(){ img.style.opacity = '1'; }
+  if(img.complete && img.naturalWidth){ reveal(); }
+  else { img.addEventListener('load', reveal); img.addEventListener('error', reveal); }
+})();
+
 // ── NAV ──
 function toggleMenu(){
   document.getElementById('hamburger').classList.toggle('open');

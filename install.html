@@ -10,6 +10,7 @@
 <meta property="og:image" content="./product-photos/IMG_3686.jpg"/>
 <meta property="og:type" content="website"/>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏁</text></svg>"/>
+<link rel="preload" as="image" href="./product-photos/IMG_3662.jpg" fetchpriority="high"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -50,8 +51,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.95);backdrop-fil
 @media(max-width:768px){.nav-links span{display:none}.nav-links .nav-cta{display:none}.hamburger{display:flex}}
 
 /* ── HERO ── */
-.install-hero{position:relative;height:55vh;min-height:360px;display:flex;align-items:flex-end;overflow:hidden}
-.install-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.install-hero{position:relative;height:55vh;min-height:360px;display:flex;align-items:flex-end;overflow:hidden;background:linear-gradient(135deg,#0a0a0a 0%,#181208 50%,#0d0d0d 100%)}
+.install-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%;opacity:0;transition:opacity .5s ease}
 .install-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,13,1) 0%,rgba(13,13,13,.7) 35%,rgba(13,13,13,.2) 70%,transparent 100%)}
 .install-hero-content{position:relative;z-index:1;padding:48px 40px;max-width:680px}
 .install-hero-content .label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
@@ -129,6 +130,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 .mcta-call{flex:1;background:var(--bg3);color:var(--text);text-align:center;padding:11px;border-radius:9px;text-decoration:none;font-size:14px;font-weight:600;border:1px solid var(--border)}
 .mcta-quote{flex:2;background:var(--accent);color:#000;text-align:center;padding:11px;border-radius:9px;text-decoration:none;font-size:14px;font-weight:700;border:none;cursor:pointer}
 
+/* ── PERF: skip rendering off-screen sections until scrolled to ── */
+#steps,#tools,#install-cta{
+  content-visibility:auto;
+  contain-intrinsic-size:auto 500px
+}
+
 /* ── FADE ANIMATIONS ── */
 .fade-up{opacity:0;transform:translateY(24px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
 .fade-up.visible{opacity:1;transform:none}
@@ -170,7 +177,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 
 <!-- HERO -->
 <section class="install-hero">
-  <img src="./product-photos/IMG_3662.jpg" alt="Professional garage tile installation — orange and charcoal pattern" loading="eager"/>
+  <img src="./product-photos/IMG_3662.jpg" alt="Professional garage tile installation — orange and charcoal pattern" loading="eager" fetchpriority="high" decoding="async"/>
   <div class="install-hero-content">
     <div class="label">DIY Installation Guide</div>
     <h1>Installed in hours.<br/>No trades needed.</h1>
@@ -355,6 +362,15 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 </div>
 
 <script>
+// ── HERO IMAGE FADE-IN ──
+(function(){
+  var img = document.querySelector('.install-hero img');
+  if(!img) return;
+  function reveal(){ img.style.opacity = '1'; }
+  if(img.complete && img.naturalWidth){ reveal(); }
+  else { img.addEventListener('load', reveal); img.addEventListener('error', reveal); }
+})();
+
 // ── MOBILE MENU ──
 function toggleMenu(){
   document.getElementById('hamburger').classList.toggle('open');
