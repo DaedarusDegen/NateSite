@@ -76,39 +76,6 @@ nav{
 }
 canvas{display:block;width:100%;height:100%;}
 
-/* ── DIMENSION OVERLAY ─────────────────── */
-#dim-overlay{
-  position:absolute;inset:0;pointer-events:none;
-  opacity:0;transition:opacity .35s ease;
-  z-index:3;
-}
-#canvas-wrap:hover #dim-overlay{ opacity:1; }
-
-/* hide dims during floor-grid mode */
-#dim-overlay.hidden{ display:none; }
-
-.dim-line{
-  stroke:#d4a017;stroke-width:1;fill:none;
-  stroke-dasharray:3 3;opacity:.7;
-}
-.dim-line-solid{
-  stroke:#d4a017;stroke-width:1;fill:none;opacity:.7;
-}
-.dim-cap{
-  stroke:#d4a017;stroke-width:1.5;opacity:.85;
-}
-.dim-label{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  font-size:11px;font-weight:700;letter-spacing:.08em;
-  text-transform:uppercase;fill:#fff;
-}
-.dim-badge{
-  fill:rgba(0,0,0,.72);rx:6;
-}
-.dim-unit{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  font-size:9px;font-weight:500;fill:#d4a017;letter-spacing:.04em;
-}
 
 /* ── PANEL ─────────────────────────────── */
 #panel{
@@ -306,42 +273,6 @@ canvas{display:block;width:100%;height:100%;}
     </div>
     <div id="hint">Drag to rotate &nbsp;·&nbsp; Scroll to zoom</div>
 
-    <!-- Dimension annotation overlay — visible on hover -->
-    <svg id="dim-overlay" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-
-      <!-- WIDTH: 400mm — horizontal, bottom of tile -->
-      <!-- dashed leader from left edge to right edge, approx y=76% -->
-      <line class="dim-line" x1="22" y1="76" x2="78" y2="76"/>
-      <!-- end caps -->
-      <line class="dim-cap" x1="22" y1="73" x2="22" y2="79"/>
-      <line class="dim-cap" x1="78" y1="73" x2="78" y2="79"/>
-      <!-- label background -->
-      <rect x="42" y="71" width="16" height="10" rx="2" fill="rgba(0,0,0,.72)"/>
-      <!-- label -->
-      <text class="dim-label" x="50" y="78.5" text-anchor="middle">400</text>
-      <!-- unit below -->
-      <text class="dim-unit" x="50" y="85" text-anchor="middle">WIDTH · MM</text>
-
-      <!-- DEPTH: 400mm — diagonal on the right side, perspective-ish -->
-      <line class="dim-line" x1="78" y1="76" x2="88" y2="55"/>
-      <!-- end caps perpendicular -->
-      <line class="dim-cap" x1="75.5" y1="55.5" x2="80" y2="53"/>
-      <line class="dim-cap" x1="86.5" y1="78.5" x2="90" y2="75.5"/>
-      <!-- label background -->
-      <rect x="80" y="60" width="16" height="10" rx="2" fill="rgba(0,0,0,.72)"/>
-      <text class="dim-label" x="88" y="67.5" text-anchor="middle">400</text>
-      <text class="dim-unit" x="88" y="75" text-anchor="middle">DEPTH · MM</text>
-
-      <!-- THICKNESS: 36mm — right edge, vertical -->
-      <line class="dim-line" x1="82" y1="76" x2="82" y2="68"/>
-      <line class="dim-cap" x1="79" y1="76" x2="85" y2="76"/>
-      <line class="dim-cap" x1="79" y1="68" x2="85" y2="68"/>
-      <!-- label background -->
-      <rect x="84" y="68.5" width="14" height="9" rx="2" fill="rgba(0,0,0,.72)"/>
-      <text class="dim-label" x="91" y="75" text-anchor="middle">36</text>
-      <text class="dim-unit" x="91" y="81" text-anchor="middle">THK · MM</text>
-
-    </svg>
   </div>
 
   <div id="panel">
@@ -379,8 +310,7 @@ canvas{display:block;width:100%;height:100%;}
         <span class="p-label">Pattern</span>
         <button class="ctrl-btn" data-pat="solid">Solid</button>
         <button class="ctrl-btn active" data-pat="checker">Checker</button>
-        <button class="ctrl-btn" data-pat="stripe-h">H Stripe</button>
-        <button class="ctrl-btn" data-pat="stripe-v">V Stripe</button>
+        <button class="ctrl-btn" data-pat="stripe">Stripe</button>
         <button class="ctrl-btn" data-pat="border">Border</button>
         <button class="ctrl-btn" data-pat="diagonal">Diagonal</button>
         <button class="ctrl-btn" data-pat="custom">Custom</button>
@@ -456,11 +386,16 @@ COLOURS.forEach((c,i) => {
   const s = document.createElement('div');
   s.className = 'swatch' + (i===0 ? ' active' : '');
   s.style.background = c.hex;
-  // Light swatches need a faint inner stroke so they're visible on dark bg
+  // Visibility ring: outer white ring for dark swatches so they don't vanish
+  // on the dark panel bg; inner dark ring for light swatches for edge definition
   const lum = parseInt(c.hex.slice(1,3),16)*0.299 +
                parseInt(c.hex.slice(3,5),16)*0.587 +
                parseInt(c.hex.slice(5,7),16)*0.114;
-  if(lum > 140) s.style.boxShadow = 'inset 0 0 0 1px rgba(0,0,0,.18)';
+  if(lum > 140) {
+    s.style.boxShadow = 'inset 0 0 0 1px rgba(0,0,0,.22)';
+  } else {
+    s.style.boxShadow = '0 0 0 1.5px rgba(255,255,255,0.22)';
+  }
   s.title = c.name;
   s.addEventListener('click', () => setColour(i));
   swatchEl.appendChild(s);
@@ -740,7 +675,7 @@ function buildSingleTile(hex) {
 ═══════════════════════════════════════════ */
 let patGridN    = 3;
 let patType     = 'checker';
-let patBIdx     = 2;          // COLOURS index for slot B (Dark Grey)
+let patBIdx     = 6;          // COLOURS index for slot B (Silver — clearly visible against dark tiles)
 let patCustomMap = null;      // flat array of hex per tile, length patGridN²
 let patPaintSlot = 'A';       // 'A' or 'B' — which slot the paint brush uses
 let _patCache   = {};         // hex → {tex,topMat,sideMat} — reused across rebuilds
@@ -756,8 +691,7 @@ function genPatternMap(pattern, N, hexA, hexB) {
       let useB = false;
       switch(pattern) {
         case 'checker':  useB = (r + c) % 2 !== 0; break;
-        case 'stripe-h': useB = r % 2 !== 0; break;
-        case 'stripe-v': useB = c % 2 !== 0; break;
+        case 'stripe':   useB = r % 2 !== 0; break;
         case 'border':   useB = r===0 || r===N-1 || c===0 || c===N-1; break;
         case 'diagonal': useB = Math.floor((r + c) / 2) % 2 !== 0; break;
       }
@@ -904,7 +838,7 @@ canvas.addEventListener('pointermove', e => {
   const dx = e.clientX - pStart.x, dy = e.clientY - pStart.y;
   pStart = {x:e.clientX, y:e.clientY};
   sphTgt.theta -= dx * 0.011;
-  sphTgt.phi = Math.max(0.05, Math.min(1.48, sphTgt.phi + dy * 0.009));
+  sphTgt.phi = Math.max(0.05, Math.min(1.48, sphTgt.phi - dy * 0.009));
 });
 canvas.addEventListener('pointerup', () => { pointerDown = false; });
 canvas.addEventListener('wheel', e => {
@@ -924,7 +858,6 @@ function setViewMode(mode) {
   floorGroup.visible  = mode === 'floor';
   document.getElementById('btn-single').classList.toggle('active', mode==='single');
   document.getElementById('btn-floor').classList.toggle('active',  mode==='floor');
-  document.getElementById('dim-overlay').classList.toggle('hidden', mode==='floor');
   document.getElementById('pat-controls').classList.toggle('visible', mode==='floor');
 
   if(mode === 'single') {
@@ -932,6 +865,7 @@ function setViewMode(mode) {
     sphTgt.r   = INIT_SINGLE.r;
     tgtLook.copy(LOOK_SINGLE);
   } else {
+    syncPatUI();
     rebuildFloor();
     patCameraForGrid(patGridN);
   }
@@ -953,7 +887,7 @@ let activeIdx = 0;
 const flash = document.getElementById('colour-flash');
 
 function setColour(i) {
-  if(i === activeIdx) return;
+  const wasActive = (i === activeIdx);
   activeIdx = i;
   document.querySelectorAll('.swatch').forEach((s,j) => s.classList.toggle('active', j===i));
   document.getElementById('colour-name').textContent = COLOURS[i].name;
@@ -961,14 +895,11 @@ function setColour(i) {
   flash.style.background = 'rgba(212,160,23,.06)';
   setTimeout(() => { flash.style.background = 'transparent'; }, 120);
 
-  buildSingleTile(COLOURS[i].hex);
-  // In floor mode rebuild using the full pattern logic
+  if(!wasActive) buildSingleTile(COLOURS[i].hex);
+  // In floor mode always rebuild (color A affects the pattern)
   if(viewMode === 'floor') {
-    // If custom map exists, refresh cells that used old hexA
-    if(patType === 'custom' && patCustomMap) {
-      renderMiniGrid(); // re-render so paint-a-dot updates
-    }
-    syncPatUI();       // update paint-dot colors
+    if(patType === 'custom' && patCustomMap) renderMiniGrid();
+    syncPatUI();
     rebuildFloor();
   }
 }
@@ -1039,6 +970,11 @@ COLOURS.forEach((col, i) => {
   sw.className = 'b-swatch';
   sw.style.background = col.hex;
   sw.title = col.name;
+  // Same visibility-ring logic as the main swatches
+  const blum = parseInt(col.hex.slice(1,3),16)*0.299 +
+               parseInt(col.hex.slice(3,5),16)*0.587 +
+               parseInt(col.hex.slice(5,7),16)*0.114;
+  sw.style.boxShadow = blum > 140 ? 'inset 0 0 0 1px rgba(0,0,0,.22)' : '0 0 0 1.5px rgba(255,255,255,0.22)';
   if(i === patBIdx) sw.classList.add('active');
   sw.addEventListener('click', () => {
     patBIdx = i;
