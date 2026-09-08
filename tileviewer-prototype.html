@@ -4,8 +4,6 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Tile Viewer — Garage Pro</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&display=swap"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -21,8 +19,8 @@
   --accent2:#e8b420;
   --accent-dim:rgba(212,160,23,.12);
   --accent-ring:rgba(212,160,23,.35);
-  --font-display:'Barlow Condensed',system-ui,sans-serif;
-  --font-body:system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-display:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 }
 
 html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:var(--font-body)}
@@ -46,8 +44,8 @@ nav{
 .nav-back:hover{color:var(--text)}
 .nav-back svg{flex-shrink:0;opacity:.6}
 .nav-brand{
-  font-family:var(--font-display);font-size:17px;font-weight:800;
-  letter-spacing:.02em;line-height:1;color:var(--text)
+  font-family:var(--font-display);font-size:15px;font-weight:700;
+  letter-spacing:.01em;line-height:1;color:var(--text)
 }
 .nav-brand em{color:var(--accent);font-style:normal}
 .nav-tag{
@@ -76,7 +74,41 @@ nav{
   background:radial-gradient(ellipse 80% 80% at 50% 50%,transparent 50%,rgba(0,0,0,.55) 100%);
   z-index:2
 }
-canvas{display:block}
+canvas{display:block;width:100%;height:100%;}
+
+/* ── DIMENSION OVERLAY ─────────────────── */
+#dim-overlay{
+  position:absolute;inset:0;pointer-events:none;
+  opacity:0;transition:opacity .35s ease;
+  z-index:3;
+}
+#canvas-wrap:hover #dim-overlay{ opacity:1; }
+
+/* hide dims during floor-grid mode */
+#dim-overlay.hidden{ display:none; }
+
+.dim-line{
+  stroke:#d4a017;stroke-width:1;fill:none;
+  stroke-dasharray:3 3;opacity:.7;
+}
+.dim-line-solid{
+  stroke:#d4a017;stroke-width:1;fill:none;opacity:.7;
+}
+.dim-cap{
+  stroke:#d4a017;stroke-width:1.5;opacity:.85;
+}
+.dim-label{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;fill:#fff;
+}
+.dim-badge{
+  fill:rgba(0,0,0,.72);rx:6;
+}
+.dim-unit{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:9px;font-weight:500;fill:#d4a017;letter-spacing:.04em;
+}
 
 /* ── PANEL ─────────────────────────────── */
 #panel{
@@ -93,8 +125,8 @@ canvas{display:block}
   display:flex;align-items:center;gap:10px;
 }
 .p-label{
-  font-family:var(--font-display);font-size:10px;font-weight:700;
-  letter-spacing:.13em;text-transform:uppercase;color:var(--grey2);
+  font-family:var(--font-display);font-size:10px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--grey2);
   flex-shrink:0;min-width:52px
 }
 #swatches{
@@ -113,9 +145,9 @@ canvas{display:block}
   transform:scale(1.18);
 }
 #colour-name{
-  font-family:var(--font-display);font-size:15px;font-weight:700;
-  letter-spacing:.03em;color:var(--text);
-  min-width:110px;text-align:right;flex-shrink:0;
+  font-family:var(--font-display);font-size:13px;font-weight:700;
+  letter-spacing:.04em;color:var(--text);
+  min-width:100px;text-align:right;flex-shrink:0;
   text-transform:uppercase;
 }
 
@@ -125,8 +157,8 @@ canvas{display:block}
 }
 .ctrl-btn{
   background:var(--bg3);border:1px solid var(--border2);
-  color:var(--grey);font-family:var(--font-display);font-size:12px;
-  font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--grey);font-family:var(--font-display);font-size:11px;
+  font-weight:600;letter-spacing:.04em;text-transform:uppercase;
   padding:7px 14px;border-radius:4px;cursor:pointer;
   transition:color .15s,border-color .15s,background .15s;
   white-space:nowrap;line-height:1;
@@ -138,6 +170,55 @@ canvas{display:block}
   color:var(--accent);
 }
 .ctrl-spacer{flex:1}
+
+/* ── PATTERN BUILDER PANEL ──────────────── */
+#pat-controls{
+  display:none;flex-direction:column;gap:9px;
+  padding-top:9px;border-top:1px solid var(--border);
+}
+#pat-controls.visible{display:flex}
+.pat-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+
+/* B-colour swatch row — smaller dots */
+.b-swatch{
+  width:18px;height:18px;border-radius:50%;cursor:pointer;flex-shrink:0;
+  border:2px solid transparent;outline:2px solid transparent;
+  transition:transform .15s,outline-color .15s,border-color .15s;
+}
+.b-swatch:hover{transform:scale(1.22)}
+.b-swatch.active{
+  border-color:var(--bg2);
+  outline-color:var(--accent);
+  transform:scale(1.18);
+}
+#pat-b-row{ align-items:center }
+#pat-b-name{
+  font-family:var(--font-display);font-size:11px;font-weight:700;
+  letter-spacing:.04em;color:var(--text);text-transform:uppercase;
+  min-width:80px;text-align:right;flex-shrink:0;
+}
+
+/* Mini-grid paint area */
+#mini-grid-wrap{display:none}
+#mini-grid-wrap.visible{display:flex;flex-direction:column;gap:6px}
+#mini-grid{display:grid;gap:3px;flex-shrink:0}
+.mg-cell{
+  width:22px;height:22px;border-radius:3px;cursor:pointer;flex-shrink:0;
+  border:1.5px solid rgba(255,255,255,.06);
+  transition:border-color .1s,transform .1s;
+}
+.mg-cell:hover{border-color:rgba(255,255,255,.35);transform:scale(1.12)}
+
+/* Active paint-colour indicator in custom mode */
+#paint-slot-row{display:flex;align-items:center;gap:6px}
+.paint-slot-btn{
+  font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:3px;border:1.5px solid var(--border2);
+  background:var(--bg3);color:var(--grey2);cursor:pointer;
+  transition:all .12s;display:flex;align-items:center;gap:5px;
+}
+.paint-slot-btn.active{border-color:rgba(212,160,23,.6);color:var(--accent);background:var(--accent-dim)}
+.paint-dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex-shrink:0}
 
 /* Spin indicator */
 #spin-dot{
@@ -196,6 +277,7 @@ canvas{display:block}
   .p-label{min-width:42px;font-size:9px}
   #colour-name{font-size:13px;min-width:90px}
   .nav-tag{display:none}
+  .mg-cell{width:18px;height:18px}
 }
 @media(max-width:380px){
   .p-label{display:none}
@@ -223,6 +305,43 @@ canvas{display:block}
       <div class="loader-text">Loading viewer</div>
     </div>
     <div id="hint">Drag to rotate &nbsp;·&nbsp; Scroll to zoom</div>
+
+    <!-- Dimension annotation overlay — visible on hover -->
+    <svg id="dim-overlay" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- WIDTH: 400mm — horizontal, bottom of tile -->
+      <!-- dashed leader from left edge to right edge, approx y=76% -->
+      <line class="dim-line" x1="22" y1="76" x2="78" y2="76"/>
+      <!-- end caps -->
+      <line class="dim-cap" x1="22" y1="73" x2="22" y2="79"/>
+      <line class="dim-cap" x1="78" y1="73" x2="78" y2="79"/>
+      <!-- label background -->
+      <rect x="42" y="71" width="16" height="10" rx="2" fill="rgba(0,0,0,.72)"/>
+      <!-- label -->
+      <text class="dim-label" x="50" y="78.5" text-anchor="middle">400</text>
+      <!-- unit below -->
+      <text class="dim-unit" x="50" y="85" text-anchor="middle">WIDTH · MM</text>
+
+      <!-- DEPTH: 400mm — diagonal on the right side, perspective-ish -->
+      <line class="dim-line" x1="78" y1="76" x2="88" y2="55"/>
+      <!-- end caps perpendicular -->
+      <line class="dim-cap" x1="75.5" y1="55.5" x2="80" y2="53"/>
+      <line class="dim-cap" x1="86.5" y1="78.5" x2="90" y2="75.5"/>
+      <!-- label background -->
+      <rect x="80" y="60" width="16" height="10" rx="2" fill="rgba(0,0,0,.72)"/>
+      <text class="dim-label" x="88" y="67.5" text-anchor="middle">400</text>
+      <text class="dim-unit" x="88" y="75" text-anchor="middle">DEPTH · MM</text>
+
+      <!-- THICKNESS: 36mm — right edge, vertical -->
+      <line class="dim-line" x1="82" y1="76" x2="82" y2="68"/>
+      <line class="dim-cap" x1="79" y1="76" x2="85" y2="76"/>
+      <line class="dim-cap" x1="79" y1="68" x2="85" y2="68"/>
+      <!-- label background -->
+      <rect x="84" y="68.5" width="14" height="9" rx="2" fill="rgba(0,0,0,.72)"/>
+      <text class="dim-label" x="91" y="75" text-anchor="middle">36</text>
+      <text class="dim-unit" x="91" y="81" text-anchor="middle">THK · MM</text>
+
+    </svg>
   </div>
 
   <div id="panel">
@@ -240,6 +359,67 @@ canvas{display:block}
         <span id="spin-dot"></span>Auto-Spin
       </button>
     </div>
+
+    <!-- ── Pattern builder (visible when Floor Grid mode active) ── -->
+    <div id="pat-controls">
+
+      <!-- Grid size -->
+      <div class="pat-row">
+        <span class="p-label">Grid</span>
+        <button class="ctrl-btn" data-grid="2">2×2</button>
+        <button class="ctrl-btn active" data-grid="3">3×3</button>
+        <button class="ctrl-btn" data-grid="4">4×4</button>
+        <button class="ctrl-btn" data-grid="5">5×5</button>
+        <button class="ctrl-btn" data-grid="6">6×6</button>
+        <span style="font-size:9px;color:var(--grey2);margin-left:auto">max 36 tiles</span>
+      </div>
+
+      <!-- Pattern presets -->
+      <div class="pat-row">
+        <span class="p-label">Pattern</span>
+        <button class="ctrl-btn" data-pat="solid">Solid</button>
+        <button class="ctrl-btn active" data-pat="checker">Checker</button>
+        <button class="ctrl-btn" data-pat="stripe-h">H Stripe</button>
+        <button class="ctrl-btn" data-pat="stripe-v">V Stripe</button>
+        <button class="ctrl-btn" data-pat="border">Border</button>
+        <button class="ctrl-btn" data-pat="diagonal">Diagonal</button>
+        <button class="ctrl-btn" data-pat="custom">Custom</button>
+      </div>
+
+      <!-- Color A label (the main swatch row above controls A) -->
+      <div class="pat-row" style="gap:6px">
+        <span class="p-label">Color A</span>
+        <span style="font-size:10px;color:var(--grey2)">← select above</span>
+      </div>
+
+      <!-- Color B -->
+      <div class="pat-row" id="pat-b-row">
+        <span class="p-label">Color B</span>
+        <div id="pat-b-swatches" style="display:flex;gap:4px;flex-wrap:wrap;flex:1"></div>
+        <span id="pat-b-name" style="font-size:11px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.04em;flex-shrink:0;min-width:80px;text-align:right"></span>
+      </div>
+
+      <!-- Custom mini-grid paint canvas -->
+      <div id="mini-grid-wrap">
+        <div class="pat-row" style="gap:8px;align-items:flex-start">
+          <span class="p-label" style="padding-top:2px">Paint</span>
+          <div>
+            <div id="mini-grid"></div>
+            <div id="paint-slot-row" style="margin-top:6px">
+              <span style="font-size:9px;color:var(--grey2);text-transform:uppercase;letter-spacing:.08em;margin-right:6px">Using</span>
+              <button class="paint-slot-btn active" id="paint-a-btn">
+                A <span class="paint-dot" id="paint-a-dot"></span>
+              </button>
+              <button class="paint-slot-btn" id="paint-b-btn">
+                B <span class="paint-dot" id="paint-b-dot"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /pat-controls -->
+
   </div>
 </div>
 
@@ -355,46 +535,86 @@ scene.add(groundMesh);
 
 /* ═══════════════════════════════════════════
    SURFACE TEXTURE GENERATOR
-   Produces a raised-square grid: each 32px cell has
-   a beveled face to catch the key light correctly.
+   L1 (Manhattan) distance from tile centre gives TRUE
+   concentric diamond (tilted-square) isocontours.
+   In each quadrant ribs are parallel diagonal lines;
+   adjacent quadrants are perpendicular — exactly the
+   concentric diamond pattern of the real tile.
+     • Flat raised border frame with chamfer
+     • Concentric diamond ribs via |dx|+|dy|
+     • Small drainage holes on the diagonal grid
+   Per-pixel createImageData for smooth gradients.
 ═══════════════════════════════════════════ */
 function makeTileTexture(hex) {
-  const SIZE=512, CELL=32, PAD=3;
+  const SIZE = 512;
   const cvs = document.createElement('canvas');
   cvs.width = cvs.height = SIZE;
   const ctx = cvs.getContext('2d');
 
-  const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
-  const lum = 0.299*r + 0.587*g + 0.114*b;
-  // Boost bevel contrast for very dark tiles so the pattern stays legible
-  const bv = lum < 55 ? 2.2 : lum < 110 ? 1.5 : 1.0;
-  const ch = v => Math.max(0, Math.min(255, Math.round(v)));
-  const rgb = (dr,dg,db) => `rgb(${ch(r+dr)},${ch(g+dg)},${ch(b+db)})`;
+  const r0 = parseInt(hex.slice(1,3), 16);
+  const g0 = parseInt(hex.slice(3,5), 16);
+  const b0 = parseInt(hex.slice(5,7), 16);
+  const lum = 0.299*r0 + 0.587*g0 + 0.114*b0;
+  const bv = lum < 55 ? 2.8 : lum < 110 ? 2.0 : 1.25;
 
-  // Recessed channel background (darker than tile colour)
-  ctx.fillStyle = rgb(-36*bv, -36*bv, -36*bv);
-  ctx.fillRect(0, 0, SIZE, SIZE);
+  const img = ctx.createImageData(SIZE, SIZE);
+  const data = img.data;
 
-  for(let x=0; x<SIZE; x+=CELL) {
-    for(let y=0; y<SIZE; y+=CELL) {
-      const sx=x+PAD, sy=y+PAD, sw=CELL-PAD*2, sh=CELL-PAD*2;
+  const BORDER = 0.055;
+  // ~9 ring crests from centre to border inner edge (cardinal direction)
+  const N_RINGS = 9;
+  const PERIOD  = (0.5 - BORDER) / N_RINGS; // ≈ 0.0494 in normalised space
+  // Drainage holes every 2 rings in the diagonal coordinate grid
+  const HOLE_P  = PERIOD * 2.0;
+  const HOLE_F  = 0.20;  // fraction of hole-period that is the slot
 
-      // Main raised face — base tile colour
-      ctx.fillStyle = hex;
-      ctx.fillRect(sx, sy, sw, sh);
+  for (let py = 0; py < SIZE; py++) {
+    for (let px = 0; px < SIZE; px++) {
+      const i  = (py * SIZE + px) * 4;
+      const nx = px / SIZE;
+      const ny = py / SIZE;
 
-      // Top-left highlight bevel — catches key light
-      ctx.fillStyle = rgb(28*bv, 28*bv, 26*bv);
-      ctx.fillRect(sx, sy, sw, 2.5);
-      ctx.fillRect(sx, sy, 2.5, sh);
+      const edgeL = nx / BORDER;
+      const edgeR = (1 - nx) / BORDER;
+      const edgeT = ny / BORDER;
+      const edgeB = (1 - ny) / BORDER;
+      const inBorder = edgeL < 1 || edgeR < 1 || edgeT < 1 || edgeB < 1;
 
-      // Bottom-right shadow bevel
-      ctx.fillStyle = rgb(-26*bv, -26*bv, -26*bv);
-      ctx.fillRect(sx, sy+sh-2.5, sw, 2.5);
-      ctx.fillRect(sx+sw-2.5, sy, 2.5, sh);
+      let h; // 0 = deepest recess, 1 = highest crest
+
+      if (inBorder) {
+        // Raised flat frame, chamfered at outer lip
+        const inner = Math.min(edgeL, edgeR, edgeT, edgeB);
+        h = inner < 0.18 ? 0.28 + inner * ((0.62 - 0.28) / 0.18) : 0.62;
+      } else {
+        const dx = nx - 0.5;
+        const dy = ny - 0.5;
+
+        // L1 (Manhattan) distance from tile centre
+        // Isocontours are true tilted-square diamonds
+        const l1 = Math.abs(dx) + Math.abs(dy);
+        const phase = (l1 / PERIOD) % 1.0;
+        // Smooth cosine rib profile: crest at phase=0, trough at phase=0.5
+        const ribH = (Math.cos(phase * Math.PI * 2) + 1) * 0.5;
+
+        // Drainage holes at intersections of the diagonal coordinate grid
+        // u = dx+dy, v = dx-dy are the two 45° axes aligned with the ribs
+        const u = (((dx + dy) / HOLE_P) % 1 + 1) % 1;
+        const v = (((dx - dy) / HOLE_P) % 1 + 1) % 1;
+        const isHole = u < HOLE_F && v < HOLE_F && l1 > PERIOD * 0.5;
+
+        h = isHole ? 0.03 : ribH;
+      }
+
+      const boost = (h - 0.5) * 82 * bv;
+      data[i]   = Math.max(0, Math.min(255, Math.round(r0 + boost)));
+      data[i+1] = Math.max(0, Math.min(255, Math.round(g0 + boost)));
+      data[i+2] = Math.max(0, Math.min(255, Math.round(b0 + boost)));
+      data[i+3] = 255;
     }
   }
 
+  ctx.putImageData(img, 0, 0);
   const tex = new THREE.CanvasTexture(cvs);
   tex.encoding = THREE.sRGBEncoding;
   return tex;
@@ -432,8 +652,15 @@ function makeMaterials(hex) {
 
 // BoxGeometry face order: [+X, -X, +Y, -Y, +Z, -Z] = [right, left, top, bottom, front, back]
 function buildSingleTile(hex) {
-  // Dispose previous
-  singleGroup.children.slice().forEach(c => { singleGroup.remove(c); if(c.geometry) c.geometry.dispose(); });
+  // Dispose previous — handles both Mesh children and Group children
+  singleGroup.children.slice().forEach(c => {
+    singleGroup.remove(c);
+    if(c.isGroup) {
+      c.children.forEach(m => { if(m.geometry) m.geometry.dispose(); });
+    } else if(c.geometry) {
+      c.geometry.dispose();
+    }
+  });
   if(_sTex){ _sTex.dispose(); _sTop.dispose(); _sSide.dispose(); }
 
   const {tex,topMat,sideMat} = makeMaterials(hex);
@@ -445,50 +672,196 @@ function buildSingleTile(hex) {
   body.castShadow = body.receiveShadow = true;
   singleGroup.add(body);
 
-  // Interlocking connector tabs — +X edge (right side), 6 tabs
-  // These are the male connectors visible on two edges of every tile
-  const TABS=6, spacing=TD/(TABS+1);
-  const tabH = TH*0.70, tabW=0.12, tabD=0.34;
-  for(let i=1; i<=TABS; i++) {
-    // Right edge tabs
-    const tR = new THREE.Mesh(new THREE.BoxGeometry(tabW, tabH, tabD), sideMat);
-    tR.position.set(TW/2 + tabW/2, TH/2 - tabH/2, -TD/2 + i*spacing);
-    tR.castShadow = true;
-    singleGroup.add(tR);
-    // Front edge tabs
-    const tF = new THREE.Mesh(new THREE.BoxGeometry(tabD, tabH, tabW), sideMat);
-    tF.position.set(-TW/2 + i*spacing, TH/2 - tabH/2, TD/2 + tabW/2);
-    tF.castShadow = true;
-    singleGroup.add(tF);
+  /* ── Staple-shaped connector clips, all 4 edges ─────────────────
+     Each clip is 3 box pieces assembled into a U / staple shape:
+
+         ┌──┐     ┌──┐   ← two legs (arms of the staple)
+         │  │     │  │
+         │  │[gap]│  │
+         └──┴─────┴──┘   ← crossbar (thin base, flush to tile face)
+              TILE FACE
+
+     Built in local +X space, then rotated per edge.
+  ─────────────────────────────────────────────────────────────── */
+  const NTABS  = 6;           // clips per edge
+  const cH     = TH;          // clip height = tile thickness
+  const legW   = 0.072;       // leg width along the edge
+  const notch  = 0.118;       // gap between legs (the staple opening)
+  const legOut = 0.108;       // leg protrusion depth beyond crossbar
+  const crossD = 0.042;       // crossbar depth (thin base against tile face)
+
+  // Adds one staple clip whose arms protrude in local +X.
+  // posX/posZ place the clip anchor on the tile edge face.
+  // rotY rotates the group so +X points away from the edge.
+  function addStaple(posX, posZ, rotY) {
+    const grp = new THREE.Group();
+    grp.position.set(posX, 0, posZ);
+    grp.rotation.y = rotY;
+
+    // Left leg — starts flush at tile face, extends outward
+    const ll = new THREE.Mesh(
+      new THREE.BoxGeometry(legOut, cH, legW), sideMat);
+    ll.position.set(legOut/2, 0, -(notch/2 + legW/2));
+    ll.castShadow = true;
+    grp.add(ll);
+
+    // Right leg — starts flush at tile face, extends outward
+    const rl = new THREE.Mesh(
+      new THREE.BoxGeometry(legOut, cH, legW), sideMat);
+    rl.position.set(legOut/2, 0, +(notch/2 + legW/2));
+    rl.castShadow = true;
+    grp.add(rl);
+
+    // Crossbar — caps the outer tips of the legs
+    const cb = new THREE.Mesh(
+      new THREE.BoxGeometry(crossD, cH, legW*2 + notch), sideMat);
+    cb.position.set(legOut + crossD/2, 0, 0);
+    cb.castShadow = true;
+    grp.add(cb);
+
+    singleGroup.add(grp);
+  }
+
+  const spZ = TD / (NTABS + 1);  // clip spacing for left/right edges (along Z)
+  const spX = TW / (NTABS + 1);  // clip spacing for front/back edges (along X)
+
+  for(let i=1; i<=NTABS; i++) {
+    const pz = -TD/2 + i*spZ;
+    const px = -TW/2 + i*spX;
+    addStaple( TW/2,   pz,  0);           // right edge  → protrudes +X
+    addStaple(-TW/2,   pz,  Math.PI);     // left edge   → protrudes -X
+    addStaple( px,   TD/2, -Math.PI/2);   // front edge  → protrudes +Z
+    addStaple( px,  -TD/2,  Math.PI/2);   // back edge   → protrudes -Z
   }
 }
 
-function buildFloorGrid(hex) {
-  while(floorGroup.children.length) floorGroup.remove(floorGroup.children[0]);
-  if(_fTex){ _fTex.dispose(); _fTop.dispose(); _fSide.dispose(); }
+/* ═══════════════════════════════════════════
+   PATTERN BUILDER — state
+═══════════════════════════════════════════ */
+let patGridN    = 3;
+let patType     = 'checker';
+let patBIdx     = 2;          // COLOURS index for slot B (Dark Grey)
+let patCustomMap = null;      // flat array of hex per tile, length patGridN²
+let patPaintSlot = 'A';       // 'A' or 'B' — which slot the paint brush uses
+let _patCache   = {};         // hex → {tex,topMat,sideMat} — reused across rebuilds
 
-  const {tex,topMat,sideMat} = makeMaterials(hex);
-  _fTex=tex; _fTop=topMat; _fSide=sideMat;
-  const mats = [sideMat, sideMat, topMat, sideMat, sideMat, sideMat];
-  const GAP = 0.035; // seam between tiles — emphasises the interlocking grid
+function getHexA(){ return COLOURS[activeIdx].hex; }
+function getHexB(){ return COLOURS[patBIdx].hex; }
 
-  for(let row=0; row<3; row++) {
-    for(let col=0; col<3; col++) {
-      const tile = new THREE.Mesh(FLOOR_GEOM, mats);
-      tile.position.set((col-1)*(TW+GAP), 0, (row-1)*(TD+GAP));
-      tile.castShadow = tile.receiveShadow = true;
-      floorGroup.add(tile);
+/* Generate a flat color map for preset patterns */
+function genPatternMap(pattern, N, hexA, hexB) {
+  const map = [];
+  for(let r = 0; r < N; r++) {
+    for(let c = 0; c < N; c++) {
+      let useB = false;
+      switch(pattern) {
+        case 'checker':  useB = (r + c) % 2 !== 0; break;
+        case 'stripe-h': useB = r % 2 !== 0; break;
+        case 'stripe-v': useB = c % 2 !== 0; break;
+        case 'border':   useB = r===0 || r===N-1 || c===0 || c===N-1; break;
+        case 'diagonal': useB = Math.floor((r + c) / 2) % 2 !== 0; break;
+      }
+      map.push(useB ? hexB : hexA);
     }
   }
+  return map;
+}
+
+/* Rebuild the 3-D floor group from a flat hex color map */
+function buildPatternGrid(N, colorMap) {
+  while(floorGroup.children.length) floorGroup.remove(floorGroup.children[0]);
+
+  // Dispose cached materials whose hex is no longer needed
+  const needed = new Set(colorMap);
+  Object.keys(_patCache).forEach(hex => {
+    if(!needed.has(hex)){
+      _patCache[hex].tex.dispose();
+      _patCache[hex].topMat.dispose();
+      _patCache[hex].sideMat.dispose();
+      delete _patCache[hex];
+    }
+  });
+
+  const GAP = 0.035;
+  const cx  = (N - 1) / 2;
+
+  colorMap.forEach((hex, idx) => {
+    const row = Math.floor(idx / N), col = idx % N;
+    if(!_patCache[hex]) _patCache[hex] = makeMaterials(hex);
+    const {topMat, sideMat} = _patCache[hex];
+    const tile = new THREE.Mesh(
+      FLOOR_GEOM,
+      [sideMat, sideMat, topMat, sideMat, sideMat, sideMat]
+    );
+    tile.position.set((col - cx) * (TW + GAP), 0, (row - cx) * (TD + GAP));
+    tile.castShadow = tile.receiveShadow = true;
+    floorGroup.add(tile);
+  });
+}
+
+/* Master rebuild — reads current state */
+function rebuildFloor() {
+  const hexA = getHexA(), hexB = getHexB();
+  let map;
+  if(patType === 'solid')  map = Array(patGridN * patGridN).fill(hexA);
+  else if(patType === 'custom') map = patCustomMap || Array(patGridN * patGridN).fill(hexA);
+  else map = genPatternMap(patType, patGridN, hexA, hexB);
+  buildPatternGrid(patGridN, map);
+}
+
+/* Set camera r for a given grid size */
+const PAT_R_BY_N = {2:13, 3:19, 4:25, 5:31, 6:38};
+function patCameraForGrid(N) {
+  sphTgt.phi = 0.45;
+  sphTgt.r   = PAT_R_BY_N[N] || 19;
+  tgtLook.copy(LOOK_FLOOR);
+}
+
+/* ── Mini-grid (Custom mode) ─────────────── */
+function renderMiniGrid() {
+  const mg = document.getElementById('mini-grid');
+  mg.style.gridTemplateColumns = `repeat(${patGridN}, 22px)`;
+  mg.innerHTML = '';
+  (patCustomMap || []).forEach((hex, idx) => {
+    const cell = document.createElement('div');
+    cell.className = 'mg-cell';
+    cell.style.background = hex;
+    cell.addEventListener('click', () => {
+      const newHex = patPaintSlot === 'A' ? getHexA() : getHexB();
+      patCustomMap[idx] = newHex;
+      cell.style.background = newHex;
+      buildPatternGrid(patGridN, patCustomMap);
+    });
+    mg.appendChild(cell);
+  });
+}
+
+/* Initialise custom map from a preset */
+function initCustomMap() {
+  patCustomMap = genPatternMap('checker', patGridN, getHexA(), getHexB());
+}
+
+/* Show / hide B-row and mini-grid based on current pattern type */
+function syncPatUI() {
+  const bRow  = document.getElementById('pat-b-row');
+  const mgWrap = document.getElementById('mini-grid-wrap');
+  const isSolid  = patType === 'solid';
+  const isCustom = patType === 'custom';
+  bRow.style.display   = isSolid ? 'none' : '';
+  mgWrap.classList.toggle('visible', isCustom);
+  if(isCustom && patCustomMap) renderMiniGrid();
+  // keep paint-dot colours in sync
+  document.getElementById('paint-a-dot').style.background = getHexA();
+  document.getElementById('paint-b-dot').style.background = getHexB();
 }
 
 /* ═══════════════════════════════════════════
    SPHERICAL CAMERA CONTROL
    theta = horizontal azimuth, phi = vertical from zenith, r = distance
 ═══════════════════════════════════════════ */
-// Initial angle: slight diagonal from front-right, 40° above horizon
-const INIT_SINGLE = {theta:0.42, phi:0.85, r:8.0};
-const INIT_FLOOR  = {theta:0.42, phi:0.45, r:19.0};
+// Initial angle: straight-on from front, 40° above horizon
+const INIT_SINGLE = {theta:0, phi:0.52, r:8.5};
+const INIT_FLOOR  = {theta:0, phi:0.45, r:19.0};
 
 const sph    = {...INIT_SINGLE};
 const sphTgt = {...INIT_SINGLE};
@@ -502,7 +875,7 @@ let pointerDown = false, pStart = {x:0, y:0};
 let autoSpin = true;
 
 function updateCamera() {
-  if(autoSpin && !pointerDown) sphTgt.theta += 0.0028;
+  if(autoSpin && !pointerDown) sphTgt.theta += 0.008;
 
   const L = 0.09;
   sph.theta += (sphTgt.theta - sph.theta) * L;
@@ -551,10 +924,17 @@ function setViewMode(mode) {
   floorGroup.visible  = mode === 'floor';
   document.getElementById('btn-single').classList.toggle('active', mode==='single');
   document.getElementById('btn-floor').classList.toggle('active',  mode==='floor');
-  const cfg = mode === 'floor' ? INIT_FLOOR : INIT_SINGLE;
-  sphTgt.phi = cfg.phi;
-  sphTgt.r   = cfg.r;
-  tgtLook.copy(mode === 'floor' ? LOOK_FLOOR : LOOK_SINGLE);
+  document.getElementById('dim-overlay').classList.toggle('hidden', mode==='floor');
+  document.getElementById('pat-controls').classList.toggle('visible', mode==='floor');
+
+  if(mode === 'single') {
+    sphTgt.phi = INIT_SINGLE.phi;
+    sphTgt.r   = INIT_SINGLE.r;
+    tgtLook.copy(LOOK_SINGLE);
+  } else {
+    rebuildFloor();
+    patCameraForGrid(patGridN);
+  }
 }
 
 document.getElementById('btn-single').addEventListener('click', () => setViewMode('single'));
@@ -578,12 +958,19 @@ function setColour(i) {
   document.querySelectorAll('.swatch').forEach((s,j) => s.classList.toggle('active', j===i));
   document.getElementById('colour-name').textContent = COLOURS[i].name;
 
-  // Brief flash to signal the change
   flash.style.background = 'rgba(212,160,23,.06)';
   setTimeout(() => { flash.style.background = 'transparent'; }, 120);
 
   buildSingleTile(COLOURS[i].hex);
-  buildFloorGrid(COLOURS[i].hex);
+  // In floor mode rebuild using the full pattern logic
+  if(viewMode === 'floor') {
+    // If custom map exists, refresh cells that used old hexA
+    if(patType === 'custom' && patCustomMap) {
+      renderMiniGrid(); // re-render so paint-a-dot updates
+    }
+    syncPatUI();       // update paint-dot colors
+    rebuildFloor();
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -606,16 +993,85 @@ function onResize() {
   if(!w || !h) return;
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
-  renderer.setSize(w, h, false);
+  const dpr = Math.min(window.devicePixelRatio, 2);
+  renderer.setPixelRatio(dpr);
+  renderer.setSize(w, h, false);   // sets buffer; CSS width/height: 100% handles display
 }
 new ResizeObserver(onResize).observe(wrap);
 onResize();
 
 /* ═══════════════════════════════════════════
+   PATTERN EVENT HANDLERS
+═══════════════════════════════════════════ */
+
+// Grid size buttons
+document.querySelectorAll('[data-grid]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    patGridN = parseInt(btn.dataset.grid);
+    document.querySelectorAll('[data-grid]').forEach(b => b.classList.toggle('active', b===btn));
+    // Reset custom map whenever grid size changes
+    if(patType === 'custom') {
+      initCustomMap();
+      renderMiniGrid();
+    }
+    if(viewMode === 'floor') {
+      rebuildFloor();
+      patCameraForGrid(patGridN);
+    }
+  });
+});
+
+// Pattern type buttons
+document.querySelectorAll('[data-pat]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    patType = btn.dataset.pat;
+    document.querySelectorAll('[data-pat]').forEach(b => b.classList.toggle('active', b===btn));
+    if(patType === 'custom' && !patCustomMap) initCustomMap();
+    syncPatUI();
+    if(viewMode === 'floor') rebuildFloor();
+  });
+});
+
+// B-colour swatches (generated dynamically)
+const bSwatchWrap = document.getElementById('pat-b-swatches');
+COLOURS.forEach((col, i) => {
+  const sw = document.createElement('div');
+  sw.className = 'b-swatch';
+  sw.style.background = col.hex;
+  sw.title = col.name;
+  if(i === patBIdx) sw.classList.add('active');
+  sw.addEventListener('click', () => {
+    patBIdx = i;
+    document.querySelectorAll('.b-swatch').forEach((s,j) => s.classList.toggle('active', j===i));
+    document.getElementById('pat-b-name').textContent = COLOURS[i].name;
+    document.getElementById('paint-b-dot').style.background = COLOURS[i].hex;
+    if(viewMode === 'floor' && patType !== 'solid') rebuildFloor();
+  });
+  bSwatchWrap.appendChild(sw);
+});
+// Set initial B-colour name
+document.getElementById('pat-b-name').textContent = COLOURS[patBIdx].name;
+document.getElementById('paint-b-dot').style.background = getHexB();
+document.getElementById('paint-a-dot').style.background = getHexA();
+
+// Paint-slot A/B toggle (custom mode)
+document.getElementById('paint-a-btn').addEventListener('click', () => {
+  patPaintSlot = 'A';
+  document.getElementById('paint-a-btn').classList.add('active');
+  document.getElementById('paint-b-btn').classList.remove('active');
+});
+document.getElementById('paint-b-btn').addEventListener('click', () => {
+  patPaintSlot = 'B';
+  document.getElementById('paint-b-btn').classList.add('active');
+  document.getElementById('paint-a-btn').classList.remove('active');
+});
+
+/* ═══════════════════════════════════════════
    INITIALISE + LOADER DISMISS
 ═══════════════════════════════════════════ */
 buildSingleTile(COLOURS[0].hex);
-buildFloorGrid(COLOURS[0].hex);
+// Initialise floor as solid so it's ready when user switches
+buildPatternGrid(3, Array(9).fill(COLOURS[0].hex));
 
 setTimeout(() => document.getElementById('loader').classList.add('out'), 420);
 
