@@ -169,6 +169,12 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border:none;border-ra
 .slider-limits span{font-size:11px;color:#444}
 .divider{height:1px;background:#2a2a2c;margin:0 28px}
 .results{padding:24px 28px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.result-tile.acc-row{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;flex-wrap:wrap;gap:12px}
+.acc-row .r-label{margin-bottom:0}
+.acc-row .acc-pair{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.acc-row .acc-item{display:flex;flex-direction:column;align-items:center;min-width:80px}
+.acc-row .acc-item .r-val{font-size:20px}
+.acc-row .acc-item .r-sub{font-size:10px;color:#444;margin-top:2px;text-align:center}
 .result-tile{background:#111;border-radius:14px;padding:16px;border:1px solid #2a2a2c}
 .result-tile.hl{background:#fff;border-color:#fff;grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:18px 22px}
 .result-tile.cost-row{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:16px 18px}
@@ -434,12 +440,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
     <a class="nav-logo" href="#hero"><img src="./logo.png" alt="Garage Pro"/></a>
     <ul class="nav-links">
       <li><a href="#why">Why Us</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="./gallery.html">Gallery</a></li>
+      <li><a href="./products.html">Products</a></li>
+      <li><a href="./install.html">Install Guide</a></li>
       <li><a href="#calculator">Calculator</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="./products.html">Products</a></li>
-      <li><a href="./install.html">Install Guide</a></li>
     </ul>
     <a class="nav-cta" href="#contact">Get a Quote</a>
     <div class="hamburger" id="hamburger" onclick="toggleMenu()">
@@ -451,12 +457,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu">
   <a href="#why" onclick="closeMenu()">Why Us</a>
-  <a href="#portfolio" onclick="closeMenu()">Portfolio</a>
+  <a href="./gallery.html" onclick="closeMenu()">Gallery</a>
+  <a href="./products.html" onclick="closeMenu()">Products</a>
+  <a href="./install.html" onclick="closeMenu()">Install Guide</a>
   <a href="#calculator" onclick="closeMenu()">Calculator</a>
   <a href="#faq" onclick="closeMenu()">FAQ</a>
   <a href="#contact" onclick="closeMenu()">Contact</a>
-  <a href="./products.html" onclick="closeMenu()">Products</a>
-  <a href="./install.html" onclick="closeMenu()">Install Guide</a>
   <a href="#contact" onclick="closeMenu()">Get a Quote →</a>
 </div>
 
@@ -469,7 +475,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
     <div class="hero-content">
       <div class="hero-tag">Perth, Western Australia</div>
       <h1>Upgrade Your<br/><span>Garage Floor.</span></h1>
-      <p class="hero-sub">Heavy duty interlocking floor tiles. Click together in a few hours with no glue and no tools. Drive on it the same day.</p>
+      <p class="hero-sub">Premium garage flooring tile. Modular interlocking design — click together in hours with no glue and no tools required. Drive on it the same day.</p>
       <div class="btn-row">
         <a class="btn-primary" href="#contact">Get a Free Quote</a>
         <a class="btn-secondary" href="#calculator">Calculate Your Space</a>
@@ -512,17 +518,17 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 <section id="why">
   <div class="container">
     <div class="section-label fade-up">Why Garage Pro</div>
-    <div class="section-title fade-up stagger-1">Built tough.<br/>Looks the part.</div>
+    <div class="section-title fade-up stagger-1">Built for Australian garages.<br/>Made to last.</div>
     <div class="why-grid">
       <div class="why-card fade-up stagger-1">
         <div class="why-icon">🔧</div>
         <h3>Easy DIY Install</h3>
-        <p>Tiles click together by hand or with a rubber mallet. No glue, no curing time. Most single and double garages get done in a few hours.</p>
+        <p>Our Garage Pro tiles are installed by hand or with a rubber mallet — no glue, no curing time. Most single and double garages are installed in a few hours.</p>
       </div>
       <div class="why-card fade-up stagger-2">
         <div class="why-icon">🚗</div>
-        <h3>Heavy Duty</h3>
-        <p>Built for cars, 4WDs and workshop use. Won't crack or shift under load. Handles heavy foot traffic and equipment without any issues.</p>
+        <h3>Heavy Duty Rated</h3>
+        <p>Built for residential or commercial use. Won't crack or shift under load. Handles cars, 4WDs, heavy equipment and constant foot traffic without any issues.</p>
       </div>
       <div class="why-card fade-up stagger-3">
         <div class="why-icon">☀️</div>
@@ -557,16 +563,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
         <div class="port-caption">Showroom with hex lighting</div>
       </div>
       <div class="port-item fade-up stagger-1" onclick="openLightbox(2)" role="button" aria-label="View photo 3">
-        <img src="./photos/shed-charcoal.jpg" alt="Workshop floor in charcoal tiles" loading="lazy"/>
-        <div class="port-caption">Workshop in full charcoal</div>
-      </div>
-      <div class="port-item fade-up stagger-2" onclick="openLightbox(3)" role="button" aria-label="View photo 4">
-        <img src="./photos/double-garage.jpg" alt="Double garage with black and charcoal tile finish" loading="lazy"/>
-        <div class="port-caption">Double garage, black and charcoal</div>
-      </div>
-      <div class="port-item fade-up stagger-3" onclick="openLightbox(4)" role="button" aria-label="View photo 5">
-        <img src="./photos/shed-checkerboard.jpg" alt="Workshop with black and grey checkerboard tile pattern" loading="lazy"/>
-        <div class="port-caption">Workshop, black and grey checkerboard</div>
+        <img src="./photos/shed-charcoal.jpg" alt="Shed and workshop with full black tile layout" loading="lazy"/>
+        <div class="port-caption">Shed/Workshop — full black tile layout</div>
       </div>
     </div>
   </div>
@@ -608,10 +606,18 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
             <div class="r-val" id="out-price">$1,125</div>
             <div class="r-sub">at $5 per tile</div>
           </div>
+          <div class="result-tile cost-row" style="grid-column:1/-1;flex-direction:column;align-items:flex-start;gap:8px;padding:16px 18px">
+            <div class="r-label" style="color:#555;margin-bottom:2px">Finishing Accessories (also available)</div>
+            <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center">
+              <div><span style="font-size:18px;font-weight:800;color:#aaa" id="out-edge">—</span> <span style="font-size:12px;color:#555">Edge Ramps</span></div>
+              <div><span style="font-size:18px;font-weight:800;color:#aaa" id="out-corner">4 pcs</span> <span style="font-size:12px;color:#555">Corner Pieces</span></div>
+              <div style="font-size:11px;color:#444;max-width:200px;line-height:1.4">Available in Black, Grey &amp; Light Grey.</div>
+            </div>
+          </div>
         </div>
         <div class="cta-wrap">
           <button class="cta-btn" onclick="openQuoteModal()">Get an Exact Quote &nbsp;→</button>
-          <p class="cta-note">Estimate only — contact us for a confirmed price. We recommend getting an extra 5–10% for spares especially if cuts will be required.</p>
+          <p class="cta-note">Estimate only — contact us for a confirmed price. We recommend getting an extra 5–10% for spares especially if cuts will be required. Edge ramps and corner pieces are available separately in Black, Grey and Light Grey.</p>
         </div>
       </div>
     </div>
@@ -896,7 +902,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
     </div>
     <div class="footer-links">
       <a href="#why">Why Us</a>
-      <a href="#portfolio">Portfolio</a>
+      <a href="./gallery.html">Gallery</a>
       <a href="./products.html">Products</a>
       <a href="./install.html">Install Guide</a>
       <a href="#calculator">Calculator</a>
@@ -970,11 +976,14 @@ function onSlider(id){
   calculate();
 }
 function calculate(){
-  let tiles;
+  let tiles, edgeRamps='—';
   if(currentMode==='dimensions'){
     const l=parseFloat(document.getElementById('slider-length').value);
     const w=parseFloat(document.getElementById('slider-width').value);
     tiles=Math.ceil((l*w)/TILE_SQM);
+    // Edge ramps: tiles along the entrance (width) side + 2 sides = full front row
+    const wTiles=Math.ceil(w/0.4);
+    edgeRamps=wTiles;
   }else if(currentMode==='sqm'){
     tiles=Math.ceil(parseFloat(document.getElementById('slider-sqm').value)/TILE_SQM);
   }else{
@@ -984,6 +993,8 @@ function calculate(){
   document.getElementById('out-tiles').textContent=tiles.toLocaleString();
   document.getElementById('out-coverage').textContent=coverage+' sqm';
   document.getElementById('out-price').textContent='$'+(tiles*PRICE).toLocaleString('en-AU',{maximumFractionDigits:0});
+  document.getElementById('out-edge').textContent=typeof edgeRamps==='number'?edgeRamps+' pcs':'—';
+  document.getElementById('out-corner').textContent='4 pcs';
 }
 document.querySelectorAll('.pill').forEach(btn=>{
   btn.addEventListener('click',()=>{
@@ -1029,9 +1040,7 @@ function toggleFaq(i){
 const LB_PHOTOS=[
   {src:'./photos/supra-red-black.png',  cap:'Showroom build, red and black'},
   {src:'./photos/showroom-hex-lights.jpg', cap:'Showroom with hex lighting'},
-  {src:'./photos/shed-charcoal.jpg',    cap:'Workshop in full charcoal'},
-  {src:'./photos/double-garage.jpg',    cap:'Double garage, black and charcoal'},
-  {src:'./photos/shed-checkerboard.jpg',cap:'Workshop, black and grey checkerboard'},
+  {src:'./photos/shed-charcoal.jpg',    cap:'Shed/Workshop — full black tile layout'},
 ];
 let lbIndex=0;
 function openLightbox(i){

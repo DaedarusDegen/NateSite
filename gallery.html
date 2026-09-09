@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Gallery — Garage Pro Tile Flooring Perth</title>
+<meta name="description" content="Browse real Garage Pro tile installs across Perth. Residential garages, commercial workshops, showrooms and more. 15 colours, custom layouts, same-day install."/>
+<meta property="og:title" content="Garage Pro — Project Gallery"/>
+<meta property="og:description" content="Real installs from homes, showrooms and commercial workshops across Perth & Peel."/>
+<meta property="og:image" content="./product-photos/IMG_3662.jpg"/>
+<meta property="og:type" content="website"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏁</text></svg>"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0d0d;
+  --bg2:#141414;
+  --bg3:#1a1a1a;
+  --border:#252525;
+  --text:#e8e8e8;
+  --grey:#888;
+  --accent:#d4a017;
+  --radius:12px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px;height:64px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:100%}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{height:36px;width:auto}
+.nav-links{display:flex;gap:8px;align-items:center}
+.nav-links a{color:#ccc;text-decoration:none;font-size:14px;font-weight:500;padding:6px 12px;border-radius:8px;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:var(--accent)}
+.nav-cta{background:var(--accent);color:#000!important;font-weight:700!important;border-radius:8px!important;padding:8px 16px!important}
+.nav-cta:hover{opacity:.88!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-nav{display:none;position:fixed;top:64px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:16px 20px;z-index:99}
+.mobile-nav.open{display:block}
+.mobile-nav a{display:block;color:var(--grey);text-decoration:none;font-size:16px;font-weight:500;padding:13px 0;border-bottom:1px solid var(--border);transition:color .2s}
+.mobile-nav a:hover{color:var(--text)}
+.mobile-nav .mob-cta{border:none!important;margin-top:12px;background:var(--accent);color:#000!important;text-align:center;border-radius:10px;padding:14px;font-weight:700;display:block}
+@media(max-width:768px){.nav-links span{display:none}.nav-links .nav-cta{display:none}.hamburger{display:flex}}
+
+/* ── HERO ── */
+.gallery-hero{position:relative;height:52vh;min-height:320px;display:flex;align-items:flex-end;overflow:hidden;background:#0a0a0a}
+.gallery-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:.55}
+.gallery-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,13,1) 0%,rgba(13,13,13,.5) 40%,transparent 100%)}
+.gallery-hero-content{position:relative;z-index:1;padding:48px 24px;max-width:1100px;margin:0 auto;width:100%}
+.gallery-hero-content .eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.gallery-hero-content h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;line-height:1.1;margin-bottom:10px}
+.gallery-hero-content p{font-size:15px;color:#bbb;max-width:500px}
+
+/* ── CONTAINER ── */
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* ── FILTERS ── */
+.filter-bar{padding:28px 0 0;border-bottom:1px solid var(--border)}
+.filter-bar .container{display:flex;flex-wrap:wrap;gap:16px;align-items:center;padding-bottom:20px}
+.filter-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);flex-shrink:0}
+.filter-pills{display:flex;gap:8px;flex-wrap:wrap}
+.filter-pill{background:var(--bg2);border:1px solid var(--border);color:#bbb;padding:7px 16px;border-radius:40px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;-webkit-user-select:none;user-select:none}
+.filter-pill:hover{border-color:#555;color:#fff}
+.filter-pill.active{background:var(--accent);border-color:var(--accent);color:#000}
+
+/* ── SECTION HEADERS ── */
+.gallery-section{padding:60px 0 0}
+.gallery-section:last-of-type{padding-bottom:80px}
+.section-eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.section-heading{font-size:clamp(1.4rem,3.5vw,2rem);font-weight:800;margin-bottom:4px}
+.section-desc{font-size:14px;color:var(--grey);margin-bottom:28px;max-width:600px}
+
+/* ── VENUE TYPE LIST ── */
+.venue-types{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.venue-tag{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--grey)}
+
+/* ── GALLERY GRID ── */
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.gallery-item{aspect-ratio:4/3;border-radius:var(--radius);overflow:hidden;cursor:pointer;position:relative;border:1px solid var(--border);background:var(--bg3)}
+.gallery-item.wide{grid-column:span 2;aspect-ratio:16/9}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s cubic-bezier(.4,0,.2,1);display:block}
+.gallery-item:hover img{transform:scale(1.04)}
+.gallery-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.72));padding:20px 14px 12px;font-size:12px;color:#ccc;font-weight:500;opacity:0;transition:opacity .25s}
+.gallery-item:hover .gallery-caption{opacity:1}
+.gallery-item[hidden]{display:none!important}
+@media(max-width:640px){
+  .gallery-grid{grid-template-columns:1fr 1fr}
+  .gallery-item.wide{grid-column:span 2}
+  .gallery-item.wide{aspect-ratio:16/9}
+}
+@media(max-width:420px){
+  .gallery-grid{grid-template-columns:1fr}
+  .gallery-item.wide{grid-column:span 1;aspect-ratio:4/3}
+}
+
+/* ── LIGHTBOX ── */
+.lb-backdrop{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.93);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px}
+.lb-backdrop.open{display:flex}
+.lb-inner{position:relative;max-width:1000px;width:100%;display:flex;flex-direction:column;align-items:center;gap:16px}
+.lb-img-wrap{position:relative;width:100%;display:flex;align-items:center;justify-content:center}
+.lb-img-wrap img{max-height:80vh;max-width:100%;border-radius:10px;object-fit:contain}
+.lb-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;width:44px;height:44px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);transition:background .2s}
+.lb-btn:hover{background:rgba(255,255,255,.22)}
+.lb-prev{left:-22px}.lb-next{right:-22px}
+.lb-close{position:absolute;top:-48px;right:0;background:transparent;border:none;color:#aaa;font-size:28px;cursor:pointer;line-height:1}
+.lb-close:hover{color:#fff}
+.lb-cap{font-size:13px;color:#aaa;text-align:center}
+.lb-counter{font-size:11px;color:#555;letter-spacing:.04em}
+@media(max-width:600px){.lb-btn{width:36px;height:36px;font-size:16px}.lb-prev{left:-12px}.lb-next{right:-12px}}
+
+/* ── CTA STRIP ── */
+.cta-strip{background:rgba(212,160,23,.05);border-top:1px solid rgba(212,160,23,.18);border-bottom:1px solid rgba(212,160,23,.18);padding:48px 0;text-align:center;margin-top:64px}
+.cta-strip h2{font-size:clamp(1.4rem,3.5vw,2rem);font-weight:800;margin-bottom:12px}
+.cta-strip p{color:var(--grey);font-size:15px;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:#000;padding:14px 28px;border-radius:10px;font-size:15px;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:opacity .15s,transform .15s;display:inline-block}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-secondary{background:transparent;color:var(--text);border:1px solid var(--border);padding:14px 28px;border-radius:10px;font-size:15px;font-weight:600;text-decoration:none;display:inline-block;transition:border-color .2s}
+.btn-secondary:hover{border-color:#888}
+
+/* ── MOBILE CTA BAR ── */
+.mobile-cta-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:150;background:rgba(13,13,13,.97);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:10px 16px;gap:10px}
+@media(max-width:768px){.mobile-cta-bar{display:flex}body{padding-bottom:70px}}
+.mcta-call{flex:1;background:var(--bg3);color:var(--text);text-align:center;padding:11px;border-radius:9px;text-decoration:none;font-size:14px;font-weight:600;border:1px solid var(--border)}
+.mcta-quote{flex:2;background:var(--accent);color:#000;text-align:center;padding:11px;border-radius:9px;text-decoration:none;font-size:14px;font-weight:700;border:none;cursor:pointer}
+
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20px}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.footer-inner img{height:28px}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap}
+.footer-links a{color:var(--grey);text-decoration:none;font-size:13px;transition:color .15s}
+.footer-links a:hover{color:#fff}
+.footer-copy{font-size:12px;color:#444;width:100%;text-align:center;margin-top:8px}
+
+/* ── FADE ANIMATIONS ── */
+.fade-up{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.fade-up.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="./garagepro.html">
+      <img src="./logo.png" alt="Garage Pro logo" onerror="this.style.display='none'"/>
+    </a>
+    <div class="nav-links">
+      <span><a href="./garagepro.html">Home</a></span>
+      <span><a href="./gallery.html" class="active">Gallery</a></span>
+      <span><a href="./products.html">Products</a></span>
+      <span><a href="./install.html">Install Guide</a></span>
+      <span><a href="./garagepro.html#faq">FAQ</a></span>
+      <a class="nav-cta" href="./garagepro.html#contact">Get a Quote →</a>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-nav" id="mobile-nav">
+  <a href="./garagepro.html" onclick="closeMenu()">Home</a>
+  <a href="./gallery.html" onclick="closeMenu()">Gallery</a>
+  <a href="./products.html" onclick="closeMenu()">Products</a>
+  <a href="./install.html" onclick="closeMenu()">Install Guide</a>
+  <a href="./garagepro.html#faq" onclick="closeMenu()">FAQ</a>
+  <a class="mob-cta" href="./garagepro.html#contact" onclick="closeMenu()">Get a Quote →</a>
+</div>
+
+<!-- HERO -->
+<section class="gallery-hero">
+  <img src="./product-photos/IMG_3662.jpg" alt="Commercial showroom with orange and charcoal tile layout" loading="eager" fetchpriority="high" decoding="async"/>
+  <div class="gallery-hero-content">
+    <div class="eyebrow">Project Gallery</div>
+    <h1>Residential &amp; Commercial</h1>
+    <p>Real installs from garages, workshops, showrooms and detail shops across Perth &amp; Peel.</p>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<div class="filter-bar">
+  <div class="container">
+    <span class="filter-label">Filter by</span>
+    <div class="filter-pills">
+      <button class="filter-pill active" data-filter="all">All Projects</button>
+      <button class="filter-pill" data-filter="residential">Residential</button>
+      <button class="filter-pill" data-filter="commercial">Commercial</button>
+      <button class="filter-pill" data-filter="showroom">Showroom</button>
+      <button class="filter-pill" data-filter="workshop">Workshop / Shed</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESIDENTIAL SECTION -->
+<section class="gallery-section">
+  <div class="container">
+    <div class="section-eyebrow fade-up">Residential</div>
+    <div class="section-heading fade-up">Home Garages</div>
+    <div class="section-desc fade-up">From single car bays to full double garages. Custom colour combinations, same-day installation.</div>
+    <div class="venue-types fade-up">
+      <span class="venue-tag">Double Garage</span>
+      <span class="venue-tag">Single Garage</span>
+      <span class="venue-tag">Carport</span>
+      <span class="venue-tag">Home Workshop</span>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item wide fade-up" data-category="residential" onclick="openLightbox(0)">
+        <img src="./product-photos/IMG_3694.jpg" alt="Home garage with Landcruiser and grey checkerboard tiles" loading="lazy"/>
+        <div class="gallery-caption">Home garage, grey checkerboard</div>
+      </div>
+      <div class="gallery-item fade-up" data-category="residential" onclick="openLightbox(1)">
+        <img src="./product-photos/IMG_3666.jpg" alt="Home garage with light grey and charcoal checkerboard" loading="lazy"/>
+        <div class="gallery-caption">Light grey and charcoal checkerboard</div>
+      </div>
+      <div class="gallery-item fade-up" data-category="residential" onclick="openLightbox(2)">
+        <img src="./product-photos/IMG_3709.jpg" alt="Black BMW M car on black and red racing stripe tiles" loading="lazy"/>
+        <div class="gallery-caption">Black and red racing stripes</div>
+      </div>
+      <div class="gallery-item fade-up" data-category="residential" onclick="openLightbox(3)">
+        <img src="./product-photos/IMG_3708.jpg" alt="Home garage with neat grey tile layout" loading="lazy"/>
+        <div class="gallery-caption">Home garage, full grey layout</div>
+      </div>
+      <div class="gallery-item wide fade-up" data-category="residential" onclick="openLightbox(4)">
+        <img src="./product-photos/IMG_3697.jpg" alt="Home garage with charcoal tile floor" loading="lazy"/>
+        <div class="gallery-caption">Double garage, full charcoal</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMERCIAL SECTION -->
+<section class="gallery-section">
+  <div class="container">
+    <div class="section-eyebrow fade-up">Commercial</div>
+    <div class="section-heading fade-up">Workshops &amp; Showrooms</div>
+    <div class="section-desc fade-up">Heavy-duty installs built to handle daily commercial use — forklifts, hoists, constant foot traffic, all of it.</div>
+    <div class="venue-types fade-up">
+      <span class="venue-tag">Automotive Showroom</span>
+      <span class="venue-tag">Detail Shop</span>
+      <span class="venue-tag">Workshop</span>
+      <span class="venue-tag">Shed</span>
+      <span class="venue-tag">Storage Facility</span>
+      <span class="venue-tag">Warehouse Bay</span>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item wide fade-up" data-category="commercial showroom" onclick="openLightbox(5)">
+        <img src="./product-photos/IMG_3662.jpg" alt="Large commercial showroom with orange V-pattern on charcoal tiles" loading="lazy"/>
+        <div class="gallery-caption">Commercial showroom, orange and charcoal V-pattern</div>
+      </div>
+      <div class="gallery-item fade-up" data-category="commercial showroom" onclick="openLightbox(6)">
+        <img src="./product-photos/IMG_3687.jpg" alt="Toyota Supra on black and red tiles with hex lighting" loading="lazy"/>
+        <div class="gallery-caption">Showroom, black and red</div>
+      </div>
+      <div class="gallery-item fade-up" data-category="commercial showroom" onclick="openLightbox(7)">
+        <img src="./product-photos/IMG_3700.jpg" alt="Showroom build with black and red tiles and hex lighting" loading="lazy"/>
+        <div class="gallery-caption">Showroom build with hex lighting</div>
+      </div>
+      <div class="gallery-item fade-up" data-category="commercial showroom" onclick="openLightbox(8)">
+        <img src="./product-photos/IMG_3653.jpg" alt="Showroom with teal border frame and grey checkerboard tiles" loading="lazy"/>
+        <div class="gallery-caption">Showroom, teal border on grey checkerboard</div>
+      </div>
+      <div class="gallery-item wide fade-up" data-category="commercial workshop" onclick="openLightbox(9)">
+        <img src="./product-photos/IMG_3660.jpg" alt="Commercial workshop with orange border frame on dark charcoal" loading="lazy"/>
+        <div class="gallery-caption">Commercial workshop, orange border frame</div>
+      </div>
+      <div class="gallery-item fade-up" data-category="commercial workshop" onclick="openLightbox(10)">
+        <img src="./product-photos/IMG_3656.jpg" alt="Audi RS3 on lime green and dark grey checkerboard" loading="lazy"/>
+        <div class="gallery-caption">Detail shop, lime green and dark grey</div>
+      </div>
+      <div class="gallery-item fade-up" data-category="commercial workshop" onclick="openLightbox(11)">
+        <img src="./product-photos/IMG_3707.jpg" alt="Blue Audi S3 in dark grey checkerboard workshop" loading="lazy"/>
+        <div class="gallery-caption">Workshop, dark grey checkerboard</div>
+      </div>
+      <div class="gallery-item fade-up" data-category="commercial" onclick="openLightbox(12)">
+        <img src="./product-photos/IMG_3710.jpg" alt="Workshop with black tile floor" loading="lazy"/>
+        <div class="gallery-caption">Workshop, full black tile floor</div>
+      </div>
+      <div class="gallery-item fade-up" data-category="commercial" onclick="openLightbox(13)">
+        <img src="./product-photos/IMG_3713.jpg" alt="Indoor space with black and white large checkerboard" loading="lazy"/>
+        <div class="gallery-caption">Indoor commercial space, black and white</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<div class="cta-strip fade-up">
+  <div class="container">
+    <h2>Ready to transform your space?</h2>
+    <p>Tell us your garage size and preferred colours — we'll come back to you with a quote and layout ideas.</p>
+    <div class="cta-buttons">
+      <a class="btn-primary" href="./garagepro.html#contact">Get a Free Quote</a>
+      <a class="btn-secondary" href="./products.html">Browse Colours &amp; Patterns</a>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb-backdrop" id="lightbox" onclick="lbBackdropClick(event)">
+  <div class="lb-inner">
+    <button class="lb-close" onclick="closeLightbox()">✕</button>
+    <div class="lb-img-wrap">
+      <button class="lb-btn lb-prev" onclick="lbPrev(event)">‹</button>
+      <img id="lb-img" src="" alt=""/>
+      <button class="lb-btn lb-next" onclick="lbNext(event)">›</button>
+    </div>
+    <div id="lb-cap" class="lb-cap"></div>
+    <div id="lb-counter" class="lb-counter"></div>
+  </div>
+</div>
+
+<!-- MOBILE CTA BAR -->
+<div class="mobile-cta-bar">
+  <a class="mcta-call" href="tel:+61493292203">📞 Call Now</a>
+  <a class="mcta-quote" href="./garagepro.html#contact">Get a Quote →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <img src="./logo.png" alt="Garage Pro"/>
+      <p style="font-size:12px;color:#555;margin-top:6px">Modular garage flooring solutions</p>
+    </div>
+    <div class="footer-links">
+      <a href="./garagepro.html">Home</a>
+      <a href="./gallery.html">Gallery</a>
+      <a href="./products.html">Products</a>
+      <a href="./install.html">Install Guide</a>
+      <a href="./garagepro.html#faq">FAQ</a>
+      <a href="./garagepro.html#contact">Contact</a>
+      <a href="https://instagram.com/garagepro_au" target="_blank">Instagram</a>
+    </div>
+  </div>
+  <p class="footer-copy">© 2026 Garage Pro. Perth, Western Australia. ABN 27 703 921 623 · All rights reserved.</p>
+</footer>
+
+<script>
+// ── NAV ──
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobile-nav').classList.remove('open');
+}
+
+// ── LIGHTBOX DATA (all photos in order they appear on page) ──
+const LB = [
+  {src:'./product-photos/IMG_3694.jpg', cap:'Home garage, grey checkerboard'},
+  {src:'./product-photos/IMG_3666.jpg', cap:'Light grey and charcoal checkerboard'},
+  {src:'./product-photos/IMG_3709.jpg', cap:'Black and red racing stripes'},
+  {src:'./product-photos/IMG_3708.jpg', cap:'Home garage, full grey layout'},
+  {src:'./product-photos/IMG_3697.jpg', cap:'Double garage, full charcoal'},
+  {src:'./product-photos/IMG_3662.jpg', cap:'Commercial showroom, orange and charcoal V-pattern'},
+  {src:'./product-photos/IMG_3687.jpg', cap:'Showroom, black and red'},
+  {src:'./product-photos/IMG_3700.jpg', cap:'Showroom build with hex lighting'},
+  {src:'./product-photos/IMG_3653.jpg', cap:'Showroom, teal border on grey checkerboard'},
+  {src:'./product-photos/IMG_3660.jpg', cap:'Commercial workshop, orange border frame'},
+  {src:'./product-photos/IMG_3656.jpg', cap:'Detail shop, lime green and dark grey'},
+  {src:'./product-photos/IMG_3707.jpg', cap:'Workshop, dark grey checkerboard'},
+  {src:'./product-photos/IMG_3710.jpg', cap:'Workshop, full black tile floor'},
+  {src:'./product-photos/IMG_3713.jpg', cap:'Indoor commercial space, black and white'},
+];
+let lbIdx = 0;
+
+function openLightbox(i){
+  lbIdx = i;
+  lbRender();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lbBackdropClick(e){
+  if(e.target === document.getElementById('lightbox')) closeLightbox();
+}
+function lbPrev(e){ if(e) e.stopPropagation(); lbIdx = (lbIdx - 1 + LB.length) % LB.length; lbRender(); }
+function lbNext(e){ if(e) e.stopPropagation(); lbIdx = (lbIdx + 1) % LB.length; lbRender(); }
+function lbRender(){
+  const p = LB[lbIdx];
+  const img = document.getElementById('lb-img');
+  img.style.opacity = '0';
+  img.src = p.src; img.alt = p.cap;
+  img.onload = () => { img.style.transition = 'opacity .2s'; img.style.opacity = '1'; };
+  document.getElementById('lb-cap').textContent = p.cap;
+  document.getElementById('lb-counter').textContent = (lbIdx + 1) + ' / ' + LB.length;
+}
+document.addEventListener('keydown', e => {
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key === 'ArrowLeft') lbPrev();
+  else if(e.key === 'ArrowRight') lbNext();
+  else if(e.key === 'Escape') closeLightbox();
+});
+// Swipe
+let lbTX = null;
+document.getElementById('lightbox').addEventListener('touchstart', e => { lbTX = e.touches[0].clientX; }, {passive:true});
+document.getElementById('lightbox').addEventListener('touchend', e => {
+  if(lbTX === null) return;
+  const dx = e.changedTouches[0].clientX - lbTX;
+  if(Math.abs(dx) > 50){ dx < 0 ? lbNext() : lbPrev(); }
+  lbTX = null;
+}, {passive:true});
+
+// ── FILTER PILLS ──
+document.querySelectorAll('.filter-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    const filter = pill.dataset.filter;
+    document.querySelectorAll('.gallery-item[data-category]').forEach(item => {
+      if(filter === 'all'){
+        item.hidden = false;
+      } else {
+        const cats = item.dataset.category || '';
+        item.hidden = !cats.includes(filter);
+      }
+    });
+  });
+});
+
+// ── SCROLL ANIMATIONS ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, {threshold: 0.1});
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
