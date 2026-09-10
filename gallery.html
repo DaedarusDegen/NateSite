@@ -389,8 +389,29 @@ function closeLightbox(){
 function lbBackdropClick(e){
   if(e.target === document.getElementById('lightbox')) closeLightbox();
 }
-function lbPrev(e){ if(e) e.stopPropagation(); lbIdx = (lbIdx - 1 + LB.length) % LB.length; lbRender(); }
-function lbNext(e){ if(e) e.stopPropagation(); lbIdx = (lbIdx + 1) % LB.length; lbRender(); }
+// Returns LB indices for items currently visible (not filtered out)
+function getVisibleIndices(){
+  return [...document.querySelectorAll('.gallery-item:not([hidden])')].map(el => {
+    const m = (el.getAttribute('onclick')||'').match(/openLightbox\((\d+)\)/);
+    return m ? parseInt(m[1]) : -1;
+  }).filter(i => i >= 0);
+}
+function lbPrev(e){
+  if(e) e.stopPropagation();
+  const vis = getVisibleIndices();
+  if(!vis.length) return;
+  const pos = vis.indexOf(lbIdx);
+  lbIdx = vis[(pos - 1 + vis.length) % vis.length];
+  lbRender();
+}
+function lbNext(e){
+  if(e) e.stopPropagation();
+  const vis = getVisibleIndices();
+  if(!vis.length) return;
+  const pos = vis.indexOf(lbIdx);
+  lbIdx = vis[(pos + 1) % vis.length];
+  lbRender();
+}
 function lbRender(){
   const p = LB[lbIdx];
   const img = document.getElementById('lb-img');
@@ -398,7 +419,11 @@ function lbRender(){
   img.src = p.src; img.alt = p.cap;
   img.onload = () => { img.style.transition = 'opacity .2s'; img.style.opacity = '1'; };
   document.getElementById('lb-cap').textContent = p.cap;
-  document.getElementById('lb-counter').textContent = (lbIdx + 1) + ' / ' + LB.length;
+  const vis = getVisibleIndices();
+  const pos = vis.indexOf(lbIdx);
+  const total = vis.length || LB.length;
+  const current = pos >= 0 ? pos + 1 : lbIdx + 1;
+  document.getElementById('lb-counter').textContent = current + ' / ' + total;
 }
 document.addEventListener('keydown', e => {
   if(!document.getElementById('lightbox').classList.contains('open')) return;
