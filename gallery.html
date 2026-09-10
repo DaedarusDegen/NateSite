@@ -60,9 +60,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.95);backdrop-fil
 /* ── CONTAINER ── */
 .container{max-width:1100px;margin:0 auto;padding:0 24px}
 
+
 /* ── FILTERS ── */
-.filter-bar{padding:28px 0 0;border-bottom:1px solid var(--border)}
-.filter-bar .container{display:flex;flex-wrap:wrap;gap:16px;align-items:center;padding-bottom:20px}
+.filter-bar{padding:24px 0;border-bottom:1px solid var(--border)}
+.filter-bar .container{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
 .filter-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);flex-shrink:0}
 .filter-pills{display:flex;gap:8px;flex-wrap:wrap}
 .filter-pill{background:var(--bg2);border:1px solid var(--border);color:#bbb;padding:7px 16px;border-radius:40px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;-webkit-user-select:none;user-select:none}
@@ -186,6 +187,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   </div>
 </section>
 
+
 <!-- FILTERS -->
 <div class="filter-bar">
   <div class="container">
@@ -280,7 +282,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
         <img src="./product-photos/IMG_3707.jpg" alt="Blue Audi S3 in dark grey checkerboard workshop" loading="lazy"/>
         <div class="gallery-caption">Workshop, dark grey checkerboard</div>
       </div>
-      <div class="gallery-item fade-up" data-category="commercial" onclick="openLightbox(12)">
+      <div class="gallery-item fade-up" data-category="commercial workshop" onclick="openLightbox(12)">
         <img src="./product-photos/IMG_3710.jpg" alt="Workshop with black tile floor" loading="lazy"/>
         <div class="gallery-caption">Workshop, full black tile floor</div>
       </div>
@@ -414,19 +416,29 @@ document.getElementById('lightbox').addEventListener('touchend', e => {
   lbTX = null;
 }, {passive:true});
 
+
 // ── FILTER PILLS ──
 document.querySelectorAll('.filter-pill').forEach(pill => {
   pill.addEventListener('click', () => {
     document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
     pill.classList.add('active');
     const filter = pill.dataset.filter;
+
+    // Show/hide individual items using exact token matching
     document.querySelectorAll('.gallery-item[data-category]').forEach(item => {
       if(filter === 'all'){
         item.hidden = false;
       } else {
-        const cats = item.dataset.category || '';
-        item.hidden = !cats.includes(filter);
+        const tokens = (item.dataset.category || '').split(' ');
+        item.hidden = !tokens.includes(filter);
       }
+    });
+
+    // Hide entire sections when all their items are hidden
+    document.querySelectorAll('.gallery-section').forEach(section => {
+      const items = section.querySelectorAll('.gallery-item[data-category]');
+      const anyVisible = [...items].some(item => !item.hidden);
+      section.hidden = !anyVisible;
     });
   });
 });
