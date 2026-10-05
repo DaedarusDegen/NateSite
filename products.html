@@ -161,6 +161,34 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.95);backdrop-fil
 @media(max-width:640px){.benefits-strip .container{gap:4px 0}.benefit-item{padding:6px 14px;font-size:12px}.benefit-item:nth-child(even){border-right:none}.benefit-item:nth-child(odd):not(:last-child){border-right:1px solid var(--border)}}
 @media(max-width:400px){.benefit-item{border-right:none!important;width:50%;justify-content:center;text-align:center}}
 
+/* ── HEX LIGHTS ── */
+#hex-lights{padding:0;background:var(--bg)}
+.hl-hero{position:relative;overflow:hidden;max-height:560px}
+.hl-hero img{width:100%;height:100%;object-fit:cover;display:block;max-height:560px;object-position:center 30%}
+.hl-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.1) 0%,rgba(0,0,0,.7) 100%)}
+.hl-hero-badge{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.7);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-radius:40px;padding:10px 24px;font-size:13px;font-weight:700;color:#fff;letter-spacing:.5px;white-space:nowrap}
+.hl-body{padding:60px 0}
+.hl-intro{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-bottom:48px}
+.hl-price-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(212,160,23,.1);border:1px solid rgba(212,160,23,.3);border-radius:40px;padding:8px 18px;font-size:14px;font-weight:700;color:var(--accent);margin-bottom:20px}
+.hl-intro h2{font-size:clamp(24px,4vw,38px);font-weight:800;line-height:1.15;letter-spacing:-.5px;margin-bottom:14px}
+.hl-intro p{font-size:15px;color:var(--grey);line-height:1.7;margin-bottom:24px}
+.hl-render{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:#111}
+.hl-render img{width:100%;display:block}
+.hl-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:32px}
+.hl-feat{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px}
+.hl-feat-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
+.hl-feat-val{font-size:14px;color:var(--text);line-height:1.5}
+.hl-installs{margin-top:0}
+.hl-installs-title{font-size:18px;font-weight:700;margin-bottom:20px;color:var(--text)}
+.hl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.hl-item{aspect-ratio:4/3;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);position:relative}
+.hl-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.hl-item:hover img{transform:scale(1.04)}
+.hl-item.wide{grid-column:span 2;aspect-ratio:16/9}
+.hl-specs-img{margin-top:40px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.hl-specs-img img{width:100%;display:block}
+@media(max-width:768px){.hl-intro{grid-template-columns:1fr}.hl-grid{grid-template-columns:repeat(2,1fr)}.hl-item.wide{grid-column:span 2}.hl-features{grid-template-columns:1fr}}
+
 /* ── URGENCY ── */
 .prod-urgency{background:rgba(212,160,23,.06);border:1px solid rgba(212,160,23,.18);border-radius:var(--radius);padding:18px 24px;margin-top:28px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .urgency-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;flex-shrink:0;animation:blink 2s infinite}
@@ -477,6 +505,86 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
     <div class="lb-dots" id="lb-dots"></div>
   </div>
 </div>
+
+<!-- HEX LIGHTS -->
+<section id="hex-lights">
+
+  <!-- Hero photo -->
+  <div class="hl-hero">
+    <img src="./product-photos/hex-lights-hero.jpg" alt="Hexagon LED light set installed over Porsche 911 in professional garage showroom" loading="lazy"/>
+    <div class="hl-hero-overlay"></div>
+    <div class="hl-hero-badge">Also available — Hex Lighting</div>
+  </div>
+
+  <div class="hl-body">
+    <div class="container">
+
+      <!-- Intro: name, price, description + render -->
+      <div class="hl-intro">
+        <div>
+          <div class="hl-price-badge">$349.00</div>
+          <h2>Garage Pro 14 Hexagon + Border Light Set</h2>
+          <p>Complete the look with modular hex lighting that clicks together by hand and mounts directly to ceiling or wall. Pairs perfectly with your tile floor for a professional showroom finish.</p>
+          <a class="btn-primary" href="./garagepro.html#contact" style="display:inline-block">Enquire About Lighting →</a>
+          <div class="hl-features">
+            <div class="hl-feat">
+              <div class="hl-feat-label">Design</div>
+              <div class="hl-feat-val">Modular — customisable layout</div>
+            </div>
+            <div class="hl-feat">
+              <div class="hl-feat-label">Install</div>
+              <div class="hl-feat-val">Simple click-together, DIY</div>
+            </div>
+            <div class="hl-feat">
+              <div class="hl-feat-label">Power</div>
+              <div class="hl-feat-val">220v Australian standard</div>
+            </div>
+            <div class="hl-feat">
+              <div class="hl-feat-label">Colour Temp</div>
+              <div class="hl-feat-val">6500K crisp daylight</div>
+            </div>
+            <div class="hl-feat">
+              <div class="hl-feat-label">Wiring</div>
+              <div class="hl-feat-val">AU plug or open wire (wall switch ready)</div>
+            </div>
+            <div class="hl-feat">
+              <div class="hl-feat-label">Mounting</div>
+              <div class="hl-feat-val">Ceiling, wall or suspended</div>
+            </div>
+          </div>
+        </div>
+        <div class="hl-render fade-up stagger-1">
+          <img src="./product-photos/hex-lights-render.jpg" alt="14-hexagon + border light set glowing on grey background" loading="lazy"/>
+        </div>
+      </div>
+
+      <!-- Install gallery -->
+      <div class="hl-installs">
+        <div class="hl-grid">
+          <div class="hl-item wide fade-up">
+            <img src="./product-photos/hex-lights-supra.jpg" alt="Toyota GR Supra in garage with hexagon ceiling lights and custom wall feature" loading="lazy"/>
+          </div>
+          <div class="hl-item fade-up stagger-1">
+            <img src="./product-photos/hex-lights-audi.png" alt="Matte black Audi RS5 in showroom with hexagon ceiling lighting" loading="lazy"/>
+          </div>
+          <div class="hl-item fade-up stagger-1">
+            <img src="./product-photos/hex-lights-lambo.png" alt="Lamborghini Urus in white garage with hexagon LED lights" loading="lazy"/>
+          </div>
+          <div class="hl-item wide fade-up stagger-2">
+            <img src="./product-photos/hex-lights-workshop.png" alt="Large commercial workshop with teal and grey tile floor and full hex light ceiling" loading="lazy"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spec diagram -->
+      <div class="hl-specs-img fade-up stagger-1">
+        <img src="./product-photos/hex-lights-specs.jpg" alt="Hex light set dimensions and components diagram" loading="lazy"/>
+      </div>
+
+    </div>
+  </div>
+
+</section>
 
 <!-- CTA -->
 <section id="prod-cta">
