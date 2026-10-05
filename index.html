@@ -23,7 +23,7 @@
 <!-- Favicon -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏁</text></svg>"/>
 <!-- Preload LCP hero image — tells browser to fetch it immediately, in parallel with CSS -->
-<link rel="preload" as="image" href="./product-photos/IMG_3686.jpg" fetchpriority="high"/>
+<link rel="preload" as="image" href="./photos/supra-red-black.png" fetchpriority="high"/>
 <!-- LocalBusiness structured data -->
 <script type="application/ld+json">
 {
@@ -99,15 +99,19 @@ section{padding:80px 20px}
 
 /* ── HERO ── */
 #hero{min-height:100svh;display:flex;align-items:center;padding-top:100px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0a0a0a 0%,#181208 50%,#0d0d0d 100%)}
-.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;transform-origin:center;animation:kenburns 18s ease-in-out infinite alternate;opacity:0;transition:opacity .5s ease}
+.hero-bg{position:absolute;inset:0;background:#0a0a0a}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center 30%;opacity:0;transition:opacity 1.5s ease;animation:kenburns 20s ease-in-out infinite alternate}
+.hero-slide.active{opacity:1}
 @keyframes kenburns{
   0%  {transform:scale(1)    translateX(0)     translateY(0)}
   33% {transform:scale(1.06) translateX(-1%)   translateY(-0.5%)}
   66% {transform:scale(1.04) translateX(1%)    translateY(0.5%)}
   100%{transform:scale(1.08) translateX(-0.5%) translateY(-1%)}
 }
-.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.65) 50%,rgba(0,0,0,.45) 100%)}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.65) 50%,rgba(0,0,0,.45) 100%);z-index:1}
+.hero-dots{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);border:none;cursor:pointer;padding:0;transition:background .3s,transform .3s}
+.hero-dot.active{background:#fff;transform:scale(1.3)}
 .hero-content{position:relative;z-index:1;max-width:640px}
 .hero-tag{display:inline-flex;align-items:center;gap:8px;background:#1a1a1a;border:1px solid #333;color:#ccc;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;border-radius:40px;margin-bottom:24px}
 .hero-tag::before{content:'';width:7px;height:7px;background:#4ade80;border-radius:50%;flex-shrink:0}
@@ -128,8 +132,20 @@ h1 span{color:var(--grey)}
 .why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px}
 .why-card{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:28px}
 .why-icon{font-size:28px;margin-bottom:16px}
-.why-card h3{font-size:17px;font-weight:700;margin-bottom:8px}
-.why-card p{font-size:14px;color:var(--grey);line-height:1.6}
+.why-card h3{font-size:17px;font-weight:700;margin-bottom:0}
+.why-card p{display:none}
+
+/* ── PRODUCT STRIP ── */
+.prod-strip{padding:64px 20px;background:var(--bg)}
+.prod-strip-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.prod-strip-img{border-radius:16px;overflow:hidden;border:1px solid var(--border)}
+.prod-strip-img img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3}
+.prod-strip-text h2{font-size:clamp(24px,4vw,36px);font-weight:800;line-height:1.2;margin-bottom:16px}
+.prod-strip-facts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
+.prod-fact{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px}
+.prod-fact-val{font-size:24px;font-weight:800;color:var(--accent);line-height:1}
+.prod-fact-lbl{font-size:11px;color:var(--grey);margin-top:4px;text-transform:uppercase;letter-spacing:.6px}
+@media(max-width:768px){.prod-strip-inner{grid-template-columns:1fr}}
 
 /* ── PORTFOLIO ── */
 #portfolio{}
@@ -426,7 +442,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   .testi-grid{grid-template-columns:repeat(2,1fr)}
 }
 /* ── PERF: skip rendering off-screen sections until scrolled to ── */
-#portfolio,#calculator,#faq,#testimonials,.suburb-section,#how-it-works{
+#calculator,#faq,#testimonials,.prod-strip,#how-it-works{
   content-visibility:auto;
   contain-intrinsic-size:auto 500px
 }
@@ -468,22 +484,21 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-bg">
-    <img src="./product-photos/IMG_3686.jpg" alt="Premium garage tile showroom with Toyota Supra and hex lighting" loading="eager" fetchpriority="high" decoding="async"/>
+  <div class="hero-bg" id="hero-bg">
+    <div class="hero-slide active" style="background-image:url('./photos/supra-red-black.png')" aria-hidden="true"></div>
+    <div class="hero-slide" style="background-image:url('./photos/showroom-hex-lights.jpg')" aria-hidden="true"></div>
+    <div class="hero-slide" style="background-image:url('./photos/shed-checkerboard.jpg')" aria-hidden="true"></div>
+    <div class="hero-slide" style="background-image:url('./photos/double-garage.jpg')" aria-hidden="true"></div>
   </div>
+  <div class="hero-dots" id="hero-dots"></div>
   <div class="container">
     <div class="hero-content">
       <div class="hero-tag">Perth, Western Australia</div>
       <h1>Upgrade Your<br/><span>Garage Floor.</span></h1>
-      <p class="hero-sub">Premium garage flooring tile. Modular interlocking design — click together in hours with no glue and no tools required. Drive on it the same day.</p>
+      <p class="hero-sub">Premium interlocking garage tiles. Click together in hours with no glue and no tools. Drive on it the same day.</p>
       <div class="btn-row">
         <a class="btn-primary" href="#contact">Get a Free Quote</a>
         <a class="btn-secondary" href="#calculator">Calculate Your Space</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><div class="num">$5.00</div><div class="lbl">per tile</div></div>
-        <div class="stat"><div class="num">15</div><div class="lbl">Colours available</div></div>
-        <div class="stat"><div class="num">DIY</div><div class="lbl">same day installation</div></div>
       </div>
     </div>
   </div>
@@ -493,8 +508,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 <div class="proof-bar">
   <div class="container">
     <div class="proof-stat fade-up stagger-1">
-      <div class="proof-stat-num">100+</div>
-      <div class="proof-stat-lbl">Perth Garages Tiled</div>
+      <div class="proof-stat-num">$5.49</div>
+      <div class="proof-stat-lbl">Per Tile</div>
     </div>
     <div class="proof-bar-divider"></div>
     <div class="proof-stat fade-up stagger-2">
@@ -514,36 +529,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   </div>
 </div>
 
-<!-- WHY US -->
-<section id="why">
-  <div class="container">
-    <div class="section-label fade-up">Why Garage Pro</div>
-    <div class="section-title fade-up stagger-1">Built for Australian garages.<br/>Made to last.</div>
-    <div class="why-grid">
-      <div class="why-card fade-up stagger-1">
-        <div class="why-icon">🔧</div>
-        <h3>Easy DIY Install</h3>
-        <p>Our Garage Pro tiles are installed by hand or with a rubber mallet — no glue, no curing time. Most single and double garages are installed in a few hours.</p>
-      </div>
-      <div class="why-card fade-up stagger-2">
-        <div class="why-icon">🚗</div>
-        <h3>Heavy Duty Rated</h3>
-        <p>Built for residential or commercial use. Won't crack or shift under load. Handles cars, 4WDs, heavy equipment and constant foot traffic without any issues.</p>
-      </div>
-      <div class="why-card fade-up stagger-3">
-        <div class="why-icon">☀️</div>
-        <h3>UV &amp; Oil Resistant</h3>
-        <p>Resists oil, fuel and chemicals. Colour stays true in direct sunlight. No staining, no fading, no peeling.</p>
-      </div>
-      <div class="why-card fade-up stagger-4">
-        <div class="why-icon">📍</div>
-        <h3>Perth Local</h3>
-        <p>Stocked locally in Port Kennedy. Delivery across Perth and Peel. Pickup available too. No interstate delays or freight markups.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- PORTFOLIO -->
 <section id="portfolio">
   <div class="container">
@@ -552,7 +537,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
         <div class="section-label fade-up">Our Work</div>
         <div class="section-title fade-up stagger-1">Recent Installs</div>
       </div>
-      <a href="./tile-viewer.html" class="btn-secondary fade-up stagger-2" style="font-size:13px;padding:10px 18px;display:inline-flex;align-items:center;gap:7px;text-decoration:none;border-radius:10px">
+      <a href="./tileviewer-prototype.html" class="btn-secondary" style="font-size:13px;padding:10px 18px;display:inline-flex;align-items:center;gap:7px;text-decoration:none;border-radius:10px">
         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" style="opacity:.7"><path d="M2 10.5L7.5 3L13 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="5" y="10" width="5" height="4" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
         Design Your Floor
       </a>
@@ -571,6 +556,71 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
         <div class="port-caption">Shed/Workshop — full black tile layout</div>
       </div>
     </div>
+    <div style="text-align:center;margin-top:28px">
+      <a href="./gallery.html" class="btn-secondary" style="display:inline-block">View Full Gallery →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT STRIP -->
+<div class="prod-strip">
+  <div class="prod-strip-inner">
+    <div class="prod-strip-img fade-up">
+      <img src="./product-photos/IMG_3694.jpg" alt="Garage Pro interlocking tile" loading="lazy"/>
+    </div>
+    <div class="prod-strip-text fade-up stagger-1">
+      <div class="section-label">The Tile</div>
+      <h2>Engineered for garages. <span style="color:var(--accent)">Built to last.</span></h2>
+      <p style="color:var(--grey);font-size:15px;margin-top:12px;line-height:1.6">Premium virgin polypropylene — UV stabilised, oil resistant, heavy duty rated. Clicks together by hand with no glue or tools needed.</p>
+      <div class="prod-strip-facts">
+        <div class="prod-fact">
+          <div class="prod-fact-val">$5.49</div>
+          <div class="prod-fact-lbl">Per Tile</div>
+        </div>
+        <div class="prod-fact">
+          <div class="prod-fact-val">15+</div>
+          <div class="prod-fact-lbl">Colours</div>
+        </div>
+        <div class="prod-fact">
+          <div class="prod-fact-val">400mm</div>
+          <div class="prod-fact-lbl">Tile Size</div>
+        </div>
+        <div class="prod-fact">
+          <div class="prod-fact-val">DIY</div>
+          <div class="prod-fact-lbl">Same Day Drive-On</div>
+        </div>
+      </div>
+      <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn-primary" href="./products.html">View Products</a>
+        <a class="btn-secondary" href="#contact">Get a Quote</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="container">
+    <div class="section-label fade-up">Why Garage Pro</div>
+    <div class="section-title fade-up stagger-1">Built for Australian garages.<br/>Made to last.</div>
+    <div class="why-grid">
+      <div class="why-card fade-up stagger-1">
+        <div class="why-icon">🧩</div>
+        <h3>Easy DIY Install</h3>
+      </div>
+      <div class="why-card fade-up stagger-2">
+        <div class="why-icon">🚗</div>
+        <h3>Heavy Duty Rated</h3>
+      </div>
+      <div class="why-card fade-up stagger-3">
+        <div class="why-icon">☀️</div>
+        <h3>UV &amp; Oil Resistant</h3>
+      </div>
+      <div class="why-card fade-up stagger-4">
+        <div class="why-icon">📍</div>
+        <h3>Perth Local Stock</h3>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -579,7 +629,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   <div class="container">
     <div style="text-align:center;margin-bottom:8px">
       <div class="section-label fade-up" style="text-align:center">Tile Calculator</div>
-      <div class="section-title fade-up stagger-1" style="text-align:center">How much do you need?</div>
+      <div class="section-title fade-up stagger-1" style="text-align:center">How many do you need?</div>
       <p class="section-sub fade-up stagger-2" style="margin:12px auto 0;text-align:center">Enter your garage dimensions and get an instant estimate.</p>
     </div>
     <div class="calc-wrap fade-up stagger-2">
@@ -607,8 +657,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
           </div>
           <div class="result-tile">
             <div class="r-label">Estimated Cost</div>
-            <div class="r-val" id="out-price">$1,125</div>
-            <div class="r-sub">at $5 per tile</div>
+            <div class="r-val" id="out-price">$1,235</div>
+            <div class="r-sub">at $5.49 per tile</div>
           </div>
           <div class="result-tile cost-row" style="grid-column:1/-1;flex-direction:column;align-items:flex-start;gap:8px;padding:16px 18px">
             <div class="r-label" style="color:#555;margin-bottom:2px">Finishing Accessories (also available)</div>
@@ -680,44 +730,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   </div>
 </section>
 
-<!-- SUBURB SERVICE AREA -->
-<section class="suburb-section">
-  <div class="container">
-    <div class="section-label fade-up">Service Area</div>
-    <div class="section-title fade-up stagger-1">We deliver across Perth &amp; Peel</div>
-    <div class="section-sub fade-up stagger-2">Fast local delivery to most suburbs — pickup also available at Port Kennedy.</div>
-    <div class="suburb-pills fade-up stagger-3">
-      <span class="suburb-pill">Rockingham</span>
-      <span class="suburb-pill">Mandurah</span>
-      <span class="suburb-pill">Baldivis</span>
-      <span class="suburb-pill">Secret Harbour</span>
-      <span class="suburb-pill">Safety Bay</span>
-      <span class="suburb-pill">Waikiki</span>
-      <span class="suburb-pill">Port Kennedy</span>
-      <span class="suburb-pill">Wellard</span>
-      <span class="suburb-pill">Bertram</span>
-      <span class="suburb-pill">Kwinana</span>
-      <span class="suburb-pill">Cockburn Central</span>
-      <span class="suburb-pill">Bibra Lake</span>
-      <span class="suburb-pill">Success</span>
-      <span class="suburb-pill">Atwell</span>
-      <span class="suburb-pill">Jandakot</span>
-      <span class="suburb-pill">Fremantle</span>
-      <span class="suburb-pill">Murdoch</span>
-      <span class="suburb-pill">Canning Vale</span>
-      <span class="suburb-pill">Southern River</span>
-      <span class="suburb-pill">Gosnells</span>
-      <span class="suburb-pill">Armadale</span>
-      <span class="suburb-pill">Byford</span>
-      <span class="suburb-pill">Mundijong</span>
-      <span class="suburb-pill">Pinjarra</span>
-      <span class="suburb-pill">Singleton</span>
-      <span class="suburb-pill">Golden Bay</span>
-      <span class="suburb-pill">+ More</span>
-    </div>
-  </div>
-</section>
-
 <!-- HOW IT WORKS -->
 <section id="how-it-works">
   <div class="container">
@@ -747,7 +759,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
     <div class="steps-cta fade-up stagger-4">
       <button class="btn-primary" onclick="openQuoteModal()">Get a Free Quote →</button>
       <a class="btn-secondary" href="#calculator">Try the Calculator</a>
-      <a class="btn-secondary" href="./tile-viewer.html">Design Your Floor →</a>
+      <a class="btn-secondary" href="./tileviewer-prototype.html">Design Your Floor →</a>
     </div>
   </div>
 </section>
@@ -920,15 +932,30 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 </footer>
 
 <script>
-// ── HERO IMAGE FADE-IN ──
-// Reveal the hero image the moment it's loaded/decoded so the placeholder
-// gradient shows instead of a blank white flash during download.
+// ── HERO SLIDER ──
 (function(){
-  var img = document.querySelector('.hero-bg img');
-  if(!img) return;
-  function reveal(){ img.style.opacity = '1'; }
-  if(img.complete && img.naturalWidth){ reveal(); }
-  else { img.addEventListener('load', reveal); img.addEventListener('error', reveal); }
+  var slides = document.querySelectorAll('.hero-slide');
+  var dotsEl = document.getElementById('hero-dots');
+  if(!slides.length) return;
+  var current = 0;
+  // Build dots
+  slides.forEach(function(_,i){
+    var d = document.createElement('button');
+    d.className = 'hero-dot' + (i===0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Slide ' + (i+1));
+    d.addEventListener('click', function(){ goTo(i); });
+    dotsEl.appendChild(d);
+  });
+  function goTo(n){
+    slides[current].classList.remove('active');
+    document.querySelectorAll('.hero-dot')[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    document.querySelectorAll('.hero-dot')[current].classList.add('active');
+  }
+  var timer = setInterval(function(){ goTo((current+1) % slides.length); }, 5500);
+  // Pause on user interaction
+  dotsEl.addEventListener('click', function(){ clearInterval(timer); });
 })();
 
 // ── NAV ──
@@ -942,7 +969,7 @@ function closeMenu(){
 }
 
 // ── CALCULATOR ──
-const TILE_SQM=0.16,PRICE=5;
+const TILE_SQM=0.16,PRICE=5.49;
 const MODES={
   dimensions:[
     {id:'length',label:'Length',min:0.4,max:50,step:0.2,default:6,unit:'m'},
@@ -1023,7 +1050,7 @@ const faqs=[
   {q:'Are they UV and oil resistant?',a:'Yes. Made from UV-stabilised polypropylene. Resists oil, fuel, brake fluid and most garage chemicals. The colour won\'t fade even in a sunny Perth garage.'},
   {q:'Do you do professional installation?',a:'We\'re primarily a DIY product but we can sort out a professional install if needed. Give us a call to talk through options and pricing.'},
   {q:'What payment do you accept?',a:'Bank transfer, cash, Visa, Mastercard, Amex, PayPal and Apple Pay.'},
-  {q:'Where can I pick up or get delivery?',a:'We deliver across Perth and Peel. Pickup is available at Port Kennedy.'},
+  {q:'Where can I pick up or get delivery?',a:'We deliver across the Perth and Peel region. Pickup is available at Port Kennedy.'},
   {q:'How do I get a quote?',a:'Fill in the form below or give us a call on +61 493 292 203. We\'ll get back to you fast with a price and can help with colours and layout ideas too.'}
 ];
 const faqList=document.getElementById('faq-list');

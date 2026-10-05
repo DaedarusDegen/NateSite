@@ -77,11 +77,19 @@ nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.95);backdrop-fil
 .tile-diagram .leg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--grey)}
 .tile-diagram .leg-swatch{width:14px;height:14px;border-radius:3px;border:1px solid var(--border);flex-shrink:0}
 .specs-table{display:grid;gap:0}
-.spec-row{display:flex;align-items:baseline;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.spec-row{display:flex;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
 .spec-row:first-child{border-top:1px solid var(--border)}
-.spec-name{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--grey);min-width:130px;flex-shrink:0}
-.spec-value{font-size:14px;color:var(--text);font-weight:500}
-.spec-badge{display:inline-block;background:rgba(212,160,23,.15);color:var(--accent);font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;margin-left:6px}
+.spec-name{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--grey);min-width:120px;flex-shrink:0}
+.spec-value{font-size:13px;color:var(--text);font-weight:500}
+.spec-badge{display:inline-block;background:rgba(212,160,23,.15);color:var(--accent);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;margin-left:6px}
+/* Specs accordion toggle */
+.specs-toggle{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:14px 18px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;margin-bottom:4px;user-select:none}
+.specs-toggle span{font-size:14px;font-weight:600;color:var(--text)}
+.specs-toggle-icon{font-size:18px;color:var(--grey);transition:transform .3s}
+.specs-toggle.open .specs-toggle-icon{transform:rotate(45deg)}
+.specs-collapsible{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s cubic-bezier(.4,0,.2,1)}
+.specs-collapsible.open{grid-template-rows:1fr}
+.specs-collapsible-inner{min-height:0;overflow:hidden}
 @media(max-width:768px){.specs-grid{grid-template-columns:1fr}}
 
 /* ── COLOURS SECTION ── */
@@ -202,7 +210,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
       <span><a href="#colours">Colours</a></span>
       <span><a href="#patterns">Patterns</a></span>
       <span><a href="./install.html">Install Guide</a></span>
-      <span><a href="./tile-viewer.html">Tile Viewer</a></span>
+      <span><a href="./tileviewer-prototype.html">Tile Viewer</a></span>
       <a class="nav-cta" href="./garagepro.html#contact">Get a Quote →</a>
     </div>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open menu">
@@ -218,7 +226,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   <a href="#colours" onclick="closeMenu()">Colours</a>
   <a href="#patterns" onclick="closeMenu()">Patterns</a>
   <a href="./install.html" onclick="closeMenu()">Install Guide</a>
-  <a href="./tile-viewer.html" onclick="closeMenu()">Tile Viewer</a>
+  <a href="./tileviewer-prototype.html" onclick="closeMenu()">Tile Viewer</a>
   <a class="mob-cta" href="./garagepro.html#contact" onclick="closeMenu()">Get a Quote →</a>
 </div>
 
@@ -228,7 +236,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   <div class="prod-hero-content">
     <div class="label">Products</div>
     <h1>Built tough.<br/>Designed to impress.</h1>
-    <p>Heavy duty interlocking tiles in 15 colours and 9 layout patterns. Installed in hours, built to last.</p>
+    <p>Heavy duty interlocking tiles in 15 colours. Installed in hours, built to last.</p>
   </div>
 </section>
 
@@ -239,10 +247,31 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
     <div class="benefit-item"><span class="benefit-item-icon">✓</span> No Tools Required</div>
     <div class="benefit-item"><span class="benefit-item-icon">✓</span> Drive-On Same Day</div>
     <div class="benefit-item"><span class="benefit-item-icon">✓</span> Oil &amp; UV Resistant</div>
-    <div class="benefit-item"><span class="benefit-item-icon">✓</span> Perth Local Stock</div>
-    <div class="benefit-item"><span class="benefit-item-icon">✓</span> From $5 Per Tile</div>
+    <div class="benefit-item"><span class="benefit-item-icon">✓</span> Stocked Locally</div>
+    <div class="benefit-item"><span class="benefit-item-icon">✓</span> From $5.49 Per Tile</div>
   </div>
 </div>
+
+<!-- COLOURS -->
+<section id="colours">
+  <div class="container">
+    <div class="section-label fade-up">15 Colours Available</div>
+    <div class="section-title fade-up stagger-1">Your garage, your palette</div>
+    <div class="section-sub fade-up stagger-2">Mix and match any colours to create a custom layout. Not sure? We'll help you choose.</div>
+    <div class="colours-layout fade-up stagger-3">
+      <div class="colour-chart-wrap">
+        <img src="./product-photos/AE091D9A-C28C-437B-9AF7-EEDE26D595D2.jpg" alt="Full colour chart showing all 15 available tile colours" loading="lazy"/>
+      </div>
+      <div>
+        <p style="font-size:14px;color:var(--grey);line-height:1.7;margin-bottom:20px">15 standard colours in stock — available in Black, Charcoal Grey, Light Grey, White, Turquoise Blue, Sky Blue, Ocean Blue, Royal Blue, Purple, Pink, Red, Orange, Yellow, Lime Green and Green. Edge ramps and corner pieces available in Black, Grey and Light Grey.</p>
+        <div style="margin-top:20px;padding:16px 20px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;font-size:13px;color:var(--grey)">Colours shown are indicative only. Screen colours vary. View our colour chart photo for true-to-life shades, or contact us to arrange a sample.</div>
+        <div style="margin-top:20px">
+          <a href="#contact" class="btn-primary" style="display:inline-block;text-decoration:none;font-size:14px;padding:12px 22px">Get a Sample →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- SPECS -->
 <section id="specs">
@@ -306,8 +335,14 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
       <!-- SPEC TABLE -->
       <div>
         <div class="section-label fade-up">The Tile</div>
-        <div class="section-title fade-up stagger-1">Engineered for garages</div>
-        <div class="section-sub fade-up stagger-2">Made from premium virgin polypropylene. Clicks together by hand with no glue or special tools needed.</div>
+        <div class="section-title fade-up stagger-1">The Garage Pro tile specifications</div>
+        <div style="margin-top:20px">
+        <div class="specs-toggle fade-up stagger-2" onclick="toggleSpecs(this)">
+          <span>View full specifications</span>
+          <span class="specs-toggle-icon">+</span>
+        </div>
+        <div class="specs-collapsible">
+        <div class="specs-collapsible-inner">
         <div class="specs-table fade-up stagger-3">
           <div class="spec-row">
             <span class="spec-name">Material</span>
@@ -366,104 +401,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
             <span class="spec-value">15 standard colours</span>
           </div>
         </div>
+        </div></div></div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- COLOURS -->
-<section id="colours">
-  <div class="container">
-    <div class="section-label fade-up">15 Colours Available</div>
-    <div class="section-title fade-up stagger-1">Your garage, your palette</div>
-    <div class="section-sub fade-up stagger-2">Mix and match any colours to create a custom layout. Not sure? We'll help you choose.</div>
-    <div class="colours-layout fade-up stagger-3">
-      <div class="colour-chart-wrap">
-        <img src="./product-photos/AE091D9A-C28C-437B-9AF7-EEDE26D595D2.jpg" alt="Full colour chart showing all 15 available tile colours" loading="lazy"/>
-      </div>
-      <div>
-        <div class="colour-swatches">
-          <div class="swatch">
-            <div class="swatch-color" style="background:#111111"></div>
-            <div class="swatch-name">Black</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#3a3a3a"></div>
-            <div class="swatch-name">Charcoal Grey</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#909090"></div>
-            <div class="swatch-name">Light Grey</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#e8e8e8"></div>
-            <div class="swatch-name">White</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#18b89c"></div>
-            <div class="swatch-name">Turquoise Blue</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#5ab4e0"></div>
-            <div class="swatch-name">Sky Blue</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#1470c8"></div>
-            <div class="swatch-name">Ocean Blue</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#2040b8"></div>
-            <div class="swatch-name">Royal Blue</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#7030c0"></div>
-            <div class="swatch-name">Purple</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#c82888"></div>
-            <div class="swatch-name">Pink</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#e63434"></div>
-            <div class="swatch-name">Red</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#e87020"></div>
-            <div class="swatch-name">Orange</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#f0d010"></div>
-            <div class="swatch-name">Yellow</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#6fc030"></div>
-            <div class="swatch-name">Lime Green</div>
-          </div>
-          <div class="swatch">
-            <div class="swatch-color" style="background:#1a8c3a"></div>
-            <div class="swatch-name">Green</div>
-          </div>
-        </div>
-        <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
-          <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--grey);margin-bottom:12px">Edge &amp; Corner Piece Colours</p>
-          <div style="display:flex;gap:10px">
-            <div class="swatch" style="flex:1">
-              <div class="swatch-color" style="background:#111111"></div>
-              <div class="swatch-name">Black</div>
-            </div>
-            <div class="swatch" style="flex:1">
-              <div class="swatch-color" style="background:#3a3a3a"></div>
-              <div class="swatch-name">Grey</div>
-            </div>
-            <div class="swatch" style="flex:1">
-              <div class="swatch-color" style="background:#909090"></div>
-              <div class="swatch-name">Light Grey</div>
-            </div>
-          </div>
-        </div>
-        <p style="font-size:12px;color:var(--grey);margin-top:16px;line-height:1.6">Swatches are indicative only. Screen colours vary. View our colour chart photo for true-to-life shades, or contact us to arrange a sample.</p>
-      </div>
     </div>
   </div>
 </section>
@@ -472,13 +412,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 <section id="patterns">
   <div class="container">
     <div class="section-label fade-up">Layout Patterns</div>
-    <div class="section-title fade-up stagger-1">9 signature designs</div>
-    <div class="section-sub fade-up stagger-2">From clean single-colour installs to bold multi-colour feature patterns. Every design is installed in the same day.</div>
-    <img class="patterns-img fade-up stagger-3" src="./product-photos/Untitled_design.jpg" alt="9 garage tile layout pattern options including border frames, racing stripes, checkerboard and more" loading="lazy"/>
-    <div class="fade-up stagger-4" style="margin-bottom:36px;padding:20px 24px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius)">
-      <p style="font-size:15px;color:var(--text);margin-bottom:8px;font-weight:600">Popular designs and patterns: <span style="font-weight:400">Contact us for a custom design for your space.</span></p>
-      <p style="font-size:13px;color:var(--grey);line-height:1.65">These designs are based on a standard 6m × 6m double garage, requiring approximately 225 tiles using a 15×15 tile layout.</p>
-    </div>
+    <div class="section-title fade-up stagger-1">Popular designs</div>
+    <img class="patterns-img fade-up stagger-2" src="./product-photos/Untitled_design.jpg" alt="Popular garage tile layout pattern options including border frames, racing stripes, checkerboard and more" loading="lazy"/>
     <div class="patterns-grid">
       <div class="pattern-card fade-up stagger-1">
         <div class="icon">⬛</div>
@@ -517,9 +452,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
 <!-- GALLERY -->
 <section id="gallery">
   <div class="container">
-    <div class="section-label fade-up">Real Installs</div>
-    <div class="section-title fade-up stagger-1">See it in the wild</div>
-    <div class="section-sub fade-up stagger-2">Every job is a Garage Pro original. Browse installs from homes, showrooms and commercial workshops across Perth.</div>
+    <div class="section-label fade-up">Gallery</div>
+    <div class="section-title fade-up stagger-1">Gallery</div>
     <div class="gallery-grid">
       <div class="gallery-item wide fade-up" onclick="openLightbox(0)">
         <img src="./product-photos/IMG_3662.jpg" alt="Large commercial showroom with orange V-pattern on charcoal tiles" loading="lazy"/>
@@ -595,7 +529,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
     <p class="fade-up stagger-2">Tell us your space size and preferred colours. We'll get back to you with a precise quote, usually within a few hours.</p>
     <div class="cta-buttons fade-up stagger-3">
       <a class="btn-primary" href="./garagepro.html#contact">Get a Free Quote →</a>
-      <a class="btn-secondary" href="./tile-viewer.html">Design Your Floor →</a>
+      <a class="btn-secondary" href="./tileviewer-prototype.html">Design Your Floor →</a>
       <a class="btn-secondary" href="./garagepro.html#calculator">Try the Calculator</a>
     </div>
     <div class="prod-urgency fade-up stagger-4">
@@ -638,6 +572,13 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 20p
   if(img.complete && img.naturalWidth){ reveal(); }
   else { img.addEventListener('load', reveal); img.addEventListener('error', reveal); }
 })();
+
+// ── SPECS TOGGLE ──
+function toggleSpecs(btn){
+  btn.classList.toggle('open');
+  var col = btn.nextElementSibling;
+  if(col) col.classList.toggle('open');
+}
 
 // ── LIGHTBOX ──
 const GALLERY = [
